@@ -1,0 +1,399 @@
+fileFormatVersion: 2
+guid: c7175cf30572d5440958930c581f2c0b
+timeCreated: 1556011883
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Armature|Abdomen
+    100004: Armature|Chest
+    100006: Armature|Head
+    100008: Armature|Head_IK
+    100010: Armature|LeftBackFoot
+    100012: Armature|LeftBackLeg
+    100014: Armature|LeftBackThigh
+    100016: Armature|LeftForwardFoot
+    100018: Armature|LeftForwardFoot_IK
+    100020: Armature|LeftForwardLeg
+    100022: Armature|LeftForwardThigh
+    100024: Armature|Neck
+    100026: Armature|RightBackFoot
+    100028: Armature|RightBackLeg
+    100030: Armature|RightBackThigh
+    100032: Armature|RightForwardFoot
+    100034: Armature|RightForwardFoot_IK
+    100036: Armature|RightForwardLeg
+    100038: Armature|RightForwardThigh
+    100040: Armature|Tail1
+    100042: Armature|Tail2
+    100044: Armature|Tail3
+    100046: Armature|Tail4
+    100048: Armature|Tail5
+    100050: Armature|Tail6
+    100052: Armature|Tail6_IK
+    100054: //RootNode
+    100056: polySurface28
+    400000: Armature
+    400002: Armature|Abdomen
+    400004: Armature|Chest
+    400006: Armature|Head
+    400008: Armature|Head_IK
+    400010: Armature|LeftBackFoot
+    400012: Armature|LeftBackLeg
+    400014: Armature|LeftBackThigh
+    400016: Armature|LeftForwardFoot
+    400018: Armature|LeftForwardFoot_IK
+    400020: Armature|LeftForwardLeg
+    400022: Armature|LeftForwardThigh
+    400024: Armature|Neck
+    400026: Armature|RightBackFoot
+    400028: Armature|RightBackLeg
+    400030: Armature|RightBackThigh
+    400032: Armature|RightForwardFoot
+    400034: Armature|RightForwardFoot_IK
+    400036: Armature|RightForwardLeg
+    400038: Armature|RightForwardThigh
+    400040: Armature|Tail1
+    400042: Armature|Tail2
+    400044: Armature|Tail3
+    400046: Armature|Tail4
+    400048: Armature|Tail5
+    400050: Armature|Tail6
+    400052: Armature|Tail6_IK
+    400054: //RootNode
+    400056: polySurface28
+    4300000: polySurface28
+    7400000: CatGrooming
+    7400002: Armature|CatGrooming
+    7400004: Armature|CatGrooming.001
+    9500000: //RootNode
+    13700000: polySurface28
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: CatGrooming
+      takeName: CatGrooming
+      firstFrame: 0
+      lastFrame: 283
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Armature|Abdomen
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh/Armature|LeftForwardLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh/Armature|LeftForwardLeg/Armature|LeftForwardFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|Neck
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|Neck/Armature|Head
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh/Armature|RightForwardLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh/Armature|RightForwardLeg/Armature|RightForwardFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh/Armature|LeftBackLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh/Armature|LeftBackLeg/Armature|LeftBackFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh/Armature|RightBackLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh/Armature|RightBackLeg/Armature|RightBackFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4/Armature|Tail5
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4/Armature|Tail5/Armature|Tail6
+        weight: 1
+      - path: Armature/Armature|Head_IK
+        weight: 1
+      - path: Armature/Armature|LeftForwardFoot_IK
+        weight: 1
+      - path: Armature/Armature|RightForwardFoot_IK
+        weight: 1
+      - path: Armature/Armature|Tail6_IK
+        weight: 1
+      - path: polySurface28
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|CatGrooming
+      takeName: Armature|CatGrooming
+      firstFrame: 0
+      lastFrame: 275
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Armature|Abdomen
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh/Armature|LeftForwardLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh/Armature|LeftForwardLeg/Armature|LeftForwardFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|Neck
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|Neck/Armature|Head
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh/Armature|RightForwardLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh/Armature|RightForwardLeg/Armature|RightForwardFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh/Armature|LeftBackLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh/Armature|LeftBackLeg/Armature|LeftBackFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh/Armature|RightBackLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh/Armature|RightBackLeg/Armature|RightBackFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4/Armature|Tail5
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4/Armature|Tail5/Armature|Tail6
+        weight: 1
+      - path: Armature/Armature|Head_IK
+        weight: 1
+      - path: Armature/Armature|LeftForwardFoot_IK
+        weight: 1
+      - path: Armature/Armature|RightForwardFoot_IK
+        weight: 1
+      - path: Armature/Armature|Tail6_IK
+        weight: 1
+      - path: polySurface28
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|CatGrooming.001
+      takeName: Armature|CatGrooming.001
+      firstFrame: 0
+      lastFrame: 197
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Armature|Abdomen
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh/Armature|LeftForwardLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|LeftForwardThigh/Armature|LeftForwardLeg/Armature|LeftForwardFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|Neck
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|Neck/Armature|Head
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh/Armature|RightForwardLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Chest/Armature|RightForwardThigh/Armature|RightForwardLeg/Armature|RightForwardFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh/Armature|LeftBackLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|LeftBackThigh/Armature|LeftBackLeg/Armature|LeftBackFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh/Armature|RightBackLeg
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|RightBackThigh/Armature|RightBackLeg/Armature|RightBackFoot
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4/Armature|Tail5
+        weight: 1
+      - path: Armature/Armature|Abdomen/Armature|Tail1/Armature|Tail2/Armature|Tail3/Armature|Tail4/Armature|Tail5/Armature|Tail6
+        weight: 1
+      - path: Armature/Armature|Head_IK
+        weight: 1
+      - path: Armature/Armature|LeftForwardFoot_IK
+        weight: 1
+      - path: Armature/Armature|RightForwardFoot_IK
+        weight: 1
+      - path: Armature/Armature|Tail6_IK
+        weight: 1
+      - path: polySurface28
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,282 @@
+fileFormatVersion: 2
+guid: ee90d39a79127724b96c1ed8f2def0b0
+timeCreated: 1556847540
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Armature|Abdomen
+    100004: Armature|Head
+    100006: Armature|Head_IK
+    100008: Armature|LeftArm
+    100010: Armature|LeftFoot
+    100012: Armature|LeftFoot_IK
+    100014: Armature|LeftForearm
+    100016: Armature|LeftHand
+    100018: Armature|LeftHand_IK
+    100020: Armature|LeftLeg
+    100022: Armature|LeftTigh
+    100024: Armature|Neck
+    100026: Armature|RightArm
+    100028: Armature|RightFoot
+    100030: Armature|RightFoot_IK
+    100032: Armature|RightForearm
+    100034: Armature|RightHand
+    100036: Armature|RightHand_IK
+    100038: Armature|RightLeg
+    100040: Armature|RightTigh
+    100042: Armature|Trunk
+    100044: Koala
+    100046: //RootNode
+    400000: Armature
+    400002: Armature|Abdomen
+    400004: Armature|Head
+    400006: Armature|Head_IK
+    400008: Armature|LeftArm
+    400010: Armature|LeftFoot
+    400012: Armature|LeftFoot_IK
+    400014: Armature|LeftForearm
+    400016: Armature|LeftHand
+    400018: Armature|LeftHand_IK
+    400020: Armature|LeftLeg
+    400022: Armature|LeftTigh
+    400024: Armature|Neck
+    400026: Armature|RightArm
+    400028: Armature|RightFoot
+    400030: Armature|RightFoot_IK
+    400032: Armature|RightForearm
+    400034: Armature|RightHand
+    400036: Armature|RightHand_IK
+    400038: Armature|RightLeg
+    400040: Armature|RightTigh
+    400042: Armature|Trunk
+    400044: Koala
+    400046: //RootNode
+    4300000: Koala
+    7400000: KoalaAnim
+    7400002: Armature|KoalaAnim
+    9500000: //RootNode
+    13700000: Koala
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: KoalaAnim
+      takeName: KoalaAnim
+      firstFrame: 0
+      lastFrame: 94
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Armature|Head_IK
+        weight: 1
+      - path: Armature/Armature|LeftFoot_IK
+        weight: 1
+      - path: Armature/Armature|LeftHand_IK
+        weight: 1
+      - path: Armature/Armature|RightFoot_IK
+        weight: 1
+      - path: Armature/Armature|RightHand_IK
+        weight: 1
+      - path: Armature/Armature|Trunk
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftArm
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftArm/Armature|LeftForearm
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftArm/Armature|LeftForearm/Armature|LeftHand
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftTigh
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftTigh/Armature|LeftLeg
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftTigh/Armature|LeftLeg/Armature|LeftFoot
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|Neck
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|Neck/Armature|Head
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightArm
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightArm/Armature|RightForearm
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightArm/Armature|RightForearm/Armature|RightHand
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightTigh
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightTigh/Armature|RightLeg
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightTigh/Armature|RightLeg/Armature|RightFoot
+        weight: 1
+      - path: Koala
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|KoalaAnim
+      takeName: Armature|KoalaAnim
+      firstFrame: 0
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Armature|Head_IK
+        weight: 1
+      - path: Armature/Armature|LeftFoot_IK
+        weight: 1
+      - path: Armature/Armature|LeftHand_IK
+        weight: 1
+      - path: Armature/Armature|RightFoot_IK
+        weight: 1
+      - path: Armature/Armature|RightHand_IK
+        weight: 1
+      - path: Armature/Armature|Trunk
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftArm
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftArm/Armature|LeftForearm
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftArm/Armature|LeftForearm/Armature|LeftHand
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftTigh
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftTigh/Armature|LeftLeg
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|LeftTigh/Armature|LeftLeg/Armature|LeftFoot
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|Neck
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|Neck/Armature|Head
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightArm
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightArm/Armature|RightForearm
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightArm/Armature|RightForearm/Armature|RightHand
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightTigh
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightTigh/Armature|RightLeg
+        weight: 1
+      - path: Armature/Armature|Trunk/Armature|Abdomen/Armature|RightTigh/Armature|RightLeg/Armature|RightFoot
+        weight: 1
+      - path: Koala
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

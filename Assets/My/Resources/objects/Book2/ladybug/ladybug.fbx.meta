@@ -1,0 +1,306 @@
+fileFormatVersion: 2
+guid: d1081ed991249f54da4d51c8a6fb9758
+timeCreated: 1556847539
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Armature|Body
+    100004: Armature|LeftBack_IK
+    100006: Armature|LeftBackFoot
+    100008: Armature|LeftBackLeg
+    100010: Armature|LeftBackTigh
+    100012: Armature|LeftFront_IK
+    100014: Armature|LeftFrontFoot
+    100016: Armature|LeftFrontLeg
+    100018: Armature|LeftFrontTigh
+    100020: Armature|LeftMid_IK
+    100022: Armature|LeftMidFoot
+    100024: Armature|LeftMidLeg
+    100026: Armature|LeftMidTigh
+    100028: Armature|RightBack_IK
+    100030: Armature|RightBackFoot
+    100032: Armature|RightBackLeg
+    100034: Armature|RightBackTigh
+    100036: Armature|RightFront_IK
+    100038: Armature|RightFrontFoot
+    100040: Armature|RightFrontLeg
+    100042: Armature|RightFrontTigh
+    100044: Armature|RightMid_IK
+    100046: Armature|RightMidFoot
+    100048: Armature|RightMidLeg
+    100050: Armature|RightMidTigh
+    100052: //RootNode
+    100054: polySurface851
+    400000: Armature
+    400002: Armature|Body
+    400004: Armature|LeftBack_IK
+    400006: Armature|LeftBackFoot
+    400008: Armature|LeftBackLeg
+    400010: Armature|LeftBackTigh
+    400012: Armature|LeftFront_IK
+    400014: Armature|LeftFrontFoot
+    400016: Armature|LeftFrontLeg
+    400018: Armature|LeftFrontTigh
+    400020: Armature|LeftMid_IK
+    400022: Armature|LeftMidFoot
+    400024: Armature|LeftMidLeg
+    400026: Armature|LeftMidTigh
+    400028: Armature|RightBack_IK
+    400030: Armature|RightBackFoot
+    400032: Armature|RightBackLeg
+    400034: Armature|RightBackTigh
+    400036: Armature|RightFront_IK
+    400038: Armature|RightFrontFoot
+    400040: Armature|RightFrontLeg
+    400042: Armature|RightFrontTigh
+    400044: Armature|RightMid_IK
+    400046: Armature|RightMidFoot
+    400048: Armature|RightMidLeg
+    400050: Armature|RightMidTigh
+    400052: //RootNode
+    400054: polySurface851
+    4300000: polySurface851
+    7400000: LadybugAnim
+    7400002: Armature|LadybugAnim
+    9500000: //RootNode
+    13700000: polySurface851
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: LadybugAnim
+      takeName: LadybugAnim
+      firstFrame: 0
+      lastFrame: 94
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Armature|Body
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftBackTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftBackTigh/Armature|LeftBackLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftBackTigh/Armature|LeftBackLeg/Armature|LeftBackFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftFrontTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftFrontTigh/Armature|LeftFrontLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftFrontTigh/Armature|LeftFrontLeg/Armature|LeftFrontFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftMidTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftMidTigh/Armature|LeftMidLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftMidTigh/Armature|LeftMidLeg/Armature|LeftMidFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightBackTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightBackTigh/Armature|RightBackLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightBackTigh/Armature|RightBackLeg/Armature|RightBackFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightFrontTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightFrontTigh/Armature|RightFrontLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightFrontTigh/Armature|RightFrontLeg/Armature|RightFrontFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightMidTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightMidTigh/Armature|RightMidLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightMidTigh/Armature|RightMidLeg/Armature|RightMidFoot
+        weight: 1
+      - path: Armature/Armature|LeftBack_IK
+        weight: 1
+      - path: Armature/Armature|LeftFront_IK
+        weight: 1
+      - path: Armature/Armature|LeftMid_IK
+        weight: 1
+      - path: Armature/Armature|RightBack_IK
+        weight: 1
+      - path: Armature/Armature|RightFront_IK
+        weight: 1
+      - path: Armature/Armature|RightMid_IK
+        weight: 1
+      - path: polySurface851
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|LadybugAnim
+      takeName: Armature|LadybugAnim
+      firstFrame: 0
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Armature|Body
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftBackTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftBackTigh/Armature|LeftBackLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftBackTigh/Armature|LeftBackLeg/Armature|LeftBackFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftFrontTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftFrontTigh/Armature|LeftFrontLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftFrontTigh/Armature|LeftFrontLeg/Armature|LeftFrontFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftMidTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftMidTigh/Armature|LeftMidLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|LeftMidTigh/Armature|LeftMidLeg/Armature|LeftMidFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightBackTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightBackTigh/Armature|RightBackLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightBackTigh/Armature|RightBackLeg/Armature|RightBackFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightFrontTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightFrontTigh/Armature|RightFrontLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightFrontTigh/Armature|RightFrontLeg/Armature|RightFrontFoot
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightMidTigh
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightMidTigh/Armature|RightMidLeg
+        weight: 1
+      - path: Armature/Armature|Body/Armature|RightMidTigh/Armature|RightMidLeg/Armature|RightMidFoot
+        weight: 1
+      - path: Armature/Armature|LeftBack_IK
+        weight: 1
+      - path: Armature/Armature|LeftFront_IK
+        weight: 1
+      - path: Armature/Armature|LeftMid_IK
+        weight: 1
+      - path: Armature/Armature|RightBack_IK
+        weight: 1
+      - path: Armature/Armature|RightFront_IK
+        weight: 1
+      - path: Armature/Armature|RightMid_IK
+        weight: 1
+      - path: polySurface851
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
