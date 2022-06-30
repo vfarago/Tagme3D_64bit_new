@@ -22,6 +22,9 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
         base.Awake();
         //바꿔야합니다0627
         //targetName = mTrackableBehaviour.TrackableName.ToLower();
+
+        //  Elon
+        targetName = mObserverBehaviour.TargetName.ToLower();
     }
 
     #region PRIVATE_METHODS
@@ -175,12 +178,14 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
         if (m3dModel.GetComponentInChildren<MeshRenderer>())
         {
             m3dModel.GetComponentInChildren<MeshRenderer>().enabled = true;
-            initialScale = 0.5f;
+            //initialScale = 0.5f;
+            initialScale = 100f;
         }
         else
         {
             m3dModel.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
-            initialScale = 0.3f;
+            initialScale = 100f;
+            //initialScale = 0.3f;
         }
 
         if (transform.localScale.x > 500)

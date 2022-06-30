@@ -124,6 +124,7 @@ public class TSGestureHandler : MonoBehaviour
             canvasManager.OnTargetOffObject(true);
             //바꿔야합니다0627
             //mTrackableBehaviour.OnTrackerUpdate(TrackableBehaviour.Status.NOT_FOUND);
+            
         }
 
         yield return new WaitForSeconds(0.05f);

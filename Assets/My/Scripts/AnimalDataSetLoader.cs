@@ -34,6 +34,11 @@ public class AnimalDataSetLoader : MonoBehaviour
     PrefabShelter prefabShelter;
 
     //바꿔야합니다0627
+
+    //  Elon
+    [SerializeField] private VuforiaBehaviour vuforiaBehaviour;
+    string database = "";
+
     void Awake()
     {
         //VuforiaAbstractConfiguration.Instance.Vuforia.DelayedInitialization = false;
@@ -51,7 +56,10 @@ public class AnimalDataSetLoader : MonoBehaviour
         //Vuforia ver.6.2
 
         //VuforiaARController.Instance.RegisterVuforiaStartedCallback(LoadDataSet);
-        LoadDataSet();
+        //LoadDataSet();
+
+        VuforiaApplication.Instance.OnVuforiaStarted += LoadDataSet;
+
     }
 
     void OnDestroy()
@@ -61,169 +69,182 @@ public class AnimalDataSetLoader : MonoBehaviour
 
     void LoadDataSet()
     {
-        ////ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
+        //ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
 
-        //dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
-        ////DataSet dataSet = objectTracker.CreateDataSet();
-        //var dataSet = VuforiaBehaviour.Instance.ObserverFactory.CreateImageTarget();
-        //if (dataSet.Load(dataSetName))
-        //{
-        //    if (!objectTracker.ActivateDataSet(dataSet))
-        //    {
-        //        // Note: ImageTracker cannot have more than 1000 total targets activated
-        //        Debug.Log("<color=yellow>Failed to Activate DataSet: " + (dataSetName) + "</color>");
-        //    }
+        dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
+        database = string.Format("Assets/StreamingAssets/Vuforia/{0}{1}", dataSetName,".xml");
+        //IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase("Assets/StreamingAssets/Vuforia/VuforiaMigration.xml");           
+         StartCoroutine(CheckFile(dataSetName));
 
-        //    if (!objectTracker.Start())
-        //    {
-        //        Debug.Log("<color=yellow>Tracker Failed to Start.</color>");
-        //    }
 
-        //    StartCoroutine(CheckFile(dataSetName, objectTracker));
-        //    objectTracker.Stop();
-        //}
-        //else
-        //{
-        //    Debug.LogError("<color=yellow>Failed to load dataset: '" + (dataSetName) + "'</color>");
-        //}
+            //DataSet dataSet = objectTracker.CreateDataSet();
+            //if (dataSet.Load(dataSetName))
+            //{
+            //    if (!objectTracker.ActivateDataSet(dataSet))
+            //    {
+            //        // Note: ImageTracker cannot have more than 1000 total targets activated
+            //        Debug.Log("<color=yellow>Failed to Activate DataSet: " + (dataSetName) + "</color>");
+            //    }
 
-        string streamingAssetsPath = Application.streamingAssetsPath;
-        for (int i = 0; i < 5; i++)
-        {
-            string dataSetName = "/Vuforia/TagMe3D_New_Book" + (i + 1).ToString() + ".xml";
-            string finalPath = streamingAssetsPath + dataSetName;
-            if (!File.Exists(finalPath)) continue;
-            else
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(finalPath);
+            //    if (!objectTracker.Start())
+            //    {
+            //        Debug.Log("<color=yellow>Tracker Failed to Start.</color>");
+            //    }
 
-                string targetName = "";
-                var imageTarget = VuforiaBehaviour.Instance.ObserverFactory.CreateImageTarget(dataSetName, targetName);
-            }
-        }
+            //    StartCoroutine(CheckFile(dataSetName, objectTracker));
+            //    objectTracker.Stop();
+            //}
+            //else
+            //{
+            //    Debug.LogError("<color=yellow>Failed to load dataset: '" + (dataSetName) + "'</color>");
+            //}
     }
 
     //바꿔야합니다0627
-    //IEnumerator CheckFile(string dataSetName, ObjectTracker objectTracker)
-    //{
-    //    GameObject temp = transform.Find(dataSetName).gameObject;
-    //    IEnumerable<TrackableBehaviour> tbs = TrackerManager.Instance.GetStateManager().GetTrackableBehaviours();
+    IEnumerator CheckFile(string _dataSetName)
+    {
+        //  Elon 220629
+        GameObject temp = transform.Find(_dataSetName).gameObject;
+        IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase(database);
 
-    //    foreach (TrackableBehaviour tb in tbs)
-    //    {
-    //        if (tb.name.Equals("New Game Object"))
-    //        {
-    //            tb.gameObject.name = tb.TrackableName;
+        foreach(ObserverBehaviour ob in observers)
+        {
+            if(ob.name.Equals("New Game Object"))
+            {
 
-    //            if (tb.TrackableName.Contains("cover"))
-    //            {
-    //                tb.gameObject.transform.parent = transform;
-    //                tb.gameObject.AddComponent<CoverTrackerbleEventHandler>();
-    //            }
-    //            else
-    //            {
-    //                bool checkfree = false;
+            }
 
-    //                tb.gameObject.transform.parent = temp.transform;
-    //                DynamicTrackableEventHandler dteh = tb.gameObject.AddComponent<DynamicTrackableEventHandler>();
+            ob.gameObject.name = ob.TargetName;
 
-    //                for (int i = 0; i < freePage.Length; i++)
-    //                {
-    //                    if (freePage[i].Equals(tb.TrackableName))
-    //                    {
-    //                        checkfree = true;
-    //                        break;
-    //                    }
-    //                }
-    //                dteh.isFreeModel = checkfree;
+            if (ob.TargetName.Contains("cover"))
+            {
+                ob.gameObject.transform.parent = transform;
+                ob.gameObject.AddComponent<CoverTrackerbleEventHandler>();
+            }
+            else
+            {
+                bool checkfree = false;
+                ob.gameObject.transform.parent = temp.transform;
+                DynamicTrackableEventHandler dteh = ob.gameObject.AddComponent<DynamicTrackableEventHandler>();
 
-    //                if (checkfree)
-    //                    tagmeTargets.Add(string.Empty);
-    //                else
-    //                    tagmeTargets.Add(tb.TrackableName.ToLower());
-    //            }
-    //        }
-    //    }
-    //    yield return new WaitForEndOfFrame();
+                for (int i = 0; i < freePage.Length; i++)
+                {
+                    if (freePage[i].Equals(ob.TargetName))
+                    {
+                        checkfree = true;
+                        break;
+                    }
+                }
+                dteh.isFreeModel = checkfree;
 
-    //    bool check = true;
-    //    bool assetCheck = true;
-    //    bool[] checks = new bool[100];
+                if (checkfree)
+                    tagmeTargets.Add(string.Empty);
+                else
+                    tagmeTargets.Add(ob.TargetName.ToLower());
+            }
+        }
+        //IEnumerable<TrackableBehaviour> tbs = TrackerManager.Instance.GetStateManager().GetTrackableBehaviours();
 
-    //    for (int i = 0; i < checks.Length; i++)
-    //    {
-    //        checks[i] = true;
-    //    }
+        //foreach (TrackableBehaviour tb in tbs)
+        //{
+        //    if (tb.name.Equals("New Game Object"))
+        //    {
+        //        tb.gameObject.name = tb.TrackableName;
 
-    //    assetCheck = File.Exists(string.Format("{0}/assets/tagme3d_new_book{1}", Application.persistentDataPath, dataSetNumber));
+        //        if (tb.TrackableName.Contains("cover"))
+        //        {
+        //            tb.gameObject.transform.parent = transform;
+        //            tb.gameObject.AddComponent<CoverTrackerbleEventHandler>();
+        //        }
+        //        else
+        //        {
+        //            bool checkfree = false;
 
+        //            tb.gameObject.transform.parent = temp.transform;
+        //            DynamicTrackableEventHandler dteh = tb.gameObject.AddComponent<DynamicTrackableEventHandler>();
 
-    //    for (int i = 0; i < 100; i++)
-    //    {
-    //        int index = i + ((dataSetNumber - 1) * 100);
+        //            for (int i = 0; i < freePage.Length; i++)
+        //            {
+        //                if (freePage[i].Equals(tb.TrackableName))
+        //                {
+        //                    checkfree = true;
+        //                    break;
+        //                }
+        //            }
+        //            dteh.isFreeModel = checkfree;
 
+        //            if (checkfree)
+        //                tagmeTargets.Add(string.Empty);
+        //            else
+        //                tagmeTargets.Add(tb.TrackableName.ToLower());
+        //        }
+        //    }
+        //}
+        yield return new WaitForEndOfFrame();
 
-    //        if (!tagmeTargets[index].Equals(string.Empty))
-    //        {
-    //            bool videoPath = File.Exists(string.Format("{0}/videos/tagme3d_new_book{1}_video", Application.persistentDataPath, dataSetNumber));
-    //            bool audioPath = File.Exists(string.Format("{0}/audios/tagme3d_new_book{1}_audio", Application.persistentDataPath, dataSetNumber));
-    //            if (!videoPath || !audioPath)
-    //            {
-    //                checks[i] = false;
-    //                break;
-    //            }
-    //            //if(!File.Exists(audioPath) || File.Exists(videoPath))
-    //            //{
-    //            //    checks[i] = false;
-    //            //    break;
-    //            //}
-    //            //for (int j = 0; j < audioFolder.Length; j++)
-    //            //{
-    //            //    string audioPath = string.Format("{0}/audio/{1}/{2}.mp3", Application.persistentDataPath, audioFolder[j], tagmeTargets[index]);
+        bool check = true;
+        bool assetCheck = true;
+        bool[] checks = new bool[100];
 
-    //            //    if (!File.Exists(videoPath) || !File.Exists(audioPath))
-    //            //    {
-    //            //        checks[i] = false;
-    //            //        break;
-    //            //    }
-    //            //}
-    //        }
+        for (int i = 0; i < checks.Length; i++)
+        {
+            checks[i] = true;
+        }
 
-    //        progressBar.fillAmount = 0.5f + (((index + 1) / 500f) * 0.5f);
-    //        yield return progressBar.fillAmount;
-    //    }
-
-
-    //    for (int i = 0; i < checks.Length; i++)
-    //    {
-    //        if (!checks[i])
-    //        {
-    //            check = false;
-    //            break;
-    //        }
-    //    }
-    //    yield return check = assetCheck && check;
-
-    //    if (check)
-    //    {
-    //        tagmeDataSets.Add(dataSetName);
-    //    }
-
-    //    if (dataSetNumber < 5)
-    //    {
-    //        dataSetNumber++;
+        assetCheck = File.Exists(string.Format("{0}/assets/tagme3d_new_book{1}", Application.persistentDataPath, dataSetNumber));
 
 
-    //        VuforiaARController.Instance.RegisterVuforiaStartedCallback(LoadDataSet);
-    //    }
-    //    else
-    //    {
-    //        StartCoroutine(TargetPrefabSetting());
-    //    }
+        for (int i = 0; i < 100; i++)
+        {
+            int index = i + ((dataSetNumber - 1) * 100);
 
-    //    yield return null;
-    //}
+
+            if (!tagmeTargets[index].Equals(string.Empty))
+            {
+                bool videoPath = File.Exists(string.Format("{0}/videos/tagme3d_new_book{1}_video", Application.persistentDataPath, dataSetNumber));
+                bool audioPath = File.Exists(string.Format("{0}/audios/tagme3d_new_book{1}_audio", Application.persistentDataPath, dataSetNumber));
+                if (!videoPath || !audioPath)
+                {
+                    checks[i] = false;
+                    break;
+                }
+            }
+
+            progressBar.fillAmount = 0.5f + (((index + 1) / 500f) * 0.5f);
+            yield return progressBar.fillAmount;
+        }
+
+
+        for (int i = 0; i < checks.Length; i++)
+        {
+            if (!checks[i])
+            {
+                check = false;
+                break;
+            }
+        }
+        yield return check = assetCheck && check;
+
+        if (check)
+        {
+            tagmeDataSets.Add(dataSetName);
+        }
+
+        if (dataSetNumber < 5)
+        {
+            dataSetNumber++;
+
+            //  Elon 220629
+            VuforiaApplication.Instance.OnVuforiaStarted += LoadDataSet;
+            //VuforiaARController.Instance.RegisterVuforiaStartedCallback(LoadDataSet);
+        }
+        else
+        {
+            StartCoroutine(TargetPrefabSetting());
+        }
+
+        yield return null;
+    }
 
     //InitializeTarget() 5권 완료 후 AssetBundle 컴포넌트에 셋팅 → 로딩끝
     private IEnumerator TargetPrefabSetting()

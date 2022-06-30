@@ -11,6 +11,8 @@ public class CoverTrackerbleEventHandler : TrackableEventHandler
         base.Awake();
         //바꿔야합니다0627
         //targetName = mTrackableBehaviour.TrackableName.ToLower();
+        //  Elon 220630
+        targetName = mObserverBehaviour.TargetName.ToLower();
     }
 
     protected override void OnTrackingFound()

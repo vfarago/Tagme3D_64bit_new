@@ -15,6 +15,9 @@ public class ARManager : MonoBehaviour
     public bool isFrontCamera;
     public HintState hintState = HintState.ZERO;
 
+    [SerializeField] private VuforiaBehaviour vuforiaBehaviour;
+
+
     public static ARManager Instance
     {
         get
@@ -42,29 +45,37 @@ public class ARManager : MonoBehaviour
     public void setHintMulti()
     {
         //first stop ObjectTracker
-        bool needsObjectTrackerRestart = stopRunningObjectTracker();
+        //bool needsObjectTrackerRestart = stopRunningObjectTracker();
 
         //바꿔야합니다0627
         //VuforiaUnity.SetHint(VuforiaUnity.VuforiaHint.HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS, 10);
+
+        //  Elon 220630
+        VuforiaBehaviour.Instance.SetMaximumSimultaneousTrackedImages(10);
+
+
         hintState = HintState.MULTI;
 
         //finally restart ObjectTracker
-        if (needsObjectTrackerRestart)
-            restartRunningObjectTracker();
+        //if (needsObjectTrackerRestart)
+        //    restartRunningObjectTracker();
     }
 
 
     public void setHintSingle()
     {
         //first stop ObjectTracker
-        bool needsObjectTrackerRestart = stopRunningObjectTracker();
+        //bool needsObjectTrackerRestart = stopRunningObjectTracker();
 
         hintState = HintState.SINGLE;
         //바꿔야합니다0627
         //VuforiaUnity.SetHint(VuforiaUnity.VuforiaHint.HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS, 1);
 
-        if (needsObjectTrackerRestart)
-            restartRunningObjectTracker();
+        //  Elon 220630
+        VuforiaBehaviour.Instance.SetMaximumSimultaneousTrackedImages(1);
+
+        //if (needsObjectTrackerRestart)
+        //    restartRunningObjectTracker();
     }
 
 
@@ -72,11 +83,14 @@ public class ARManager : MonoBehaviour
     {
         //first stop ObjectTracker
         //bool needsObjectTrackerRestart = stopRunningObjectTracker();
-        stopRunningObjectTracker();
+        //stopRunningObjectTracker();
 
         hintState = HintState.ZERO;
         //바꿔야합니다0627
         //VuforiaUnity.SetHint(VuforiaUnity.VuforiaHint.HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS, 0); //it doesn't seem to work
+
+        //  Elon 220630
+        VuforiaBehaviour.Instance.SetMaximumSimultaneousTrackedImages(0);
 
         ////finally restart ObjectTracker
         //if (needsObjectTrackerRestart)
@@ -87,9 +101,10 @@ public class ARManager : MonoBehaviour
 
     private bool stopRunningObjectTracker()
     {
-        bool needsObjectTrackerRestart = false;
+        //bool needsObjectTrackerRestart = false;
 
-        //바꿔야합니다0627
+        //VuforiaBehaviour.Instance.enabled = false;
+        ////바꿔야합니다0627
         //ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
         //if (objectTracker != null)
         //{
@@ -99,7 +114,8 @@ public class ARManager : MonoBehaviour
         //        needsObjectTrackerRestart = true;
         //    }
         //}
-        return needsObjectTrackerRestart;
+        //return needsObjectTrackerRestart;
+        return false;
     }
 
 
