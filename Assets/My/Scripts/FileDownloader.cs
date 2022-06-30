@@ -497,6 +497,7 @@ public class FileDownloader : MonoBehaviour
         }
         else
         {
+            Debug.Log(dataSetName.Substring(dataSetName.Length - 1, 1));
             int bookNum = Convert.ToInt32(dataSetName.Substring(dataSetName.Length - 1, 1));
 
             assetLoaderText.text = LocalizationManager.GetTermTranslation("UI_downSetPrefab").Replace("*", bookNum.ToString());

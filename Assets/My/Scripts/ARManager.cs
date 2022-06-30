@@ -52,6 +52,7 @@ public class ARManager : MonoBehaviour
 
         //  Elon 220630
         VuforiaBehaviour.Instance.SetMaximumSimultaneousTrackedImages(10);
+        //vuforiaBehaviour.SetMaximumSimultaneousTrackedImages(10);
 
 
         hintState = HintState.MULTI;
@@ -73,6 +74,7 @@ public class ARManager : MonoBehaviour
 
         //  Elon 220630
         VuforiaBehaviour.Instance.SetMaximumSimultaneousTrackedImages(1);
+        //vuforiaBehaviour.SetMaximumSimultaneousTrackedImages(1);
 
         //if (needsObjectTrackerRestart)
         //    restartRunningObjectTracker();
@@ -90,7 +92,7 @@ public class ARManager : MonoBehaviour
         //VuforiaUnity.SetHint(VuforiaUnity.VuforiaHint.HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS, 0); //it doesn't seem to work
 
         //  Elon 220630
-        VuforiaBehaviour.Instance.SetMaximumSimultaneousTrackedImages(0);
+        //VuforiaBehaviour.Instance.SetMaximumSimultaneousTrackedImages(0);
 
         ////finally restart ObjectTracker
         //if (needsObjectTrackerRestart)
