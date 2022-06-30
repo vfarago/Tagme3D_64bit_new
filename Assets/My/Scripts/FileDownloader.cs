@@ -185,6 +185,7 @@ public class FileDownloader : MonoBehaviour
                 canvasManager.bookPanel.GetComponentInChildren<PanelMovingController>().TouchOn();
 
                 CreateBlocker();
+                Debug.Log("있음");
                 StartCoroutine(TargetDataSetting(string.Format("TagMe3D_New_Book{0}", bookNum)));
             }
             else
@@ -417,8 +418,9 @@ public class FileDownloader : MonoBehaviour
 
         Debug.Log("Total downloaded file Size : " + totalSize);
 
-        if (!totalSize.Equals(0))
+        if (!totalSize.Equals(0) && dataSetName.Contains("free")) 
         {
+            Debug.Log("");
             StartCoroutine(TargetDataSetting(dataSetName));
         }
         else

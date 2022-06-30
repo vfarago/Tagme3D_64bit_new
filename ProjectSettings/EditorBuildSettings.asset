@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/My/Scenes/Permission.unity
+    guid: 8b8685955452e2646bcfc571e0a31c7f
+  - enabled: 1
+    path: Assets/My/Scenes/Splash.unity
+    guid: ee6c9832173e5a44fb0eab8d039f276a
+  - enabled: 1
     path: Assets/My/Scenes/TMPeriscope.unity
     guid: 3f3112b2897b44a9085651b1990a53d6
   m_configObjects: {}
