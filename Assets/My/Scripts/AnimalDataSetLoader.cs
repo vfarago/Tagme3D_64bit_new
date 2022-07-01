@@ -70,7 +70,7 @@ public class AnimalDataSetLoader : MonoBehaviour
     void LoadDataSet()
     {
         //ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
-
+        Debug.Log("LoadDataSet");
         dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
         database = string.Format("Assets/StreamingAssets/Vuforia/{0}{1}", dataSetName,".xml");
         //IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase("Assets/StreamingAssets/Vuforia/VuforiaMigration.xml");           
@@ -103,6 +103,7 @@ public class AnimalDataSetLoader : MonoBehaviour
     //바꿔야합니다0627
     IEnumerator CheckFile(string _dataSetName)
     {
+        Debug.Log("CheckFile");
         //  Elon 220629
         GameObject temp = transform.Find(_dataSetName).gameObject;
         IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase(database);
@@ -116,6 +117,7 @@ public class AnimalDataSetLoader : MonoBehaviour
 
             ob.gameObject.name = ob.TargetName;
 
+            Debug.Log(ob.gameObject.name);
             if (ob.TargetName.Contains("cover"))
             {
                 ob.gameObject.transform.parent = transform;
@@ -193,6 +195,7 @@ public class AnimalDataSetLoader : MonoBehaviour
 
         assetCheck = File.Exists(string.Format("{0}/assets/tagme3d_new_book{1}", Application.persistentDataPath, dataSetNumber));
 
+        Debug.Log(string.Format("{0}/assets/tagme3d_new_book{1}", Application.persistentDataPath, dataSetNumber));
 
         for (int i = 0; i < 100; i++)
         {

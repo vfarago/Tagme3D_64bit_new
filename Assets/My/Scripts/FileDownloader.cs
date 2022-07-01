@@ -420,6 +420,7 @@ public class FileDownloader : MonoBehaviour
 
         if (!totalSize.Equals(0))
         {
+            if(!dataSetName.Contains("free"))
             StartCoroutine(TargetDataSetting(dataSetName));
         }
         else
