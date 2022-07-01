@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: d59ae77ef17a63b44871d16acfef9048
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - lockerPrefab: {fileID: 3342829030163825810, guid: 7bfb7a49af77d7e4294eaf5a5e729511,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

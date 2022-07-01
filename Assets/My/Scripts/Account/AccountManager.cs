@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class AccountManager : MonoBehaviour
 {
     public GameObject accountPanel, loginAndSignUp, loginPanel, signUpPanel, qrPanel, qrInfoPanel, logoutPanel, unregisterPanel, registToastPanel, MRPanel;
-
     [HideInInspector]
     public CheckCode checkCode;
     PrefabShelter prefabShelter;
@@ -38,7 +37,7 @@ public class AccountManager : MonoBehaviour
     [HideInInspector]
     public string receivedModel;
 
-
+    public bool isQRLogin = false;
     #region AWAKE_and_QUIT
     private void Awake()
     {
@@ -95,7 +94,6 @@ public class AccountManager : MonoBehaviour
         {
             QRInfoPanelValueChanged(qrToggle.isOn);
         });
-
         AwakeSetting();
     }
 
@@ -231,6 +229,15 @@ public class AccountManager : MonoBehaviour
 #endif
 
             loginAndSignUp.SetActive(true);
+            Text[] texts = loginAndSignUp.GetComponentsInChildren<Text>();
+            for(int i = 0; i < texts.Length; i++)
+            {
+                if (texts[i].name.Equals("QRLogin"))
+                {
+                    texts[i].text = "QR 로그인";
+                    break;
+                }
+            }
             loginPanel.SetActive(true);
             signUpPanel.SetActive(false);
             loginAndSignUp.GetComponentInChildren<PanelSize>().Resizer();
@@ -253,8 +260,8 @@ public class AccountManager : MonoBehaviour
         switch (temp.name)
         {
             case "changePass":
-                Application.OpenURL("http://bookplusapp.com/reset-pwd-req.php");
-
+                //Application.OpenURL("http://bookplusapp.com/reset-pwd-req.php");
+                canvasManager.PanelOn(true);
                 break;
             case "btn_logout":
                 logoutPanel.GetComponentInChildren<PopUpManager>().PopupReady();
@@ -262,9 +269,12 @@ public class AccountManager : MonoBehaviour
                 logoutPanel.SetActive(true);
 
                 break;
+            case "btn_Withdraw":
+                canvasManager.PanelOn(false);
+                break;
             case "btn_QR":
                 //My Page - QR 버튼 클릭
-                if (checkCode.storedType.Equals("admin"))
+                if (checkCode.storedType.Equals("admin") || checkCode.storedType.Equals("group"))
                 {
                     fileDownloader.CheckFile("tm_full");
 
@@ -431,6 +441,17 @@ public class AccountManager : MonoBehaviour
                 loginAndSignUp.GetComponent<PanelSize>().Resizer();
 
                 break;
+            case "btn_qrLogin":
+                isQRLogin = true;
+                temp.interactable = false;
+                //다른기기에 QR등록되어 있는지 체크 → QR스캔없이 등록	
+                bool finCheck = false;
+                bool notFull = false;
+                string[] list = { "", "", "", "" };
+                QRScanStart();
+                temp.interactable = true;
+                break;
+
             case "btn_proceed":
                 //================================================================================= DB체크 해서 시리얼패스!!
                 InputFieldGroup input = loginPanel.GetComponentInChildren<InputFieldGroup>();
@@ -470,6 +491,10 @@ public class AccountManager : MonoBehaviour
                             default:
                                 if (returned.Contains("Login Successfully "))
                                 {
+                                    foreach( InputField inf in input.inputs)
+                                    {
+                                        inf.text = string.Empty;
+                                    }
                                     temp.interactable = true;
                                     loginAndSignUp.SetActive(false);
 
@@ -609,72 +634,79 @@ public class AccountManager : MonoBehaviour
         {
             QRCodeReaderDemo demos = qrPanel.GetComponentInChildren<QRCodeReaderDemo>();
 
-            StartCoroutine(checkCode.StartAuthorization(checkCode.storedID, checkCode.storedPW, code, checkCode.storedType, returned =>
+            if (!isQRLogin)
             {
-                string splitted = returned.Split('\n')[0];
-                //print("     뭐오냐 " + returned);
-
-                switch (splitted)
+                StartCoroutine(checkCode.StartAuthorization(checkCode.storedID, checkCode.storedPW, code, checkCode.storedType, returned =>
                 {
-                    case "Successfully registered":
-                    case "The Device is already registered":
-                        qrPanel.SetActive(false);
-                        qrInfoPanel.SetActive(false);
+                    string splitted = returned.Split('\n')[0];
+                    //print("     뭐오냐 " + returned);
 
-                        //QR인증완료 후 다운로드시작
-                        fileDownloader.CheckFile(returned.Split('\n')[1]);
+                    switch (splitted)
+                    {
+                        case "Successfully registered":
+                        case "The Device is already registered":
+                            qrPanel.SetActive(false);
+                            qrInfoPanel.SetActive(false);
 
-                        //성공메시지
-                        registToastPanel.GetComponentInChildren<PopUpManager>().ToastMessage(false, "successQR");
-                        registToastPanel.SetActive(true);
+                            //QR인증완료 후 다운로드시작
+                            fileDownloader.CheckFile(returned.Split('\n')[1]);
 
-                        break;
-                    case "error":
-                        QRScanStart();
-                        qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
-                        popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_connectFail");
+                            //성공메시지
+                            registToastPanel.GetComponentInChildren<PopUpManager>().ToastMessage(false, "successQR");
+                            registToastPanel.SetActive(true);
 
-                        demos.StartScanning();
+                            break;
+                        case "error":
+                            QRScanStart();
+                            qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
+                            popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_connectFail");
 
-                        break;
-                    case "wrong title":
-                        QRScanStart();
-                        qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
-                        popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_wrongTitle");
+                            demos.StartScanning();
 
-                        demos.StartScanning();
+                            break;
+                        case "wrong title":
+                            QRScanStart();
+                            qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
+                            popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_wrongTitle");
 
-                        break;
-                    case "Unvaild Serial code":
-                        QRScanStart();
-                        qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
-                        popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_serialFailUnvalid");
+                            demos.StartScanning();
 
-                        demos.StartScanning();
+                            break;
+                        case "Unvaild Serial code":
+                            QRScanStart();
+                            qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
+                            popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_serialFailUnvalid");
 
-                        break;
-                    case "exceeded the maximum number of registratoin":
-                        QRScanStart();
-                        qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
-                        popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_serialFailExceed");
+                            demos.StartScanning();
 
-                        demos.StartScanning();
+                            break;
+                        case "exceeded the maximum number of registratoin":
+                            QRScanStart();
+                            qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
+                            popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_serialFailExceed");
 
-                        break;
-                    case "Another user has already been registered":
-                        QRScanStart();
-                        qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
-                        popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_serialFailAnother");
+                            demos.StartScanning();
 
-                        demos.StartScanning();
+                            break;
+                        case "Another user has already been registered":
+                            QRScanStart();
+                            qrInfoPanel.GetComponent<QRPanelManager>().QRInfoLocal(!isQRInfoPanel);
+                            popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_serialFailAnother");
 
-                        break;
-                    default:
+                            demos.StartScanning();
 
-                        break;
-                }
-                temp.interactable = true;
-            }));
+                            break;
+                        default:
+
+                            break;
+                    }
+                    temp.interactable = true;
+                }));
+            }
+            else
+            {
+                checkCode.QRCheck(code);
+            }
         }
     }
     #endregion
@@ -813,6 +845,8 @@ public class AccountManager : MonoBehaviour
         else
         {
             qrPanel.SetActive(!serialTrue);
+            checkCode.isLogined = true;
+            SerialCheck();
         }
 
     }
@@ -835,6 +869,16 @@ public class AccountManager : MonoBehaviour
         MRPanel.SetActive(false);
     }
 
+    public void ChangePWLogout()
+    {
+        logoutPanel.SetActive(false);
+        canvasManager.PanelManager(false);
+        AllDisable();
+    }
+    public void ReQRStart()
+    {
+        QRScanStart();
+    }
     public static string RETURNNAME
     {
         get

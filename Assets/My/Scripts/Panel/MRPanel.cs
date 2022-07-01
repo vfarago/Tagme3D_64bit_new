@@ -17,6 +17,7 @@ public class MRPanel : MonoBehaviour
     private Button[] tempBtn;
     private bool[] isReady;
     private int lastNum;
+    [SerializeField] private GameObject[] ScrollContents;
     //70 40 -180 24
 
     // Start is called before the first frame update
@@ -24,7 +25,6 @@ public class MRPanel : MonoBehaviour
     {
 
     }
-
     public void SetButtons()
     {
         isDone = false;

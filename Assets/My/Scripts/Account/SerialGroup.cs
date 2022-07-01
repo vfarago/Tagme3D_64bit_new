@@ -70,7 +70,7 @@ public class SerialGroup : MonoBehaviour
             }
             else
             {
-                contentBox.sizeDelta = new Vector2(contentBox.sizeDelta.x, currentSize);
+                contentBox.sizeDelta = new Vector2(contentBox.sizeDelta.x, currentSize + 338);
             }
         }
         else
@@ -105,6 +105,10 @@ public class SerialGroup : MonoBehaviour
 
             case "tm4":
                 write = "Tagme3D Book4 ";
+                break;
+
+            case "tm5":
+                write = "Tagme3D Book5 ";
                 break;
 
             case "tm_full":

@@ -421,6 +421,9 @@ public class CheckCode : MonoBehaviour
             case "normal":
                 type.sprite = normalImage;
                 break;
+            default:
+                type.sprite = normalImage;
+                break;
         }
 
         bool someCreated = false;
@@ -838,7 +841,76 @@ public class CheckCode : MonoBehaviour
             }));
         }
     }
-
+    public void QRCheck(string code)
+    {
+        ContentsLocker.isActivate = true;
+        if (ContentsLocker.isActivate) ContentsLocker.Instance.QRLoginStart(code, (rtncode) =>
+        {
+            Debug.Log(rtncode);
+            string[] inputSplit = rtncode.Split('\n');
+            foreach (string i in inputSplit)
+            {
+                if (i.Contains("Company: "))
+                {
+                    //수정중	
+                    storedName = i.Replace("Company: ", string.Empty);
+                    //Data.userInfo.userName = i.Replace("Company: ", string.Empty);	
+                }
+                else if (i.Contains("Register_date: "))
+                {
+                    string[] allSplit = i.Replace("Register_date: ", string.Empty).Split(' ');
+                    print(allSplit[0] + allSplit[1]);
+                    string[] dateSplit = allSplit[0].Split('-');
+                    string[] timeSplit = allSplit[1].Split(':');
+                    //수정중	
+                    //Data.userInfo.registerDate = new Vector3(int.Parse(dateSplit[0]), int.Parse(dateSplit[1]), int.Parse(dateSplit[2]));	
+                    //Data.userInfo.registerTime = new Vector3(int.Parse(timeSplit[0]), int.Parse(timeSplit[1]), int.Parse(timeSplit[2]));	
+                }
+            }
+            //QRCell.SetActive(false);	
+            storedID = "QR_Login";
+            storedPW = "None";
+            storedMail = "Group ID";
+            storedType = "group";
+            codeConfirms.Add("tm1");
+            codeConfirms.Add("tm2");
+            codeConfirms.Add("tm3");
+            codeConfirms.Add("tm4");
+            codeConfirms.Add("tm5");
+            isScaned[0] = true;
+            isScaned[1] = true;
+            isScaned[2] = true;
+            isScaned[3] = true;
+            isScaned[4] = true;
+            storedAdmin = true;
+            isLogined = true;
+            loginConfirm = true;
+            accountManager.qrPanel.SetActive(false);
+            accountManager.loginAndSignUp.SetActive(false);
+            accountManager.SerialCheck();
+            //PlayerPrefs.SetString("UsedID", Data.userInfo.id);	
+            //PlayerPrefs.SetString("UsedPW", Data.userInfo.password);	
+            //btn_Login.interactable = true;	
+            //btn_ToRegister.interactable = true;	
+            ////btn_FindAccount.interactable = true;	
+            //log_ID.interactable = true;	
+            //log_PW.interactable = true;	
+            //userInfoScrollbar.transform.parent.gameObject.SetActive(true);	
+        }
+         , (y) =>
+         {
+             Debug.Log(y);
+             loginConfirm = false;
+             accountManager.ReQRStart();
+             //수정중	
+             //qrTxt.text = LocalizationManager.GetTermTranslation("UI_RegiErrorUnknown").Replace("\\n", "\n");	
+             //QRReader = new QRCodeReader();	
+             //QRReader.Camera.Play();	
+             //QRReader.OnReady += StartReadingQR;	
+             //QRReader.StatusChanged += QRReader_StatusChanged;	
+         }
+         );
+    }
     //로컬에 파일 세이브
     #region LOCAL_FILE_SAVE
 
@@ -967,6 +1039,149 @@ public class CheckCode : MonoBehaviour
             else
                 canvasManager.isNotCautionAgain = false;
         }
+    }
+
+    public void ChangePassword(System.Action done, System.Action fail, string oldpw, string newpw)
+    {
+        StartCoroutine(ChangePasswordNetwork((retnCode, output) =>
+        {
+            switch (retnCode)
+            {
+                case 0000:
+                    Logout();
+                    //Data.data.v_IsLogined = true;		
+                    //PlayerPrefs.SetString("UsedID", Data.userInfo.id);		
+                    //PlayerPrefs.SetString("UsedPW", Data.userInfo.password);		
+                    //WriteOfflineInfo();		
+                    //WriteUserInfo();		
+                    done();
+                    break;
+                default:
+                    fail();
+                    break;
+            }
+            //btn_Login.interactable = true;		
+            //btn_ToRegister.interactable = true;		
+            //btn_FindAccount.interactable = true;		
+            //log_ID.interactable = true;		
+            //log_PW.interactable = true;		
+        }, oldpw, newpw));
+    }
+    private IEnumerator ChangePasswordNetwork(System.Action<int, string> output, string oldpw, string newpw)
+    {
+        int returnInt = -1;
+        string returnString = string.Empty;
+        WWWForm form = new WWWForm();
+        form.AddField("username", storedID);
+        form.AddField("old_pw", oldpw);
+        form.AddField("new_pw", newpw);
+        form.AddField("submitted", "submit");
+        UnityWebRequest req = UnityWebRequest.Post("http://bookplusapp.com/unity_api/change_pw.php", form);
+        yield return req.SendWebRequest();
+        if (req.error != null)
+        {
+            returnString = req.error;
+            print(req.responseCode);
+        }
+        else
+        {
+            print(req.downloadHandler.text);
+            returnString = req.downloadHandler.text;
+            returnInt = int.Parse(returnString.Split('<')[1].Split('>')[0]);
+        }
+        output(returnInt, returnString);
+    }
+    public void AccountWithdrawal(System.Action done, System.Action fail, InputField field)
+    {
+        StartCoroutine(FindEmail((pos, output) =>
+        {
+            if (-1 != pos)
+            {
+                switch (pos)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
+            }
+            else
+            {
+                if (field.text == output)
+                {
+                    StartCoroutine(LeaveAccount((pos2, output2) =>
+                    {
+                        if (-1 != pos)
+                        {
+                            switch (pos)
+                            {
+                                case 0:
+                                    break;
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Logout();
+                            //log_IDError.text = string.Empty;		
+                            //log_PWError.text = string.Empty;		
+                            field.text = string.Empty;
+                            done();
+                        }
+                    }));
+                }
+                else
+                {
+                    fail();
+                }
+                //Debug.Log(output);		
+            }
+        }));
+        //끝나면 해당 버튼에 다음 로그아웃 코루틴을 할당한다.		
+    }
+    private IEnumerator FindEmail(System.Action<int, string> output)
+    {
+        int returnInt = -1;
+        string returnString = string.Empty;
+        WWWForm form = new WWWForm();
+        form.AddField("InputID", storedID);
+        UnityWebRequest req = UnityWebRequest.Post("http://bookplusapp.com/unity_api/getid.php", form);
+        yield return req.SendWebRequest();
+        if (req.error != null)
+        {
+            returnInt = 0;
+            returnString = req.error;
+        }
+        else
+        {
+            returnString = req.downloadHandler.text;
+        }
+        output(returnInt, returnString);
+    }
+    private IEnumerator LeaveAccount(System.Action<int, string> output)
+    {
+        int returnInt = -1;
+        string returnString = string.Empty;
+        WWWForm form = new WWWForm();
+        form.AddField("EMAIL", storedMail);
+        UnityWebRequest req = UnityWebRequest.Post("http://bookplusapp.com/unity_api/deleteuserinfo.php", form);
+        yield return req.SendWebRequest();
+        Debug.Log(req.downloadHandler.text);
+        if (req.error != null)
+        {
+            returnInt = 0;
+            returnString = req.error;
+        }
+        else
+        {
+            returnString = req.downloadHandler.text;
+        }
+        output(returnInt, returnString);
     }
 }
 

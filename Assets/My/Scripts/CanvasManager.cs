@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class CanvasManager : MonoBehaviour
 {
     public GameObject mainUI, arPanel, scanTitle, bottomPanel, qrDownPanel, localizePhonicsPanel, localizeUIPanel, localizePopupButton,
-        swapCamButton, replayButton, recordToastPanel, exitPanel, usePanel, aboutUsPanel, bookPanel, loadingPanel, toastMsgPanel, mrPanel;
+    swapCamButton, replayButton, recordToastPanel, exitPanel, usePanel, aboutUsPanel, bookPanel, loadingPanel, toastMsgPanel, mrPanel,
+    changePasswordPanel, withdrawAccountPanel;
     public Image localizeUiImage, localizePhonicsImage;
     public Text localUITitle, localUiToggle, txt_version, txt_version_main;
     public Camera arCamera;
@@ -48,6 +49,7 @@ public class CanvasManager : MonoBehaviour
     bool isFrontCam = false;
     bool isSingleTarget;
 
+    private string oldPW, newPW;
 
     #region AWAKE_AND_QUIT
     void Awake()
@@ -101,6 +103,21 @@ public class CanvasManager : MonoBehaviour
             button.onClick.AddListener(() => LocalizeUI(temp));
         }
         localizePopupButton.GetComponent<Button>().onClick.AddListener(() => LocalizeButton(localizePhonicsPanel));
+
+        Button[] changePasswordButton = changePasswordPanel.GetComponentsInChildren<Button>();
+        foreach (Button button in changePasswordButton)
+        {
+            Button temp = button;
+            button.onClick.AddListener(() => ChangePWListener(temp));
+        }
+        ResetPanel(changePasswordPanel);
+        Button[] withdrawAccountButton = withdrawAccountPanel.GetComponentsInChildren<Button>();
+        foreach (Button button in withdrawAccountButton)
+        {
+            Button temp = button;
+            button.onClick.AddListener(() => WithdrawListener(temp));
+        }
+        ResetPanel(withdrawAccountPanel);
 
         Toggle localizeToggle = localizeUIPanel.GetComponentInChildren<Toggle>();
         localizeToggle.onValueChanged.AddListener(delegate
@@ -444,7 +461,125 @@ public class CanvasManager : MonoBehaviour
         panel.SetActive(!isLocalPanel);
         isToastOn = true;
     }
-
+    //비밀번호 변경창에 쓰이는 버튼들의 리스너		
+    private void ChangePWListener(Button temp)
+    {
+        switch (temp.name)
+        {
+            case "BGButton":
+                ResetPanel(changePasswordPanel);
+                break;
+            case "btn_cpwFinal":
+                ResetPanel(changePasswordPanel);
+                accountManager.ChangePWLogout();
+                break;
+            case "btn_cpwFirst":
+                InputField inf = temp.transform.parent.GetComponentInChildren<InputField>();
+                GameObject errorText = temp.transform.parent.GetChild(1).gameObject;
+                if (errorText.activeSelf) errorText.SetActive(false);
+                if (inf.text.Equals(string.Empty))
+                {
+                    errorText.GetComponent<Text>().text = "비밀번호를 입력 해 주세요.";
+                    errorText.SetActive(true);
+                }
+                else
+                {
+                    if (checkCode.storedPW.Equals(inf.text))
+                    {
+                        if (errorText.activeSelf) errorText.SetActive(false);
+                        temp.transform.parent.parent.GetChild(2).gameObject.SetActive(true);
+                        temp.transform.parent.gameObject.SetActive(false);
+                        oldPW = inf.text;
+                    }
+                    else
+                    {
+                        errorText.GetComponent<Text>().text = "비밀번호가 다릅니다.";
+                        errorText.SetActive(true);
+                    }
+                }
+                break;
+            case "btn_cpwChanged":
+                InputField inf2 = temp.transform.parent.GetComponentInChildren<InputField>();
+                GameObject errorText2 = temp.transform.parent.GetChild(1).gameObject;
+                if (errorText2.activeSelf) errorText2.SetActive(false);
+                if (inf2.text.Equals(string.Empty))
+                {
+                    errorText2.GetComponent<Text>().text = "비밀번호를 입력 해 주세요.";
+                    errorText2.SetActive(true);
+                }
+                else
+                {
+                    if (checkCode.storedPW.Equals(inf2.text))
+                    {
+                        errorText2.GetComponent<Text>().text = "비밀번호가 같습니다.";
+                        errorText2.SetActive(true);
+                    }
+                    else
+                    {
+                        newPW = inf2.text;
+                        checkCode.ChangePassword(() =>
+                        {
+                            if (errorText2.activeSelf) errorText2.SetActive(false);
+                            temp.transform.parent.parent.GetChild(3).gameObject.SetActive(true);
+                            temp.transform.parent.gameObject.SetActive(false);
+                        },
+                        () =>
+                        {
+                            errorText2.GetComponent<Text>().text = "비밀번호가 변경되지 않았습니다.";
+                            errorText2.SetActive(true);
+                        }, oldPW, newPW);
+                    }
+                }
+                break;
+        }
+    }
+    //회원탈퇴창에 쓰이는 버튼들의 리스너	
+    private void WithdrawListener(Button temp)
+    {
+        switch (temp.name)
+        {
+            case "BGButton":
+                ResetPanel(withdrawAccountPanel);
+                break;
+            case "btn_wdaFinal":
+                ResetPanel(withdrawAccountPanel);
+                accountManager.ChangePWLogout();
+                break;
+            case "btn_wdaFirst":
+                InputField inf = temp.transform.parent.GetComponentInChildren<InputField>();
+                GameObject errorText = temp.transform.parent.GetChild(1).gameObject;
+                if (errorText.activeSelf) errorText.SetActive(false);
+                if (inf.text.Equals(string.Empty))
+                {
+                    errorText.GetComponent<Text>().text = "Email을 입력 해 주세요.";
+                    errorText.SetActive(true);
+                }
+                else
+                {
+                    if (!inf.text.Equals(checkCode.storedMail))
+                    {
+                        errorText.GetComponent<Text>().text = "가입한 Email과 다릅니다.";
+                        errorText.SetActive(true);
+                    }
+                    else
+                    {
+                        checkCode.AccountWithdrawal(
+                            () =>
+                            {
+                                if (errorText.activeSelf) errorText.SetActive(false);
+                                temp.transform.parent.parent.GetChild(2).gameObject.SetActive(true);
+                                temp.transform.parent.gameObject.SetActive(false);
+                            },
+                            () =>
+                            {
+                                errorText.GetComponent<Text>().text = "탈퇴하지 못하였습니다.";
+                                errorText.SetActive(true);
+                            }, inf);
+                    }
+                }
+                break;
+        }
+    }
     //Localization Button Controller
     private void LocalizeUI(Button temp)
     {
@@ -845,7 +980,7 @@ public class CanvasManager : MonoBehaviour
         else if (isCoverTarget && on)
         {
 
-            if(!Manager.isMR)coverVideo = Instantiate(Resources.Load<GameObject>("prefabs/coverAR"), Camera.main.transform, false);
+            if (!Manager.isMR) coverVideo = Instantiate(Resources.Load<GameObject>("prefabs/coverAR"), Camera.main.transform, false);
             arLight.intensity = 0.65f;
         }
         else if (!isCoverTarget && !on)
@@ -860,5 +995,52 @@ public class CanvasManager : MonoBehaviour
 
         arPanel.transform.GetChild(0).gameObject.SetActive(!on);
         arPanel.transform.GetChild(1).gameObject.SetActive(!on);
+    }
+    public void PanelOn(bool isPW) //true : 비번변경, false : 회원탈퇴
+    {
+        if (isPW)
+        {
+            changePasswordPanel.SetActive(true);
+            GameObject firstPanel = changePasswordPanel.transform.GetChild(1).gameObject;
+            GameObject changePanel = changePasswordPanel.transform.GetChild(2).gameObject;
+            GameObject finalPanel = changePasswordPanel.transform.GetChild(3).gameObject;
+            GameObject errorText = firstPanel.transform.GetChild(1).gameObject;
+            GameObject errorText2 = changePanel.transform.GetChild(1).gameObject;
+            firstPanel.SetActive(true);
+            if (errorText.activeSelf) errorText.SetActive(false);
+            if (changePanel.activeSelf) changePanel.SetActive(false);
+            if (finalPanel.activeSelf) finalPanel.SetActive(false);
+            if (errorText2.activeSelf) errorText2.SetActive(false);
+        }
+        else
+        {
+            withdrawAccountPanel.SetActive(true);
+            GameObject firstPanel = withdrawAccountPanel.transform.GetChild(1).gameObject;
+            GameObject finalPanel = withdrawAccountPanel.transform.GetChild(2).gameObject;
+            GameObject errorText = firstPanel.transform.GetChild(1).gameObject;
+            firstPanel.SetActive(true);
+            if (errorText.activeSelf) errorText.SetActive(false);
+            if (finalPanel.activeSelf) finalPanel.SetActive(false);
+        }
+    }
+    private void ResetPanel(GameObject obj)
+    {
+        for (int i = 0; i < obj.transform.childCount; i++)
+        {
+            obj.transform.GetChild(i).gameObject.SetActive(true);
+        }
+        InputField[] inputs = obj.transform.GetComponentsInChildren<InputField>();
+        for (int i = 0; i < inputs.Length; i++)
+        {
+            inputs[i].text = string.Empty;
+        }
+        for (int i = 0; i < obj.transform.childCount; i++)
+        {
+            obj.transform.GetChild(i).gameObject.SetActive(
+                obj.transform.GetChild(i).childCount != 0 ? false : true);
+            if (obj.transform.GetChild(i).name.Equals("First"))
+                obj.transform.GetChild(i).gameObject.SetActive(true);
+        }
+        obj.SetActive(false);
     }
 }

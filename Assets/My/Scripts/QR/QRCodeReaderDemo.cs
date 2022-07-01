@@ -19,6 +19,7 @@ public class QRCodeReaderDemo : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
+        FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = false;
         QRReader = new QRCodeReader();
         QRReader.Camera.Play();
 
@@ -31,6 +32,7 @@ public class QRCodeReaderDemo : MonoBehaviour
     {
         if (QRReader != null)
             QRReader.Camera.Stop();
+        FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
     }
 
     private void QRReader_StatusChanged(object sender, System.EventArgs e)
