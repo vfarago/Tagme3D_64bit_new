@@ -25,6 +25,7 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
 
         //  Elon
         targetName = mObserverBehaviour.TargetName.ToLower();
+        StatusFilter = TrackingStatusFilter.Tracked;
     }
 
     #region PRIVATE_METHODS
