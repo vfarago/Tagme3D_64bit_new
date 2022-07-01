@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Xml;
 using Vuforia;
+using System.Security.AccessControl;
 
 public class AnimalDataSetLoader : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class AnimalDataSetLoader : MonoBehaviour
     public List<string> tagmeDataSets; //로컬파일로 다운받은 데이터셋이름(All 소문자)
     public List<string> tagmeTargets; //전체 타겟이름(All 소문자)
     public bool check = true;
+
+    public string serverUrl = "http://bookplusapp.co.kr/fileStorage/tm_book_20_3_12/";
 
     private string[] freePage = { "Pig", "Cat", "Dog", "Hamster", "Ant", "Duck", "Giraffe", "Lion", "Cow", "Raccoon", "Elephant",
             "Ladybug", "Goose", "Fly", "Fox", "Koala", "Bird", "Beaver", "Eagle", "Butterfly", "Alligator", "Flamingo", "Worm",
@@ -74,61 +77,125 @@ public class AnimalDataSetLoader : MonoBehaviour
         //ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
         Debug.Log("LoadDataSet");
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
-        databaseUrl = string.Format("Assets/StreamingAssets/Vuforia/{0}{1}", dataSetName, ".xml");
+        databaseUrl = string.Format(Application.persistentDataPath+"/{0}{1}", dataSetName, ".xml");
+        //databaseUrl = string.Format("http://bookplusapp.co.kr/fileStorage/tm_book_20_3_12" + "/{0}{1}", dataSetName, ".xml");
 
 
+//#elif UNITY_ANDROID
+//        dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
+//        databaseFileName = string.Format("TagMe3D_New_Book{0}{1}", dataSetNumber, ".xml");
 
-#elif UNITY_ANDROID
-        dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
-        databaseFileName = string.Format("TagMe3D_New_Book{0}{1}", dataSetNumber, ".xml");
+//        string path = "jar:file://" + Application.dataPath + "!/assets/Vuforia/"+ databaseFileName;
+//        WWW www = new WWW(path);
+//        while (!www.isDone) { }
+//        databaseUrl = string.Format("{0}/{1}", Application.persistentDataPath, databaseFileName);
+//        File.WriteAllBytes(databaseUrl, www.bytes);
 
-        string path = "jar:file://" + Application.dataPath + "!/assets/Vuforia/"+ databaseFileName;
-        WWW www = new WWW(path);
-        while (!www.isDone) { }
-        databaseUrl = string.Format("{0}/{1}", Application.persistentDataPath, databaseFileName);
-        File.WriteAllBytes(databaseUrl, www.bytes);
+//        StreamReader wr = new StreamReader(databaseUrl);
+//        string line;
+//        while ((line = wr.ReadLine()) != null)
+//        {
+//            //your code
+//            Debug.Log(line);
+//        }
+//#endif
+        //IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase("Assets/StreamingAssets/Vuforia/VuforiaMigration.xml");
 
-        StreamReader wr = new StreamReader(databaseUrl);
-        string line;
-        while ((line = wr.ReadLine()) != null)
+        DownloadFileAll(()=> { StartCoroutine(CheckFile(dataSetName)); });
+        //DataSet dataSet = objectTracker.CreateDataSet();
+        //if (dataSet.Load(dataSetName))
+        //{
+        //    if (!objectTracker.ActivateDataSet(dataSet))
+        //    {
+        //        // Note: ImageTracker cannot have more than 1000 total targets activated
+        //        Debug.Log("<color=yellow>Failed to Activate DataSet: " + (dataSetName) + "</color>");
+        //    }
+
+        //    if (!objectTracker.Start())
+        //    {
+        //        Debug.Log("<color=yellow>Tracker Failed to Start.</color>");
+        //    }
+
+        //    StartCoroutine(CheckFile(dataSetName, objectTracker));
+        //    objectTracker.Stop();
+        //}
+        //else
+        //{
+        //    Debug.LogError("<color=yellow>Failed to load dataset: '" + (dataSetName) + "'</color>");
+        //}
+    }
+    Coroutine cur_Cor;
+    List<Coroutine> progress=new List<Coroutine>();
+    void DownloadFileAll(Action done)
+    {
+        StartCoroutine(Cor_DownloadFileAll("TagMe3D_New_Book{0}.xml",()=> {  StartCoroutine(Cor_DownloadFileAll("TagMe3D_New_Book{0}.dat",()=> { done(); }));}));
+       
+    }
+    IEnumerator Cor_DownloadFileAll(string format,Action done) 
+    {
+
+        for (int i = 1; i < 6; i++)
         {
-            //your code
-            Debug.Log(line);
+            int dataSetNumber = i;
+            string dataSetName = string.Format(format, dataSetNumber);
+            string databaselocal = string.Format(Application.persistentDataPath + "/{0}", dataSetName);
+
+            if (!File.Exists(databaselocal))
+            {
+                cur_Cor = StartCoroutine(DownloadFile(format));
+                progress.Add(cur_Cor);
+            }
+            while (cur_Cor != null)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            Debug.Log(databaselocal + "is Done");
+            dataSetNumber++;
+            if (progress.Contains(cur_Cor))
+            {
+                progress.Remove(cur_Cor);
+            }
         }
-#endif
-        //IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase("Assets/StreamingAssets/Vuforia/VuforiaMigration.xml");           
-        StartCoroutine(CheckFile(dataSetName));
+        done();
+    }
+    private IEnumerator DownloadFile(string format)
+    {
+        print("Aaa");
+        string dataSetName = string.Format(format, dataSetNumber);
+        Debug.Log("CheckFile");
+        UnityWebRequest www = UnityWebRequest.Get(serverUrl+"/"+dataSetName);
+        //www.downloadHandler = new DownloadHandlerFile(Application.persistentDataPath+ "TagMe3D_New_Book1.xml");
+        //print(serverUrl + "TagMe3D_New_Book1.xml");
+        yield return www.SendWebRequest();
 
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        byte[] results = www.downloadHandler.data;
 
-            //DataSet dataSet = objectTracker.CreateDataSet();
-            //if (dataSet.Load(dataSetName))
-            //{
-            //    if (!objectTracker.ActivateDataSet(dataSet))
-            //    {
-            //        // Note: ImageTracker cannot have more than 1000 total targets activated
-            //        Debug.Log("<color=yellow>Failed to Activate DataSet: " + (dataSetName) + "</color>");
-            //    }
-
-            //    if (!objectTracker.Start())
-            //    {
-            //        Debug.Log("<color=yellow>Tracker Failed to Start.</color>");
-            //    }
-
-            //    StartCoroutine(CheckFile(dataSetName, objectTracker));
-            //    objectTracker.Stop();
-            //}
-            //else
-            //{
-            //    Debug.LogError("<color=yellow>Failed to load dataset: '" + (dataSetName) + "'</color>");
-            //}
+        File.WriteAllBytes(Application.persistentDataPath + "/"+ dataSetName, results);
+        cur_Cor = null;
+        //yield return StartCoroutine(CheckFile(dataSetName));
     }
 
+    //private void SetDirectorySecurity(string linePath)
+    //{
+    //    DirectorySecurity dSecurity = Directory.GetAccessControl(linePath);
+    //    dSecurity.AddAccessRule(new FileSystemAccessRule("Users",
+    //                                                                FileSystemRights.FullControl,
+    //                                                                InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+    //                                                                PropagationFlags.None,
+    //                                                                AccessControlType.Allow));
+    //    Directory.SetAccessControl(linePath, dSecurity);
+    //}
     //바꿔야합니다0627
     IEnumerator CheckFile(string _dataSetName)
     {
-        Debug.Log("CheckFile");
+
+        //SetDirectorySecurity(Application.persistentDataPath);
         //  Elon 220629
         GameObject temp = transform.Find(_dataSetName).gameObject;
         IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase(databaseUrl);
