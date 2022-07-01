@@ -418,7 +418,7 @@ public class FileDownloader : MonoBehaviour
 
         Debug.Log("Total downloaded file Size : " + totalSize);
 
-        if (!totalSize.Equals(0) && !dataSetName.Contains("free")) 
+        if (!totalSize.Equals(0))
         {
             StartCoroutine(TargetDataSetting(dataSetName));
         }
