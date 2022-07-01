@@ -37,7 +37,9 @@ public class AnimalDataSetLoader : MonoBehaviour
 
     //  Elon
     [SerializeField] private VuforiaBehaviour vuforiaBehaviour;
-    string database = "";
+    private string databaseUrl = "";
+    private string databaseFileName = "";
+    private string dataAsJSON;
 
     void Awake()
     {
@@ -71,10 +73,33 @@ public class AnimalDataSetLoader : MonoBehaviour
     {
         //ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
         Debug.Log("LoadDataSet");
+
+#if UNITY_EDITOR
         dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
-        database = string.Format("Assets/StreamingAssets/Vuforia/{0}{1}", dataSetName,".xml");
+        databaseUrl = string.Format("Assets/StreamingAssets/Vuforia/{0}{1}", dataSetName, ".xml");
+
+
+
+#elif UNITY_ANDROID
+        dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
+        databaseFileName = string.Format("TagMe3D_New_Book{0}{1}", dataSetNumber, ".xml");
+
+        string path = "jar:file://" + Application.dataPath + "!/assets/Vuforia/"+ databaseFileName;
+        WWW www = new WWW(path);
+        while (!www.isDone) { }
+        databaseUrl = string.Format("{0}/{1}", Application.persistentDataPath, databaseFileName);
+        File.WriteAllBytes(databaseUrl, www.bytes);
+
+        StreamReader wr = new StreamReader(databaseUrl);
+        string line;
+        while ((line = wr.ReadLine()) != null)
+        {
+            //your code
+            Debug.Log(line);
+        }
+#endif
         //IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase("Assets/StreamingAssets/Vuforia/VuforiaMigration.xml");           
-         StartCoroutine(CheckFile(dataSetName));
+        StartCoroutine(CheckFile(dataSetName));
 
 
             //DataSet dataSet = objectTracker.CreateDataSet();
@@ -106,7 +131,7 @@ public class AnimalDataSetLoader : MonoBehaviour
         Debug.Log("CheckFile");
         //  Elon 220629
         GameObject temp = transform.Find(_dataSetName).gameObject;
-        IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase(database);
+        IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase(databaseUrl);
 
         foreach(ObserverBehaviour ob in observers)
         {
@@ -320,13 +345,13 @@ public class AnimalDataSetLoader : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        //Manager.MRPanel.gameObject.SetActive(true);
-        //Manager.MRPanel.SetButtons();
-        //while (!Manager.MRPanel.isDone)
-        //{
-        //    yield return new WaitForEndOfFrame();
-        //}
-        //Manager.MRPanel.gameObject.SetActive(false);
+        Manager.MRPanel.gameObject.SetActive(true);
+        Manager.MRPanel.SetButtons();
+        while (!Manager.MRPanel.isDone)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        Manager.MRPanel.gameObject.SetActive(false);
         canvasManager.OnLoadingDone();
 
         yield return null;
