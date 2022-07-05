@@ -37,8 +37,9 @@ public class ObjInteraction : MonoBehaviour
 
     Vector3 CamCorrection(Vector2 screenPoint,Transform targetOBJ)
     {
+        float v3=_currentCam.transform.InverseTransformPoint(targetOBJ.transform.position).z;
         //print(_currentCam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Vector3.Distance(_currentCam.transform.position, targetOBJ.position))));
-        Vector3 vector= _currentCam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Vector3.Distance(_currentCam.transform.position, targetOBJ.position)));
+        Vector3 vector= _currentCam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, v3));
         Debug.DrawLine(vector, _currentCam.transform.position,Color.blue);
         return vector;
         //카메라 보정값을 준다.
@@ -113,12 +114,16 @@ public class ObjInteraction : MonoBehaviour
                 {
                     prevPos = CamCorrection(Input.mousePosition, targetOBJ);
                 }
-                float _delta = Vector3.Distance(Input.mousePosition , prevPos) * ratio;
+                if (saverot == Quaternion.identity)
+                {
+                    saverot = transform.rotation;
+                }
+                float _delta = Vector2.Distance(CamCorrection(Input.mousePosition, targetOBJ), prevPos) * 20;
                 //Vector2 rowdir = prevPos - CamCorrection(Input.mousePosition,targetOBJ);
                 Vector3 dir = prevPos - CamCorrection(Input.mousePosition, targetOBJ);
                 Debug.DrawLine(dir+targetOBJ.position,targetOBJ.position,Color.red);
                 dir = Vector3.Cross(dir, targetOBJ.position-_currentCam.transform.position);
-                Debug.DrawLine(dir, targetOBJ.position);
+                Debug.DrawLine(dir+ targetOBJ.position, targetOBJ.position);
                 Debug.DrawLine(targetOBJ.position, _currentCam.transform.position,Color.yellow);
                 if (Input.GetMouseButtonDown(0))
                 {
