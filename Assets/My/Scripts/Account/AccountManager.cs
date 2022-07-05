@@ -234,6 +234,8 @@ public class AccountManager : MonoBehaviour
             {
                 texts[i].text = LocalizationManager.GetTermTranslation("UI_" + texts[i].name);
             }
+            if (!loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.activeSelf)
+                loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
             loginPanel.SetActive(true);
             signUpPanel.SetActive(false);
             loginAndSignUp.GetComponentInChildren<PanelSize>().Resizer();
@@ -429,10 +431,13 @@ public class AccountManager : MonoBehaviour
 
                 break;
             case "btn_signUp":
+                if (loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.activeSelf)
+                    loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
                 loginPanel.gameObject.SetActive(false);
 
                 signUpPanel.GetComponentInChildren<PopUpManager>().PopupReady();
                 signUpPanel.SetActive(true);
+
 
                 loginAndSignUp.GetComponent<PanelSize>().Resizer();
 
@@ -551,6 +556,8 @@ public class AccountManager : MonoBehaviour
 
                 loginPanel.GetComponentInChildren<PopUpManager>().PopupReady();
                 loginPanel.SetActive(true);
+                if (!loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.activeSelf)
+                    loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
 
                 loginAndSignUp.GetComponent<PanelSize>().Resizer();
 
