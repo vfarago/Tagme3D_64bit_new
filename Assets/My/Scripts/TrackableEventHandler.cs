@@ -53,7 +53,6 @@ public class TrackableEventHandler : DefaultObserverEventHandler
 
     protected override void HandleTargetStatusChanged(Status previousStatus, Status newStatus)
     {
-        Debug.Log("점심시간");
 
         if (Status.EXTENDED_TRACKED == newStatus || Status.TRACKED == newStatus)
         {
