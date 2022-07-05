@@ -149,24 +149,29 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
 
                 if (m3dModel != null)
                 {
-                    //gestures  [start]
-                    TapGesture tagGesture = m3dModel.AddComponent<TapGesture>();
-                    tagGesture.NumberOfTapsRequired = 1;
-                    tagGesture.TimeLimit = 1;
+                    ObjInteraction objInteraction = m3dModel.AddComponent<ObjInteraction>();
+                    objInteraction.SetTargetOBJ(m3dModel.transform);
+                    objInteraction.targetName = targetName;
+                    objInteraction.isFreeModel = isFreeModel;
 
-                    ScaleGesture scaleGesture = m3dModel.AddComponent<ScaleGesture>();
-                    PanGesture panGesture = m3dModel.AddComponent<PanGesture>();
+                    ////gestures  [start]
+                    //TapGesture tagGesture = m3dModel.AddComponent<TapGesture>();
+                    //tagGesture.NumberOfTapsRequired = 1;
+                    //tagGesture.TimeLimit = 1;
 
-                    scaleGesture.AddFriendlyGesture(panGesture);
-                    panGesture.AddFriendlyGesture(scaleGesture);
+                    //ScaleGesture scaleGesture = m3dModel.AddComponent<ScaleGesture>();
+                    //PanGesture panGesture = m3dModel.AddComponent<PanGesture>();
 
-                    TSGestureHandler gestureHandler = m3dModel.AddComponent<TSGestureHandler>();
-                    //임시조치입니다0627
-                    //gestureHandler.mTrackableBehaviour = mTrackableBehaviour;
-                    gestureHandler.targetName = targetName;
-                    gestureHandler.isFreeModel = isFreeModel;
-                    gestureHandler.enabled = true;
-                    //gesture [end]
+                    //scaleGesture.AddFriendlyGesture(panGesture);
+                    //panGesture.AddFriendlyGesture(scaleGesture);
+
+                    //TSGestureHandler gestureHandler = m3dModel.AddComponent<TSGestureHandler>();
+                    ////임시조치입니다0627
+                    ////gestureHandler.mTrackableBehaviour = mTrackableBehaviour;
+                    //gestureHandler.targetName = targetName;
+                    //gestureHandler.isFreeModel = isFreeModel;
+                    //gestureHandler.enabled = true;
+                    ////gesture [end]
                 }
             }
         }
@@ -326,26 +331,30 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
 
                 if (m3dModel != null)
                 {
-                    //gestures  [start]
-                    TapGesture tagGesture = m3dModel.AddComponent<TapGesture>();
-                    tagGesture.NumberOfTapsRequired = 1;
-                    tagGesture.TimeLimit = 1;
+                    ObjInteraction objInteraction =  m3dModel.AddComponent<ObjInteraction>();
+                    objInteraction.SetTargetOBJ(m3dModel.transform);
+                    objInteraction.targetName = targetName;
+                    objInteraction.isFreeModel = isFreeModel;
+                    ////gestures  [start]
+                    //TapGesture tagGesture = m3dModel.AddComponent<TapGesture>();
+                    //tagGesture.NumberOfTapsRequired = 1;
+                    //tagGesture.TimeLimit = 1;
 
-                    ScaleGesture scaleGesture = m3dModel.AddComponent<ScaleGesture>();
-                    PanGesture panGesture = m3dModel.AddComponent<PanGesture>();
+                    //ScaleGesture scaleGesture = m3dModel.AddComponent<ScaleGesture>();
+                    //PanGesture panGesture = m3dModel.AddComponent<PanGesture>();
 
-                    scaleGesture.AddFriendlyGesture(panGesture);
-                    panGesture.AddFriendlyGesture(scaleGesture);
+                    //scaleGesture.AddFriendlyGesture(panGesture);
+                    //panGesture.AddFriendlyGesture(scaleGesture);
 
-                    TSGestureHandler gestureHandler = m3dModel.AddComponent<TSGestureHandler>();
-                    //바꿔야합니다0627
-                    //gestureHandler.mTrackableBehaviour = mTrackableBehaviour;
-                    gestureHandler.targetName = str;
-                    gestureHandler.isFreeModel = isFree;
-                    gestureHandler.enabled = true;
-                    //gesture [end]
+                    //TSGestureHandler gestureHandler = m3dModel.AddComponent<TSGestureHandler>();
+                    ////바꿔야합니다0627
+                    ////gestureHandler.mTrackableBehaviour = mTrackableBehaviour;
+                    //gestureHandler.targetName = str;
+                    //gestureHandler.isFreeModel = isFree;
+                    //gestureHandler.enabled = true;
+                    ////gesture [end]
 
-                    StartCoroutine(gestureHandler.MRDoubleTapEvent());
+                    //StartCoroutine(gestureHandler.MRDoubleTapEvent());
                 }
             }
         }

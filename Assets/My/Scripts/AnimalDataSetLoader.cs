@@ -77,33 +77,31 @@ public class AnimalDataSetLoader : MonoBehaviour
         //ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
         Debug.Log("LoadDataSet");
 
-//#if UNITY_EDITOR
+        //#if UNITY_EDITOR
         dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
-        databaseUrl = string.Format(Application.persistentDataPath+"/{0}{1}", dataSetName, ".xml");
-        //databaseUrl = string.Format("http://bookplusapp.co.kr/fileStorage/tm_book_20_3_12" + "/{0}{1}", dataSetName, ".xml");
+        databaseUrl = string.Format(Application.persistentDataPath + "/{0}{1}", dataSetName, ".xml");
+        //databaseUrl = string.Format("http://bookplusapp.co.kr/fileStorage/tm_book_20_3_12" + "/{0}{1}", dataSetName, ".xml")
+        //#elif UNITY_ANDROID
+        //        dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
+        //        databaseFileName = string.Format("TagMe3D_New_Book{0}{1}", dataSetNumber, ".xml");
 
+        //        string path = "jar:file://" + Application.dataPath + "!/assets/Vuforia/"+ databaseFileName;
+        //        WWW www = new WWW(path);
+        //        while (!www.isDone) { }
+        //        databaseUrl = string.Format("{0}/{1}", Application.persistentDataPath, databaseFileName);
+        //        File.WriteAllBytes(databaseUrl, www.bytes);
 
-//#elif UNITY_ANDROID
-//        dataSetName = string.Format("TagMe3D_New_Book{0}", dataSetNumber);
-//        databaseFileName = string.Format("TagMe3D_New_Book{0}{1}", dataSetNumber, ".xml");
-
-//        string path = "jar:file://" + Application.dataPath + "!/assets/Vuforia/"+ databaseFileName;
-//        WWW www = new WWW(path);
-//        while (!www.isDone) { }
-//        databaseUrl = string.Format("{0}/{1}", Application.persistentDataPath, databaseFileName);
-//        File.WriteAllBytes(databaseUrl, www.bytes);
-
-//        StreamReader wr = new StreamReader(databaseUrl);
-//        string line;
-//        while ((line = wr.ReadLine()) != null)
-//        {
-//            //your code
-//            Debug.Log(line);
-//        }
-//#endif
+        //        StreamReader wr = new StreamReader(databaseUrl);
+        //        string line;
+        //        while ((line = wr.ReadLine()) != null)
+        //        {
+        //            //your code
+        //            Debug.Log(line);
+        //        }
+        //#endif
         //IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase("Assets/StreamingAssets/Vuforia/VuforiaMigration.xml");
 
-        DownloadFileAll(()=> { StartCoroutine(CheckFile(dataSetName)); });
+        DownloadFileAll(() => { StartCoroutine(CheckFile(dataSetName)); });
         //DataSet dataSet = objectTracker.CreateDataSet();
         //if (dataSet.Load(dataSetName))
         //{
@@ -127,13 +125,13 @@ public class AnimalDataSetLoader : MonoBehaviour
         //}
     }
     Coroutine cur_Cor;
-    List<Coroutine> progress=new List<Coroutine>();
+    List<Coroutine> progress = new List<Coroutine>();
     void DownloadFileAll(Action done)
     {
-        StartCoroutine(Cor_DownloadFileAll("TagMe3D_New_Book{0}.xml",()=> {  StartCoroutine(Cor_DownloadFileAll("TagMe3D_New_Book{0}.dat",()=> { done(); }));}));
-       
+        StartCoroutine(Cor_DownloadFileAll("TagMe3D_New_Book{0}.xml", () => { StartCoroutine(Cor_DownloadFileAll("TagMe3D_New_Book{0}.dat", () => { done(); })); }));
+
     }
-    IEnumerator Cor_DownloadFileAll(string format,Action done) 
+    IEnumerator Cor_DownloadFileAll(string format, Action done)
     {
 
         for (int i = 1; i < 6; i++)
@@ -162,9 +160,11 @@ public class AnimalDataSetLoader : MonoBehaviour
     }
     private IEnumerator DownloadFile(string format)
     {
+        print("Aaa");
         string dataSetName = string.Format(format, dataSetNumber);
         Debug.Log("CheckFile");
-        UnityWebRequest www = UnityWebRequest.Get(serverUrl+"/"+dataSetName);
+        UnityWebRequest www = UnityWebRequest.Get(serverUrl + "/" + dataSetName);
+        //www.downloadHandler = new DownloadHandlerFile(Application.persistentDataPath+ "TagMe3D_New_Book1.xml");
         //print(serverUrl + "TagMe3D_New_Book1.xml");
         yield return www.SendWebRequest();
 
@@ -174,7 +174,7 @@ public class AnimalDataSetLoader : MonoBehaviour
         }
         byte[] results = www.downloadHandler.data;
 
-        File.WriteAllBytes(Application.persistentDataPath + "/"+ dataSetName, results);
+        File.WriteAllBytes(Application.persistentDataPath + "/" + dataSetName, results);
         cur_Cor = null;
         //yield return StartCoroutine(CheckFile(dataSetName));
     }
@@ -198,9 +198,9 @@ public class AnimalDataSetLoader : MonoBehaviour
         GameObject temp = transform.Find(_dataSetName).gameObject;
         IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase(databaseUrl);
 
-        foreach(ObserverBehaviour ob in observers)
+        foreach (ObserverBehaviour ob in observers)
         {
-            if(ob.name.Equals("New Game Object"))
+            if (ob.name.Equals("New Game Object"))
             {
 
             }

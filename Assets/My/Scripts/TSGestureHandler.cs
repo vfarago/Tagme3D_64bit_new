@@ -5,7 +5,7 @@ using UnityEngine;
 using Vuforia;
 //using System.Runtime.InteropServices;
 
-public class TSGestureHandler : MonoBehaviour
+public class TSGestureHandler : DefaultObserverEventHandler
 {
 #if UNITY_IPHONE
 	[DllImport ("__Internal")]
@@ -21,6 +21,8 @@ public class TSGestureHandler : MonoBehaviour
 
     //바꿔야합니다0627
     //public TrackableBehaviour mTrackableBehaviour;
+    public ObserverBehaviour mObserverBehaviour;
+    public VuforiaBehaviour vuforiaBehaviour;
     public string targetName;
     public bool isFreeModel;
     public int counter = 0;
@@ -109,6 +111,12 @@ public class TSGestureHandler : MonoBehaviour
             canvasManager.OnTargetOffObject(true);
             //바꿔야합니다0627
             //mTrackableBehaviour.OnTrackerUpdate(TrackableBehaviour.Status.NOT_FOUND);
+            
+
+
+
+
+
         }
 
         yield return new WaitForSeconds(0.05f);
@@ -162,8 +170,6 @@ public class TSGestureHandler : MonoBehaviour
                 break;
         }
     }
-
-
 
     private void OnScaleStateChanged(object sender, GestureStateChangeEventArgs e)
     {

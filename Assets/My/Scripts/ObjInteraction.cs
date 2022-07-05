@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class ObjInteraction : MonoBehaviour
 {
-
     Camera currentcam 
     {
         get
@@ -28,6 +27,14 @@ public class ObjInteraction : MonoBehaviour
     bool interAction = true;
 
     float ratio = 1;
+
+    //  Elon
+    private PrefabLoader prefabLoader = Manager.PrefabLoader;
+    private CanvasManager canvasManager = Manager.CanvasManager;
+    public string targetName;
+    public bool isFreeModel;
+    private bool Phonics = false;
+
     void ZoomInOutNRot(Transform tf, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2,bool fixZrot=false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
     {
         if (targetOBJ == null) 
@@ -103,11 +110,13 @@ public class ObjInteraction : MonoBehaviour
                 else if (Input.GetMouseButtonUp(0))
                 {
                     //더블클릭시 초기화구문작성
-                    if (Mathf.Abs(_delta) < 5 * ratio)
+                    if (Mathf.Abs(_delta) < 5 * ratio && !Phonics)
                     {
                         if (Time.time - checkTime < 1)
                         {
-                            StartReturnObjTf(tf);
+                            StartCoroutine(DoubleTapEvent());
+
+                            //StartReturnObjTf(tf);
                             //tf.localRotation = saverot = Quaternion.identity;
                             //tf.localScale = Vector3.one;
 
@@ -140,11 +149,12 @@ public class ObjInteraction : MonoBehaviour
                 else if (Input.GetMouseButtonUp(0))
                 {
                     //더블클릭시 초기화구문작성
-                    if (Mathf.Abs(delta) < 5 * ratio)
+                    if (Mathf.Abs(delta) < 5 * ratio && !Phonics)
                     {
                         if (Time.time - checkTime < 1)
                         {
-                            StartReturnObjTf(tf);
+                            //StartReturnObjTf(tf);
+                            StartCoroutine(DoubleTapEvent());
                             //tf.localRotation = saverot = Quaternion.identity;
                             //tf.localScale = Vector3.one;
 
@@ -173,6 +183,28 @@ public class ObjInteraction : MonoBehaviour
         if(cur_Cor==null)
         cur_Cor = StartCoroutine(Cor_ReturnOriginPos(tf,duration,frequancy));
     }
+
+    IEnumerator DoubleTapEvent()
+    {
+        //yield return new WaitForSeconds(0.02f);
+
+        //camera changer
+        ARManager.Instance.ChangeCamera("MainCamera");
+        ARManager.Instance.setHintZero();
+
+        prefabLoader.ChangePrefab(targetName, isFreeModel);
+
+        canvasManager.OnPhonicsPanel(true);
+        yield return new WaitForSeconds(0.05f);
+        prefabLoader.ModelFalse();
+        Phonics = true;
+
+    }
+
+
+
+
+
     IEnumerator Cor_ReturnOriginPos(Transform tf,float duration=1f,float frequancy=10f)//이 코루틴을 작동하면 원위치로 서서히 돌아간다. 돌아가는 중에는 터치막는다.
     {
         interAction = false;

@@ -37,19 +37,19 @@ public class TrackableEventHandler : DefaultObserverEventHandler
 
 
     //바꿔야합니다0627
-    public virtual void OnTrackableStateChanged(Status previousStatus,Status newStatus)
-    {
-        if(Status.EXTENDED_TRACKED == newStatus || Status.TRACKED == newStatus)
-        {
-            currentStatus = newStatus;
-            OnTrackingFound();
-        }
-        else
-        {
-            currentStatus = newStatus;
-            OnTrackingLost();
-        }          
-    }
+    //public virtual void OnTrackableStateChanged(Status previousStatus,Status newStatus)
+    //{
+    //    if(Status.EXTENDED_TRACKED == newStatus || Status.TRACKED == newStatus)
+    //    {
+    //        currentStatus = newStatus;
+    //        OnTrackingFound();
+    //    }
+    //    else
+    //    {
+    //        currentStatus = newStatus;
+    //        OnTrackingLost();
+    //    }          
+    //}
 
     protected override void HandleTargetStatusChanged(Status previousStatus, Status newStatus)
     {
@@ -86,7 +86,7 @@ public class TrackableEventHandler : DefaultObserverEventHandler
     //    }
     //}
 
-    protected virtual void OnTrackingFound()
+    protected override void OnTrackingFound()
     {
         Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
         Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
@@ -103,7 +103,7 @@ public class TrackableEventHandler : DefaultObserverEventHandler
     }
 
 
-    protected virtual void OnTrackingLost()
+    protected override void OnTrackingLost()
     {
         Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
         Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
