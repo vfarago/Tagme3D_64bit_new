@@ -23,8 +23,8 @@ public class FileDownloader : MonoBehaviour
     [SerializeField]
     private List<FileList> fileList = new List<FileList>();
 
-    private WWW ping;
-    private WWW downPing;
+    //private WWW ping;
+    //private WWW downPing;
     private GameObject blocker;
     private bool downloadInProgress;
     private float pingWait = 10f;
@@ -40,8 +40,8 @@ public class FileDownloader : MonoBehaviour
     private float timerSpeedEllap = 0;
     private double speed = 0;
     //private string url = "https://tm-book-2019-2-19.oss-cn-beijing.aliyuncs.com/assets/";
-    private string pingUrl = "http://bookplusapp.co.kr/fileStorage/tm_book_2019_2_19/";
-    private string url = "http://bookplusapp.co.kr/";
+    private string pingUrl = "https://bookplusapp.co.kr/fileStorage/tm_book_2019_2_19/";
+    private string url = "https://bookplusapp.co.kr/";
     private string[] audioFolder = { "kor", "eng", "chn", "esp", "jpn", "deu", "fra", "are", "ita", "pol", "hin", "heb", "rus", "tha", "word" };
 
     public int coroutineNumber;
@@ -55,75 +55,80 @@ public class FileDownloader : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (ping != null)
-        {
-            if (ping.isDone && string.IsNullOrEmpty(ping.error))
-            {
-                StartCoroutine(Download(savedDataSet));
+    //private void Update()
+    //{
+    //    if (ping != null)
+    //    {
+    //        if (ping.isDone && string.IsNullOrEmpty(ping.error))
+    //        {
+    //            StartCoroutine(Download(savedDataSet));
 
-                Debug.Log("Connected successfully");
-                ping = null;
-            }
-            else if (pingWaitEllap < pingWait)
-            {
-                pingWaitEllap += Time.deltaTime;
-            }
-            else
-            {
-                Debug.Log("Connection check failed - No ping from server");
-                Destroy(blocker);
-                ActiveWindow("connectFail");
-                savedDataSet = string.Empty;
-                ping = null;
-            }
-        }
+    //            Debug.Log("Connected successfully");
+    //            ping = null;
+    //        }
+    //        else if (pingWaitEllap < pingWait)
+    //        {
+    //            pingWaitEllap += Time.deltaTime;
+    //        }
+    //        else
+    //        {
+    //            Debug.Log(ping);
+    //            Debug.Log(ping.isDone);
+    //            Debug.Log(string.IsNullOrEmpty(ping.error));
+    //            Debug.Log(ping.error);
+    //            Debug.Log("Connection check failed - No ping from server");
+    //            Destroy(blocker);
+    //            ActiveWindow("connectFail");
+    //            savedDataSet = string.Empty;
+    //            ping = null;
+    //        }
+    //    }
 
-        if (downloadInProgress)
-        {
-            if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork ||
-                Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
-            {
-                downServerWaitEllap = 0;
-            }
-            else if (Application.internetReachability == NetworkReachability.NotReachable)
-            {
-                if (downServerWaitEllap < downServerWait)
-                {
-                    downServerWaitEllap += Time.deltaTime;
-                }
-                else
-                {
-                    downServerWaitEllap = 0;
-                    ForceQuitDownload(true);
-                    Debug.Log("Download force quitted - Internet connection lost");
-                }
-            }
-            else
-            {
-                if (downPing != null)
-                {
-                    if (downPing.isDone && string.IsNullOrEmpty(downPing.error))
-                    {
-                        downPing = new WWW(pingUrl);
-                        //downPing = new WWW(pingurl);
-                    }
-                    else if (downPingWaitEllap < downPingWait)
-                    {
-                        downPingWaitEllap += Time.deltaTime;
-                    }
-                    else
-                    {
-                        ForceQuitDownload(true);
-                        Debug.Log("Download force quitted - Server connection lost");
-                    }
-                }
-            }
-        }
-    }
+    //    if (downloadInProgress)
+    //    {
+    //        if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork ||
+    //            Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
+    //        {
+    //            downServerWaitEllap = 0;
+    //        }
+    //        else if (Application.internetReachability == NetworkReachability.NotReachable)
+    //        {
+    //            if (downServerWaitEllap < downServerWait)
+    //            {
+    //                downServerWaitEllap += Time.deltaTime;
+    //            }
+    //            else
+    //            {
+    //                downServerWaitEllap = 0;
+    //                ForceQuitDownload(true);
+    //                Debug.Log("Download force quitted - Internet connection lost");
+    //            }
+    //        }
+    //        else
+    //        {
+    //            if (downPing != null)
+    //            {
+    //                if (downPing.isDone && string.IsNullOrEmpty(downPing.error))
+    //                {
+    //                    downPing = new WWW(pingUrl);
+    //                    //downPing = new WWW(pingurl);
+    //                }
+    //                else if (downPingWaitEllap < downPingWait)
+    //                {
+    //                    downPingWaitEllap += Time.deltaTime;
+    //                }
+    //                else
+    //                {
+    //                    ForceQuitDownload(true);
+    //                    Debug.Log("Download force quitted - Server connection lost");
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     //파일 체크 → 있으면 프리펩셋팅 / 없으면 다운로드후 프리펩셋팅
+
     public void CheckFile(string bookName)
     {
         bool checkBook = true;
@@ -201,32 +206,36 @@ public class FileDownloader : MonoBehaviour
     public void OnClickYes(string dataSetName)
     {
         FindObjectOfType<BookPanelManager>().btns_tm[0].gameObject.SetActive(false);
-        if (ping == null)
+        //if (ping == null)
+        //{
+        Font localFont = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
+        Debug.Log(localFont.name);
+        assetLoaderText.text = LocalizationManager.GetTermTranslation("UI_downCheckPing");
+        Debug.Log(assetLoaderText.text);
+        assetLoaderText.font = localFont;
+
+        pingWaitEllap = 0;
+
+        //ping = new WWW(url);
+        //ping = new WWW(pingurl);
+        savedDataSet = dataSetName;
+        Debug.Log(savedDataSet);
+        mainProgress.fillAmount = 0;
+
+        int intOut = 0;
+        if (int.TryParse(savedDataSet.Substring(savedDataSet.Length - 1), out intOut))
         {
-            Font localFont = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
-
-            assetLoaderText.text = LocalizationManager.GetTermTranslation("UI_downCheckPing");
-            assetLoaderText.font = localFont;
-
-            pingWaitEllap = 0;
-
-            ping = new WWW(url);
-            //ping = new WWW(pingurl);
-            savedDataSet = dataSetName;
-            mainProgress.fillAmount = 0;
-
-            int intOut = 0;
-            if (int.TryParse(savedDataSet.Substring(savedDataSet.Length - 1), out intOut))
-            {
-                bookNumber = intOut;
-            }
-            else
-            {
-                bookNumber = 0;
-            }
-
-            CreateBlocker();
+            bookNumber = intOut;
+            Debug.Log(bookNumber);
         }
+        else
+        {
+            bookNumber = 0;
+        }
+
+        CreateBlocker();
+        StartCoroutine(Download(savedDataSet));
+        //}
     }
 
     private void ActiveWindow(string st)
@@ -266,10 +275,10 @@ public class FileDownloader : MonoBehaviour
         }
 
 
-        if (downPing != null)
-        {
-            downPing = null;
-        }
+        //if (downPing != null)
+        //{
+        //    downPing = null;
+        //}
 
         if (window)
             ActiveWindow("connectFail");
@@ -285,6 +294,7 @@ public class FileDownloader : MonoBehaviour
 
     public IEnumerator Download(string dataSetName)
     {
+        Debug.Log(dataSetName);
         if (Directory.Exists(Application.persistentDataPath + "/asset"))
         {
             Directory.Delete(Application.persistentDataPath + "/asset", true);
@@ -302,8 +312,7 @@ public class FileDownloader : MonoBehaviour
 
         string progressString;
         savedDataSet = dataSetName;
-
-        downPing = new WWW(pingUrl + dataSetName + "s.zip");
+        //downPing = new UnityWebRequest(pingUrl + dataSetName + "s.zip");
         //downPing = new WWW(pingurl);
 
         bookDownloadGO.transform.GetChild(6).gameObject.SetActive(false);
@@ -314,7 +323,7 @@ public class FileDownloader : MonoBehaviour
 
         //____________ Check Server Files
         assetLoaderText.text = LocalizationManager.GetTermTranslation("UI_downFileCheck");
-
+        Debug.Log(assetLoaderText.text);
         totalSize = 0;
 
         bool checkInfo = false;
@@ -420,8 +429,8 @@ public class FileDownloader : MonoBehaviour
 
         if (!totalSize.Equals(0))
         {
-            if(!dataSetName.Contains("free"))
-            StartCoroutine(TargetDataSetting(dataSetName));
+            if (!dataSetName.Contains("free"))
+                StartCoroutine(TargetDataSetting(dataSetName));
         }
         else
         {
@@ -508,7 +517,7 @@ public class FileDownloader : MonoBehaviour
 
             assetLoaderText.text = LocalizationManager.GetTermTranslation("UI_downSetPrefab").Replace("*", bookNum.ToString());
             int imgNum = bookNum < 4 ? 1 : 2;
-            int bookNumber = bookNum < 4 ? bookNum-1 : bookNum - 4;
+            int bookNumber = bookNum < 4 ? bookNum - 1 : bookNum - 4;
             Image prefabProgress = bookDownloadGO.transform.GetChild(7).GetChild(0).GetChild(0).GetChild(imgNum).GetChild(bookNumber).GetChild(0).GetComponent<Image>();
             //prefabProgress.gameObject.SetActive(true);
             prefabProgress.fillAmount = 1;
@@ -569,8 +578,9 @@ public class FileDownloader : MonoBehaviour
     #region DOWNLOAD_DATA
     private IEnumerator Download_Information(string name, Action<bool> output)
     {
+        Debug.Log(name);
         string path = string.Format("{0}{1}s.zip", pingUrl, name);
-
+        Debug.Log(path);
         UnityWebRequest req = UnityWebRequest.Get(path);
         req.method = "HEAD";
         req.Send();

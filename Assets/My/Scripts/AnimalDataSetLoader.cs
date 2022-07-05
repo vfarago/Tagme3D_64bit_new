@@ -149,7 +149,6 @@ public class AnimalDataSetLoader : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
             }
-            Debug.Log(databaselocal + "is Done");
             dataSetNumber++;
             if (progress.Contains(cur_Cor))
             {
@@ -160,9 +159,7 @@ public class AnimalDataSetLoader : MonoBehaviour
     }
     private IEnumerator DownloadFile(string format)
     {
-        print("Aaa");
         string dataSetName = string.Format(format, dataSetNumber);
-        Debug.Log("CheckFile");
         UnityWebRequest www = UnityWebRequest.Get(serverUrl + "/" + dataSetName);
         //www.downloadHandler = new DownloadHandlerFile(Application.persistentDataPath+ "TagMe3D_New_Book1.xml");
         //print(serverUrl + "TagMe3D_New_Book1.xml");
@@ -207,7 +204,6 @@ public class AnimalDataSetLoader : MonoBehaviour
 
             ob.gameObject.name = ob.TargetName;
 
-            Debug.Log(ob.gameObject.name);
             if (ob.TargetName.Contains("cover"))
             {
                 ob.gameObject.transform.parent = transform;
