@@ -331,24 +331,28 @@ public class CanvasManager : MonoBehaviour
 
                 break;
             case "btn_Scan":
-                if (mainUI.activeSelf)
+
+                ARManager.Instance.UseVuforiaCam(()=> 
                 {
-                    accountManager.AllDisable();
-                    PanelManager(true);
-                }
-                else
-                {
-                    if (Manager.isMR)
+                    if (mainUI.activeSelf)
                     {
-                        Manager.isMR = false;
-                        PanelManager(false);
+                        accountManager.AllDisable();
                         PanelManager(true);
                     }
                     else
                     {
-                        ChoiceControll();
+                        if (Manager.isMR)
+                        {
+                            Manager.isMR = false;
+                            PanelManager(false);
+                            PanelManager(true);
+                        }
+                        else
+                        {
+                            ChoiceControll();
+                        }
                     }
-                }
+                });
                 break;
         }
     }

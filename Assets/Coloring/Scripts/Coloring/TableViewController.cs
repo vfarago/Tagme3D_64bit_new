@@ -75,7 +75,10 @@ namespace SJ.MathFun
             switch (button.name)
             {
                 case "btn_Scan":
-                    LoadSceneManager.instance.ChangeScene(false, true);
+                    ARManager.Instance.UseVuforiaCam(() => 
+                    {
+                        LoadSceneManager.instance.ChangeScene(false, true);
+                    });
 
                     break;
                 case "btn_Cancel":
