@@ -141,6 +141,9 @@ public class ObjInteraction : MonoBehaviour
                         else
                         {
                             checkTime = Time.time;
+
+                            prefabLoader.TargetOffMoving(gameObject);
+                            canvasManager.OnTargetOffObject(true);
                         }
                     }
                     else
@@ -179,6 +182,9 @@ public class ObjInteraction : MonoBehaviour
                         else
                         {
                             checkTime = Time.time;
+
+                            prefabLoader.TargetOffMoving(gameObject);
+                            canvasManager.OnTargetOffObject(true);
                         }
                     }
                     else
