@@ -18,7 +18,7 @@ public class ObjInteraction : MonoBehaviour
         }
     }
     Camera _currentCam;
-    Vector2 prevPos = Vector2.zero;
+    Vector3 prevPos = Vector3.zero;
     Quaternion saverot = Quaternion.identity;
     float checkTime = 0;
     UnityAction updateAction;
@@ -35,6 +35,16 @@ public class ObjInteraction : MonoBehaviour
     public bool isFreeModel;
     private bool Phonics = false;
 
+    Vector3 CamCorrection(Vector2 screenPoint,Transform targetOBJ)
+    {
+        //print(_currentCam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Vector3.Distance(_currentCam.transform.position, targetOBJ.position))));
+        Vector3 vector= _currentCam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Vector3.Distance(_currentCam.transform.position, targetOBJ.position)));
+        Debug.DrawLine(vector, _currentCam.transform.position,Color.blue);
+        return vector;
+        //카메라 보정값을 준다.
+        //기준은 모델과 카메라 사이.
+
+    }
     void ZoomInOutNRot(Transform tf, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2,bool fixZrot=false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
     {
         if (targetOBJ == null) 
@@ -99,13 +109,20 @@ public class ObjInteraction : MonoBehaviour
         {
             if (!fixZrot) 
             {
+                if (prevPos == Vector3.zero)
+                {
+                    prevPos = CamCorrection(Input.mousePosition, targetOBJ);
+                }
                 float _delta = Vector3.Distance(Input.mousePosition , prevPos) * ratio;
-                Vector2 rowdir = prevPos - (Vector2)Input.mousePosition;
-                Vector3 dir = new Vector3(rowdir.x, rowdir.y, tf.position.z);
-                dir = Vector3.Cross(dir, dir+Vector3.forward);
+                //Vector2 rowdir = prevPos - CamCorrection(Input.mousePosition,targetOBJ);
+                Vector3 dir = prevPos - CamCorrection(Input.mousePosition, targetOBJ);
+                Debug.DrawLine(dir+targetOBJ.position,targetOBJ.position,Color.red);
+                dir = Vector3.Cross(dir, targetOBJ.position-_currentCam.transform.position);
+                Debug.DrawLine(dir, targetOBJ.position);
+                Debug.DrawLine(targetOBJ.position, _currentCam.transform.position,Color.yellow);
                 if (Input.GetMouseButtonDown(0))
                 {
-                    prevPos = Input.mousePosition;
+                    prevPos = CamCorrection(Input.mousePosition,targetOBJ);
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
