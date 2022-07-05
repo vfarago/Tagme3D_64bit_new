@@ -150,7 +150,7 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                 if (m3dModel != null)
                 {
                     ObjInteraction objInteraction = m3dModel.AddComponent<ObjInteraction>();
-                    objInteraction.SetTargetOBJ(m3dModel.transform);
+                    objInteraction.SetTargetOBJ(m3dModel.transform,100);
                     objInteraction.targetName = targetName;
                     objInteraction.isFreeModel = isFreeModel;
 
@@ -332,7 +332,7 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                 if (m3dModel != null)
                 {
                     ObjInteraction objInteraction =  m3dModel.AddComponent<ObjInteraction>();
-                    objInteraction.SetTargetOBJ(m3dModel.transform);
+                    objInteraction.SetTargetOBJ(m3dModel.transform,100);
                     objInteraction.targetName = targetName;
                     objInteraction.isFreeModel = isFreeModel;
                     ////gestures  [start]

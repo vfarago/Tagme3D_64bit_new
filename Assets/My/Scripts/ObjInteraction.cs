@@ -22,7 +22,8 @@ public class ObjInteraction : MonoBehaviour
     Quaternion saverot = Quaternion.identity;
     float checkTime = 0;
     UnityAction updateAction;
-    [SerializeField] Transform targetOBJ;
+    [SerializeField] Transform targetObjManual;
+    Transform targetOBJ;
 
     bool interAction = true;
 
@@ -46,7 +47,7 @@ public class ObjInteraction : MonoBehaviour
         //기준은 모델과 카메라 사이.
 
     }
-    void ZoomInOutNRot(Transform tf, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2,bool fixZrot=false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
+    void ZoomInOutNRot(Transform tf, float scaleOrigin=1, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2,bool fixZrot=false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
     {
         if (targetOBJ == null) 
         {
@@ -77,24 +78,24 @@ public class ObjInteraction : MonoBehaviour
 
             if (magnitudeScale < 0)
             {
-                if (currentScale + magnitudeScale * sensitivity >= scaleMin)
+                if (currentScale + magnitudeScale * sensitivity * scaleOrigin >= scaleMin*scaleOrigin)
                 {
-                    currentScale += magnitudeScale * sensitivity;
+                    currentScale += magnitudeScale * sensitivity * scaleOrigin;
                 }
                 else
                 {
-                    currentScale = scaleMin;
+                    currentScale = scaleMin* scaleOrigin;
                 }
             }
             else if (magnitudeScale > 0)
             {
-                if (currentScale + magnitudeScale * sensitivity <= scaleMax)
+                if (currentScale + magnitudeScale * sensitivity * scaleOrigin <= scaleMax* scaleOrigin)
                 {
-                    currentScale += magnitudeScale * sensitivity;
+                    currentScale += magnitudeScale * sensitivity * scaleOrigin;
                 }
                 else
                 {
-                    currentScale = scaleMax;
+                    currentScale = scaleMax* scaleOrigin;
                 }
             }
             //else
@@ -103,7 +104,7 @@ public class ObjInteraction : MonoBehaviour
             //    scaleObject.GetComponent<RectTransform>().offsetMax += (touch - prevPos);
             //}
 
-            tf.localScale = new Vector3(currentScale, currentScale, currentScale);
+            tf.localScale = Vector3.one * currentScale;
         }
         //민감하게 반응하지 않게 제한.
         else
@@ -118,7 +119,7 @@ public class ObjInteraction : MonoBehaviour
                 {
                     saverot = transform.rotation;
                 }
-                float _delta = Vector2.Distance(CamCorrection(Input.mousePosition, targetOBJ), prevPos) * 20;
+                float _delta = Vector2.Distance(CamCorrection(Input.mousePosition, targetOBJ), prevPos) * 1;
                 //Vector2 rowdir = prevPos - CamCorrection(Input.mousePosition,targetOBJ);
                 Vector3 dir = prevPos - CamCorrection(Input.mousePosition, targetOBJ);
                 Debug.DrawLine(dir+targetOBJ.position,targetOBJ.position,Color.red);
@@ -262,12 +263,12 @@ public class ObjInteraction : MonoBehaviour
     /// <param name="sensitivity">올리면 적은 움직임으로 크게 확대,회전한다.</param>
     /// <param name="resetRot">드래그 시작값을 000으로 초기화하고 적용한다.</param>
     /// <param name="fixZRot">양 옆으로만 회전하게 한다.</param>
-    public void SetTargetOBJ(Transform target, float sensitivity = 0.01f, bool resetRot=false,bool fixZRot=false)
+    public void SetTargetOBJ(Transform target,float scaleOrigin=1, float sensitivity = 0.01f, bool resetRot=false,bool fixZRot=false)
     {
         if (resetRot) ResetRot();
         targetOBJ = target;
         targetOBJ.localEulerAngles = Vector3.zero;
-        updateAction = () => { if (interAction) ZoomInOutNRot(target, sensitivity, fixZrot: fixZRot); };
+        updateAction = () => { if (interAction) ZoomInOutNRot(target,scaleOrigin, sensitivity, fixZrot: fixZRot); };
     }
     public void UnloadTargetOBJ()
     {
@@ -280,9 +281,13 @@ public class ObjInteraction : MonoBehaviour
     private void Start()
     {
         _currentCam = Camera.main;
-        if (targetOBJ != null)
+        if (targetObjManual != null)
         {
-            SetTargetOBJ(targetOBJ);
+            SetTargetOBJ(targetObjManual);
+        }
+        else if (targetOBJ)
+        {
+
         }
         else
         {
