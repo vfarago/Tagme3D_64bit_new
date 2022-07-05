@@ -162,11 +162,9 @@ public class AnimalDataSetLoader : MonoBehaviour
     }
     private IEnumerator DownloadFile(string format)
     {
-        print("Aaa");
         string dataSetName = string.Format(format, dataSetNumber);
         Debug.Log("CheckFile");
         UnityWebRequest www = UnityWebRequest.Get(serverUrl+"/"+dataSetName);
-        //www.downloadHandler = new DownloadHandlerFile(Application.persistentDataPath+ "TagMe3D_New_Book1.xml");
         //print(serverUrl + "TagMe3D_New_Book1.xml");
         yield return www.SendWebRequest();
 

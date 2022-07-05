@@ -1,5 +1,7 @@
 using UnityEngine;
 using Vuforia;
+using System;
+using System.Collections;
 
 public class ARManager : MonoBehaviour
 {
@@ -16,7 +18,6 @@ public class ARManager : MonoBehaviour
     public HintState hintState = HintState.ZERO;
 
     [SerializeField] private VuforiaBehaviour vuforiaBehaviour;
-
 
     public static ARManager Instance
     {
@@ -38,6 +39,7 @@ public class ARManager : MonoBehaviour
         isFrontCamera = false;
         //TurnOnAR(false, false);
         setHintZero();
+        VuforiaApplication.Instance.OnVuforiaStopped += () => { checkStop = true; };
     }
 
 
@@ -161,7 +163,33 @@ public class ARManager : MonoBehaviour
 
     }
 
+    public void UseVuforiaCam(Action action)
+    {
+        VuforiaBehaviour.Instance.enabled = true;
+    }
+    public void UseWebCam(Action done)
+    {
+        Debug.LogError("check");
+        StartCoroutine(Cor_WaitToWebcamChange(done));
+    }
+    IEnumerator Cor_WaitToWebcamChange(Action done)
+    {
+        VuforiaBehaviour.Instance.enabled = false;
+        while (checkStop)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        done();
+        checkStop = false;
+    }
 
+
+    bool checkStop = false;
+
+    public void UseWebCam(QRCodeReaderDemo demo)
+    {
+        VuforiaBehaviour.Instance.enabled = false;
+    }
     public void changeCameraStateToIdle()
     {
         state = State.IDLE;

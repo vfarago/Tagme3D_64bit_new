@@ -826,11 +826,15 @@ public class AccountManager : MonoBehaviour
     //QR스캔 시작
     private void QRScanStart()
     {
-        qrPanel.SetActive(true);
-        QRCodeReaderDemo demos = qrPanel.GetComponentInChildren<QRCodeReaderDemo>();
-        demos.StartScanning();
-        qrPanel.GetComponent<PopUpManager>().PopupReady();
-        qrPanel.GetComponent<PopUpManager>().failText.text = LocalizationManager.GetTermTranslation("UI_connectText");
+        ARManager.Instance.UseWebCam(() => 
+        {
+            qrPanel.SetActive(true);
+            QRCodeReaderDemo demos = qrPanel.GetComponentInChildren<QRCodeReaderDemo>();
+            demos.StartScanning();
+            qrPanel.GetComponent<PopUpManager>().PopupReady();
+            qrPanel.GetComponent<PopUpManager>().failText.text = LocalizationManager.GetTermTranslation("UI_connectText");
+        });
+
     }
 
     public void CameraSwap(bool serialTrue)
