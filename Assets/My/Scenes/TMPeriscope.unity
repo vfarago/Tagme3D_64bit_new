@@ -539,7 +539,7 @@ GameObject:
   - component: {fileID: 24802881}
   - component: {fileID: 24802880}
   m_Layer: 5
-  m_Name: DirectionText
+  m_Name: Input_Current_Password
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 30083952}
   - component: {fileID: 30083951}
   m_Layer: 5
-  m_Name: login
+  m_Name: Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7494,7 +7494,7 @@ GameObject:
   - component: {fileID: 374812654}
   - component: {fileID: 374812653}
   m_Layer: 5
-  m_Name: login
+  m_Name: Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16177,7 +16177,7 @@ GameObject:
   - component: {fileID: 678300635}
   - component: {fileID: 678300634}
   m_Layer: 5
-  m_Name: login
+  m_Name: GoodbyeTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17782,7 +17782,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1818228574}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.06357093
+  m_Size: 0.13984899
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -17837,7 +17837,7 @@ GameObject:
   - component: {fileID: 742847779}
   - component: {fileID: 742847778}
   m_Layer: 5
-  m_Name: DirectionText
+  m_Name: WithdrawInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20508,7 +20508,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 477237952}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.06357093
+  m_Size: 0.13984899
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -25357,7 +25357,7 @@ GameObject:
   - component: {fileID: 1132835368}
   - component: {fileID: 1132835367}
   m_Layer: 5
-  m_Name: login
+  m_Name: Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26516,7 +26516,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1126786969}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.06357093
+  m_Size: 0.13984899
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -26740,7 +26740,7 @@ GameObject:
   - component: {fileID: 1202749471}
   - component: {fileID: 1202749470}
   m_Layer: 5
-  m_Name: DirectionText
+  m_Name: Change_Password_Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31888,7 +31888,7 @@ GameObject:
   - component: {fileID: 1423976531}
   - component: {fileID: 1423976530}
   m_Layer: 5
-  m_Name: login
+  m_Name: Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35261,7 +35261,7 @@ GameObject:
   - component: {fileID: 1576147006}
   - component: {fileID: 1576147005}
   m_Layer: 5
-  m_Name: login
+  m_Name: Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36950,7 +36950,7 @@ GameObject:
   - component: {fileID: 1652864357}
   - component: {fileID: 1652864356}
   m_Layer: 5
-  m_Name: login
+  m_Name: Login_again
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38593,7 +38593,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1516403274}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.06357093
+  m_Size: 0.13984899
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -44620,7 +44620,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 389998834}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.06357093
+  m_Size: 0.13984899
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

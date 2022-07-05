@@ -281,7 +281,7 @@ public class CanvasManager : MonoBehaviour
                 break;
 
             case "StartScan":
-                ARManager.Instance.UseVuforiaCam(()=>
+                ARManager.Instance.UseVuforiaCam(() =>
                 {
                     Manager.isMR = false;
                     PanelManager(true);
@@ -322,8 +322,8 @@ public class CanvasManager : MonoBehaviour
         switch (temp.transform.name)
         {
             case "btn_Home":
-                if(Vuforia.VuforiaBehaviour.Instance.enabled)
-                Vuforia.VuforiaBehaviour.Instance.enabled = false;
+                if (Vuforia.VuforiaBehaviour.Instance.enabled)
+                    Vuforia.VuforiaBehaviour.Instance.enabled = false;
                 if (mainUI.activeSelf)
                     accountManager.AllDisable();
 
@@ -331,8 +331,7 @@ public class CanvasManager : MonoBehaviour
 
                 break;
             case "btn_Scan":
-
-                ARManager.Instance.UseVuforiaCam(()=> 
+                ARManager.Instance.UseVuforiaCam(() =>
                 {
                     if (mainUI.activeSelf)
                     {
@@ -477,6 +476,7 @@ public class CanvasManager : MonoBehaviour
     //비밀번호 변경창에 쓰이는 버튼들의 리스너		
     private void ChangePWListener(Button temp)
     {
+        localizeFont = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
         switch (temp.name)
         {
             case "BGButton":
@@ -492,8 +492,9 @@ public class CanvasManager : MonoBehaviour
                 if (errorText.activeSelf) errorText.SetActive(false);
                 if (inf.text.Equals(string.Empty))
                 {
-                    errorText.GetComponent<Text>().text = "비밀번호를 입력 해 주세요.";
                     errorText.SetActive(true);
+                    errorText.GetComponent<Text>().text = LocalizationManager.GetTermTranslation("UI_Input_Current_Password");
+                    errorText.GetComponent<Text>().font = localizeFont;
                 }
                 else
                 {
@@ -506,8 +507,9 @@ public class CanvasManager : MonoBehaviour
                     }
                     else
                     {
-                        errorText.GetComponent<Text>().text = "비밀번호가 다릅니다.";
                         errorText.SetActive(true);
+                        errorText.GetComponent<Text>().text = LocalizationManager.GetTermTranslation("UI_loginFailPass");
+                        errorText.GetComponent<Text>().font = localizeFont;
                     }
                 }
                 break;
@@ -517,15 +519,17 @@ public class CanvasManager : MonoBehaviour
                 if (errorText2.activeSelf) errorText2.SetActive(false);
                 if (inf2.text.Equals(string.Empty))
                 {
-                    errorText2.GetComponent<Text>().text = "비밀번호를 입력 해 주세요.";
                     errorText2.SetActive(true);
+                    errorText2.GetComponent<Text>().text = LocalizationManager.GetTermTranslation("UI_Change_Password_Info");
+                    errorText2.GetComponent<Text>().font = localizeFont;
                 }
                 else
                 {
                     if (checkCode.storedPW.Equals(inf2.text))
                     {
-                        errorText2.GetComponent<Text>().text = "비밀번호가 같습니다.";
                         errorText2.SetActive(true);
+                        errorText2.GetComponent<Text>().text = LocalizationManager.GetTermTranslation("UI_Change_Password_Info");
+                        errorText2.GetComponent<Text>().font = localizeFont;
                     }
                     else
                     {
@@ -538,8 +542,9 @@ public class CanvasManager : MonoBehaviour
                         },
                         () =>
                         {
-                            errorText2.GetComponent<Text>().text = "비밀번호가 변경되지 않았습니다.";
                             errorText2.SetActive(true);
+                            errorText2.GetComponent<Text>().text = LocalizationManager.GetTermTranslation("UI_Change_Password_InfoAgain");
+                            errorText2.GetComponent<Text>().font = localizeFont;
                         }, oldPW, newPW);
                     }
                 }
@@ -549,6 +554,7 @@ public class CanvasManager : MonoBehaviour
     //회원탈퇴창에 쓰이는 버튼들의 리스너	
     private void WithdrawListener(Button temp)
     {
+        localizeFont = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
         switch (temp.name)
         {
             case "BGButton":
@@ -564,14 +570,16 @@ public class CanvasManager : MonoBehaviour
                 if (errorText.activeSelf) errorText.SetActive(false);
                 if (inf.text.Equals(string.Empty))
                 {
-                    errorText.GetComponent<Text>().text = "Email을 입력 해 주세요.";
                     errorText.SetActive(true);
+                    errorText.GetComponent<Text>().text = LocalizationManager.GetTermTranslation("UI_WithdrawInfo");
+                    errorText.GetComponent<Text>().font = localizeFont;
                 }
                 else
                 {
                     if (!inf.text.Equals(checkCode.storedMail))
                     {
-                        errorText.GetComponent<Text>().text = "가입한 Email과 다릅니다.";
+                        errorText.GetComponent<Text>().text = LocalizationManager.GetTermTranslation("UI_WithdrawEmailError");
+                        errorText.GetComponent<Text>().font = localizeFont;
                         errorText.SetActive(true);
                     }
                     else
@@ -585,7 +593,7 @@ public class CanvasManager : MonoBehaviour
                             },
                             () =>
                             {
-                                errorText.GetComponent<Text>().text = "탈퇴하지 못하였습니다.";
+                                errorText.GetComponent<Text>().text = "UI_WithdrawEmailError";
                                 errorText.SetActive(true);
                             }, inf);
                     }
@@ -1011,6 +1019,7 @@ public class CanvasManager : MonoBehaviour
     }
     public void PanelOn(bool isPW) //true : 비번변경, false : 회원탈퇴
     {
+        localizeFont = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
         if (isPW)
         {
             changePasswordPanel.SetActive(true);
@@ -1020,6 +1029,16 @@ public class CanvasManager : MonoBehaviour
             GameObject errorText = firstPanel.transform.GetChild(1).gameObject;
             GameObject errorText2 = changePanel.transform.GetChild(1).gameObject;
             firstPanel.SetActive(true);
+            for (int i = 0; i < changePasswordPanel.transform.childCount; i++)
+            {
+                changePasswordPanel.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            Text[] texts = changePasswordPanel.transform.GetComponentsInChildren<Text>();
+            for (int i = 0; i < texts.Length; i++)
+            {
+                texts[i].text = LocalizationManager.GetTermTranslation("UI_" + texts[i].name);
+                texts[i].font = localizeFont;
+            }
             if (errorText.activeSelf) errorText.SetActive(false);
             if (changePanel.activeSelf) changePanel.SetActive(false);
             if (finalPanel.activeSelf) finalPanel.SetActive(false);
@@ -1032,6 +1051,16 @@ public class CanvasManager : MonoBehaviour
             GameObject finalPanel = withdrawAccountPanel.transform.GetChild(2).gameObject;
             GameObject errorText = firstPanel.transform.GetChild(1).gameObject;
             firstPanel.SetActive(true);
+            for (int i = 0; i < withdrawAccountPanel.transform.childCount; i++)
+            {
+                withdrawAccountPanel.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            Text[] texts = withdrawAccountPanel.transform.GetComponentsInChildren<Text>();
+            for (int i = 0; i < texts.Length; i++)
+            {
+                texts[i].text = LocalizationManager.GetTermTranslation("UI_" + texts[i].name);
+                texts[i].font = localizeFont;
+            }
             if (errorText.activeSelf) errorText.SetActive(false);
             if (finalPanel.activeSelf) finalPanel.SetActive(false);
         }

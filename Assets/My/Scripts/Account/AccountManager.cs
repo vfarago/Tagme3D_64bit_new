@@ -232,11 +232,7 @@ public class AccountManager : MonoBehaviour
             Text[] texts = loginAndSignUp.GetComponentsInChildren<Text>();
             for(int i = 0; i < texts.Length; i++)
             {
-                if (texts[i].name.Equals("QRLogin"))
-                {
-                    texts[i].text = "QR 로그인";
-                    break;
-                }
+                texts[i].text = LocalizationManager.GetTermTranslation("UI_" + texts[i].name);
             }
             loginPanel.SetActive(true);
             signUpPanel.SetActive(false);

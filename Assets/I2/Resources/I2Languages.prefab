@@ -46,7 +46,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycbzkuAAXe9dVky3k_yAlPeGfflOzGECBgxX8Ib-xIFxhqaQzgCA/exec
   Google_SpreadsheetKey: 1V4nNCRy-6dxlBiD3NlNyek8ANgTyAzum4ZNC7EoywWI
   Google_SpreadsheetName: I2Loc TM Localization
-  Google_LastUpdatedVersion: 1627557442989
+  Google_LastUpdatedVersion: 1657014130034
   GoogleUpdateFrequency: 1
   mTerms:
   - Term: acorn
@@ -7102,7 +7102,8 @@ MonoBehaviour:
     - "H\xE1mster"
     - Hamster
     - Hamster
-    - "\u0627\u0644\u0647\u0645\u0633\u062A\u0631 \u062D\u064A\u0648\u0627\u0646 \u0642\u0627\u0631\u0636"
+    - "\u0627\u0644\u0647\u0645\u0633\u062A\u0631 \u062D\u064A\u0648\u0627\u0646
+      \u0642\u0627\u0631\u0636"
     - Criceto
     - chomik
     - "\u0939\u0948\u092E\u094D\u0938\u094D\u091F\u0930"
@@ -9103,7 +9104,8 @@ MonoBehaviour:
     - Mariquita
     - "Marienk\xE4fer"
     - Coccinelle
-    - "\u062F\u0639\u0633\u0648\u0642\u0629 \u062E\u0646\u0641\u0633\u0627\u0621 \u0635\u063A\u064A\u0631\u0629"
+    - "\u062F\u0639\u0633\u0648\u0642\u0629 \u062E\u0646\u0641\u0633\u0627\u0621
+      \u0635\u063A\u064A\u0631\u0629"
     - Coccinella
     - biedronka
     - "\u090F\u0915 \u092A\u094D\u0930\u0915\u093E\u0930 \u0915\u093E \u0917\u0941\u092C\u0930\u0948\u0932\u093E"
@@ -11752,7 +11754,8 @@ MonoBehaviour:
     - uchwyt na papier
     - "\u092A\u0947\u092A\u0930 \u0927\u093E\u0930\u0915"
     - "\u05DE\u05D7\u05D6\u05D9\u05E7 \u05E0\u05D9\u05D9\u05E8"
-    - "\u0434\u0435\u0440\u0436\u0430\u0442\u0435\u043B\u044C \u0434\u043B\u044F \u0431\u0443\u043C\u0430\u0433\u0438"
+    - "\u0434\u0435\u0440\u0436\u0430\u0442\u0435\u043B\u044C \u0434\u043B\u044F
+      \u0431\u0443\u043C\u0430\u0433\u0438"
     - "\u0E17\u0E35\u0E48\u0E40\u0E2A\u0E35\u0E22\u0E1A\u0E01\u0E23\u0E30\u0E14\u0E32\u0E29"
     - "Ng\u01B0\u1EDDi gi\u1EEF gi\u1EA5y"
     - Tempat Kertas
@@ -40880,7 +40883,8 @@ MonoBehaviour:
     Languages:
     - 'You have reigstered ''Tagme3D Book*''
 
-      Go to ''Mypage'' and check your activation status.'
+      Go to ''Mypage'' and check your
+      activation status.'
     - " 'Tagme3D Book*'\uC774 \uB4F1\uB85D\uB418\uC5C8\uC5B4\uC694.\n'My Page'\uC5D0\uC11C
       \uB4F1\uB85D \uC0C1\uD0DC\uB97C \uD655\uC778\uD574\uBCF4\uC138\uC694."
     - "\u60A8\u5DF2\u7ECF\u6CE8\u518C\u4E86\u201CTagme3D Book*\u201D\n\u8F6C\u5230\u201C\u7528\u6237\u4FE1\u606F\u201D\u5E76\u68C0\u67E5\u60A8\u7684\u6FC0\u6D3B\u72B6\u6001\u3002"
@@ -40923,7 +40927,8 @@ MonoBehaviour:
     Languages:
     - 'It''s currently only available for first FREE page.
 
-      Please login and activate your book with QR code.'
+      Please login and
+      activate your book with QR code.'
     - "\uC9C0\uAE08\uC740 \uCC45\uC758 \uCCAB \uD398\uC774\uC9C0\uB9CC \uBB34\uB8CC\uB85C
       \uC774\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n\uB85C\uADF8\uC778\uD558\uACE0
       QR\uCF54\uB4DC\uB85C \uCC45\uC744 \uB4F1\uB85D\uD558\uC138\uC694."
@@ -42421,8 +42426,8 @@ MonoBehaviour:
     Description: 
     Languages:
     - Starting from New York, We've worked to expand the horizon of augmented reality
-      and 3D technologies. Victoria Productions improves any exisiting content's value
-      by introducing AR technology to traditional forms of content. Our technology
+      and 3D technologies. Victoria Productions improves any exisiting content's
+      value by introducing AR technology to traditional forms of content. Our technology
       adds excitement and animation to books, marketing brochures, real estate magazines,
       and more. We currently provide 650 ed-tech products and 350 mobile apps developed
       with the best 2D/3D graphics and augmented reality technologies.
@@ -42434,10 +42439,10 @@ MonoBehaviour:
       \uAE30\uC220\uC744 \uB3C4\uC785\uD558\uC5EC \uAE30\uC874 \uC885\uC774\uCC45\uC758
       \uAC00\uCE58\uB97C \uB192\uC774\uACE0 \uB3C4\uC11C \uD310\uB9E4 \uC99D\uC9C4\uC744
       \uC704\uD55C '\uCC45\uC744 \uC704\uD55C \uC571' <BOOK+APP> \uC81C\uD488\uC744
-      \uAC1C\uBC1C\uD568\uC73C\uB85C\uC368 \uAE00\uB85C\uBC8C\uD558\uAC8C EdTech \uC2DC\uC7A5\uC744
-      \uC774\uB04C\uC5B4\uAC00\uBA70 \uC885\uC774\uCC45\uACFC \uC804\uC790\uCC45\uC744
-      \uACE0\uB8E8 \uC131\uC7A5\uD558\uB3C4\uB85D \uC774\uBC14\uC9C0\uD558\uACE0 \uC788\uB294
-      \uAE30\uC5C5\uC785\uB2C8\uB2E4. 10\uB144 \uC774\uC0C1\uC758 \uB04A\uC784\uC5C6\uB294
+      \uAC1C\uBC1C\uD568\uC73C\uB85C\uC368 \uAE00\uB85C\uBC8C\uD558\uAC8C EdTech
+      \uC2DC\uC7A5\uC744 \uC774\uB04C\uC5B4\uAC00\uBA70 \uC885\uC774\uCC45\uACFC
+      \uC804\uC790\uCC45\uC744 \uACE0\uB8E8 \uC131\uC7A5\uD558\uB3C4\uB85D \uC774\uBC14\uC9C0\uD558\uACE0
+      \uC788\uB294 \uAE30\uC5C5\uC785\uB2C8\uB2E4. 10\uB144 \uC774\uC0C1\uC758 \uB04A\uC784\uC5C6\uB294
       \uC5F0\uAD6C\uAC1C\uBC1C \uBC0F \uCF58\uD150\uCE20 \uAC1C\uBC1C\uC744 \uD1B5\uD574
       \uCD1D 350\uC5EC \uC885 \uC774\uC0C1\uC758 \uAD50\uC721 \uC81C\uD488 \uD0C0\uC774\uD2C0\uC744
       \uBCF4\uC720\uD558\uACE0 \uC788\uACE0 \uB610\uD55C, 6\uC885\uC758 \uC5B4\uB9B0\uC774
@@ -44058,8 +44063,8 @@ MonoBehaviour:
     Description: 
     Languages:
     - SMS was sent to that number. Please enter your verification number.
-    - "\uD574\uB2F9 \uBC88\uD638\uB85C SMS\uB97C \uBCF4\uB0C8\uC2B5\uB2C8\uB2E4. \uC778\uC99D\uBC88\uD638\uB97C
-      \uC785\uB825\uD574\uC8FC\uC138\uC694."
+    - "\uD574\uB2F9 \uBC88\uD638\uB85C SMS\uB97C \uBCF4\uB0C8\uC2B5\uB2C8\uB2E4.
+      \uC778\uC99D\uBC88\uD638\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694."
     - "\u77ED\u4FE1\u88AB\u53D1\u9001\u5230\u8BE5\u53F7\u7801\u3002 \u8BF7\u8F93\u5165\u60A8\u7684\u9A8C\u8BC1\u7801\u3002"
     - 
     - 
@@ -45028,7 +45033,8 @@ MonoBehaviour:
     Description: 
     Languages:
     - Please register your device on My Page.
-    - "\uB9C8\uC774\uD398\uC774\uC9C0\uC5D0\uC11C \uAE30\uAE30\uB4F1\uB85D\uC744 \uD574\uC8FC\uC138\uC694."
+    - "\uB9C8\uC774\uD398\uC774\uC9C0\uC5D0\uC11C \uAE30\uAE30\uB4F1\uB85D\uC744
+      \uD574\uC8FC\uC138\uC694."
     - "\u8BF7\u5728\u201C\u6211\u7684\u9875\u9762\u201D\u4E0A\u6CE8\u518C\u60A8\u7684\u8BBE\u5907\u3002"
     - 
     - 
@@ -45428,7 +45434,9 @@ MonoBehaviour:
     TermType: 0
     Description: 
     Languages:
-    - "The QR code is not a valid QR code.\r\nPlease check again."
+    - 'The QR code is not a valid QR code.
+
+      Please check again.'
     - "\uD574\uB2F9 QR\uCF54\uB4DC\uB294 \uB9DE\uC9C0\uC54A\uB294 QR\uCF54\uB4DC\uC785\uB2C8\uB2E4.\r\n\uB2E4\uC2DC\uD55C\uBC88
       \uD655\uC778\uD574\uC8FC\uC138\uC694."
     - "QR\u7801\u4E0D\u662F\u6709\u6548\u7684QR\u7801\u3002\r\n\u8BF7\u518D\u68C0\u67E5\u4E00\u6B21\u3002"
@@ -46723,7 +46731,8 @@ MonoBehaviour:
     Languages:
     - 'Progress Aborted! Problem occured on files.
 
-      Report this problem to Administrator.'
+      Report this problem to
+      Administrator.'
     - "\uC791\uC5C5\uC2E4\uD328! \uD30C\uC77C\uC5D0 \uBB38\uC81C\uAC00 \uBC1C\uC0DD\uD588\uC2B5\uB2C8\uB2E4.\n\uAD00\uB9AC\uC790\uC5D0\uAC8C
       \uBB38\uC758\uD574\uC8FC\uC138\uC694."
     - "\u8FDB\u5EA6\u4E2D\u6B62\uFF01 \u6587\u4EF6\u51FA\u73B0\u95EE\u9898\u3002\n\u5C06\u6B64\u95EE\u9898\u62A5\u544A\u7ED9\u7BA1\u7406\u5458\u3002"
@@ -66928,6 +66937,659 @@ MonoBehaviour:
     - Word
     - "\uB2E8\uC5B4"
     - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_QRLogin
+    TermType: 0
+    Description: 
+    Languages:
+    - QR Login
+    - "QR \uB85C\uADF8\uC778"
+    - "QR\u767B\u5F55"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_Input_Current_Password
+    TermType: 0
+    Description: 
+    Languages:
+    - "Please Verifying\nYour current Password \n"
+    - "\uD604\uC7AC \uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD558\uC138\uC694."
+    - "\u8BF7\u6838\u5B9E\n\u4F60\u73B0\u5728\u7684\u5BC6\u7801"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 'Please Verifying
+
+      Your <color=#ef4d40>current Password</color>'
+    - "<color=#ef4d40>\uD604\uC7AC \uBE44\uBC00\uBC88\uD638</color>\uB97C \uC785\uB825\uD558\uC138\uC694."
+    - "\u8BF7\u6838\u5B9E\r\n\u4F60<color=#ef4d40>\u73B0\u5728\u7684\u5BC6\u7801</color>"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_Login_again
+    TermType: 0
+    Description: 
+    Languages:
+    - 'It will be logout
+
+      please login again'
+    - "\uB85C\uADF8\uC544\uC6C3 \uB429\uB2C8\uB2E4\n\uB2E4\uC2DC \uB85C\uADF8\uC778\uD574\uC8FC\uC138\uC694"
+    - "\u4F1A\u6CE8\u9500\u7684\r\n\u8BF7\u91CD\u65B0\u767B\u5F55"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_CountingGroup
+    TermType: 0
+    Description: 
+    Languages:
+    - Group Account
+    - "\uADF8\uB8F9 \uACC4\uC815"
+    - "\u56E2\u4F53\u5E10\u6237"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_QRScanInfo
+    TermType: 0
+    Description: 
+    Languages:
+    - Scan The QR Code.
+    - "QR\uCF54\uB4DC\uB97C \uC2A4\uCE94\uD558\uC138\uC694."
+    - "\u626B\u63CF\u4E8C\u7EF4\u7801\u3002"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_Change_Password_Info
+    TermType: 0
+    Description: 
+    Languages:
+    - Please enter a new password
+    - "\uC0C8 \uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD558\uC138\uC694"
+    - "\r\u8BF7\u8F93\u5165\u65B0\u5BC6\u7801"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_RegiErrorUnknown
+    TermType: 0
+    Description: 
+    Languages:
+    - Authentication Failed.\nMake Sure Your Code Is available!
+    - "\uC778\uC99D \uC2E4\uD328. \uCF54\uB4DC\uB97C \uC0AC\uC6A9\uD560 \uC218 \uC788\uB294\uC9C0\\n\uD655\uC778\uD558\uC2ED\uC2DC\uC624!"
+    - "\u8BA4\u8BC1\u5931\u8D25\u3002\\n\u786E\u4FDD\u60A8\u7684\u4EE3\u7801\u53EF\u7528\uFF01"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_WithdrawInfo
+    TermType: 0
+    Description: 
+    Languages:
+    - 'To Cancel Membership
+
+      Please Enter Your E-Mail.'
+    - "\uD68C\uC6D0 \uD0C8\uD1F4\uB97C \uD558\uC2DC\uB824\uBA74 \n\uC774\uBA54\uC77C\uC744
+      \uC785\uB825\uD574\uC8FC\uC138\uC694."
+    - "\u60F3\u8981\u9000\u51FA\u4F1A\u5458\u7684\u8BDD\r\n\u8BF7\u8F93\u5165\u7535\u5B50\u90AE\u4EF6\u3002"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_Change_Password_InfoAgain
+    TermType: 0
+    Description: 
+    Languages:
+    - Please enter a new password again
+    - "\uC0C8 \uBE44\uBC00\uBC88\uD638\uB97C \uB2E4\uC2DC \uC785\uB825\uD558\uC138\uC694"
+    - "\u8BF7\u518D\u6B21\u8F93\u5165\u65B0\u5BC6\u7801"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_WithdrawTxt
+    TermType: 0
+    Description: 
+    Languages:
+    - Withdraw
+    - "\uD68C\uC6D0\uD0C8\uD1F4"
+    - "\u63D0\u53D6"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_GropuIDLogouted
+    TermType: 0
+    Description: 
+    Languages:
+    - You have been logged out due to exceeding the user usage limit.\n Do you want
+      to disconnect other users and log in?
+    - "\uC0AC\uC6A9\uC790 \uC774\uC6A9\uC81C\uD55C \uCD08\uACFC\uB85C \uC778\uD574
+      \uB85C\uADF8\uC544\uC6C3 \uB418\uC5C8\uC2B5\uB2C8\uB2E4.\\n \uB2E4\uB978 \uC0AC\uC6A9\uC790\uC758
+      \uC5F0\uACB0\uC744 \uB04A\uACE0 \uB300\uC2E0 \uB85C\uADF8\uC778\uD560\uAE4C\uC694?"
+    - "\u56E0\u8D85\u51FA\u7528\u6237\u4F7F\u7528\u9650\u5236\u800C\u6CE8\u9500\u3002\\n
+      \u6302\u65AD\u5176\u4ED6\u7528\u6237\u7684\u8FDE\u63A5\uFF0C \u4EE3\u66FF\u7528\u6237\u767B\u5F55\u5417
+      \uFF1F"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_error_wrong_Confirm
+    TermType: 0
+    Description: 
+    Languages:
+    - Password confirm not correct.
+    - "\uBE44\uBC00\uBC88\uD638\uAC00 \uC77C\uCE58\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+    - "\u5BC6\u7801\u786E\u8BA4\u4E0D\u6B63\u786E\u3002"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_QRLoginTxt
+    TermType: 0
+    Description: 
+    Languages:
+    - QR Login
+    - "QR \uB85C\uADF8\uC778"
+    - "QR\u767B\u5F55"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_GoodbyeTxt
+    TermType: 0
+    Description: 
+    Languages:
+    - Thank you for using "Tagme3D" until now.
+    - "\uC9C0\uAE08\uAE4C\uC9C0 \"Tagme3D\"\uB97C \uC774\uC6A9\uD574 \uC8FC\uC154\uC11C
+      \uAC10\uC0AC\uD569\uB2C8\uB2E4."
+    - "\u611F\u8C22\u60A8\u5230\u73B0\u5728\u4E3A\u6B62\u4F7F\u7528\u201CTagme3D\u201D\u3002"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_WithdrawEmailError
+    TermType: 0
+    Description: 
+    Languages:
+    - Email does not match.
+    - "Email\uC774 \uC77C\uCE58\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+    - "\u7535\u5B50\u90AE\u4EF6\u4E0D\u5339\u914D\u3002"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
+  - Term: UI_Confirm
+    TermType: 0
+    Description: undefined
+    Languages:
+    - Confirm
+    - "\uD655\uC778"
+    - "\u786E\u8BA4"
     - 
     - 
     - 
