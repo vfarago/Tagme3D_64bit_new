@@ -451,7 +451,11 @@ public class FileDownloader : MonoBehaviour
                     FindObjectOfType<BookPanelManager>().scrollPanel.transform.localPosition = new Vector3(0, 865, 0);
                 }
                 assetLoaderText.text = LocalizationManager.GetTermTranslation("UI_downSetPrefab").Replace("*", bookNum.ToString());
-                Image prefabProgress = bookDownloadGO.transform.GetChild(7).GetChild(0).GetChild(0).GetChild(bookNum).GetChild(0).GetComponent<Image>();
+                int imgNum = bookNum < 4 ? 1 : 2;
+                int bookNumber = bookNum < 4 ? bookNum - 1 : bookNum - 4;
+                Image prefabProgress = bookDownloadGO.transform.GetChild(7).GetChild(0).GetChild(0).GetChild(imgNum).GetChild(bookNumber).GetChild(0).GetComponent<Image>();
+                //Image prefabProgress = bookDownloadGO.transform.GetChild(7).GetChild(0).GetChild(0).GetChild(bookNum).GetChild(0).GetComponent<Image>();
+                //Image prefabProgress = shadowParent.transform.GetChild(j).GetComponent<Image>();
                 //prefabProgress.gameObject.SetActive(true);
                 prefabProgress.fillAmount = 1;
 
