@@ -37,11 +37,19 @@ public class ARManager : MonoBehaviour
         isFrontCamera = false;
         //TurnOnAR(false, false);
         setHintZero();
-        VuforiaApplication.Instance.OnVuforiaStopped += () => { checkStop = true; };
-        VuforiaApplication.Instance.OnVuforiaStarted += () => { checkStop = false; };
+
+        VuforiaSubscribeSetting();
     }
 
-
+    void VuforiaSubscribeSetting()
+    {
+        VuforiaApplication.Instance.OnVuforiaStopped += () => { checkStop = true; };
+        VuforiaApplication.Instance.OnVuforiaStarted += () => { checkStop = false; };
+        if (VuforiaBehaviour.Instance != null)
+        {
+            checkStop = !VuforiaBehaviour.Instance.enabled;
+        }
+    }
     // ARRenderHint [start]
     public void setHintMulti()
     {
@@ -172,6 +180,12 @@ public class ARManager : MonoBehaviour
     }
     IEnumerator Cor_WaitToWebcamChange(Action done)
     {
+        if (!VuforiaBehaviour.Instance.enabled)//이미 꺼져있다면 패스
+        {
+            done();
+            checkStop = false;
+            yield break;
+        }
         VuforiaBehaviour.Instance.enabled = false;
         while (checkStop)
         {
@@ -182,6 +196,12 @@ public class ARManager : MonoBehaviour
     }
     IEnumerator Cor_WaitToVucamChange(Action done)
     {
+        if (VuforiaBehaviour.Instance.enabled)//이미 켜져있다면 패스
+        {
+            done();
+            checkStop = true;
+            yield break;
+        }
         VuforiaBehaviour.Instance.enabled = true;
         while (!checkStop)
         {

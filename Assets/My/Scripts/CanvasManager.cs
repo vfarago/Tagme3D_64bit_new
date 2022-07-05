@@ -281,8 +281,12 @@ public class CanvasManager : MonoBehaviour
                 break;
 
             case "StartScan":
-                Manager.isMR = false;
-                PanelManager(true);
+                ARManager.Instance.UseVuforiaCam(()=>
+                {
+                    Manager.isMR = false;
+                    PanelManager(true);
+                });
+
 
                 break;
             case "HowToUse":
@@ -302,9 +306,12 @@ public class CanvasManager : MonoBehaviour
 
                 break;
             case "MRGallery":
-                Manager.isMR = true;
-                mrPanel.SetActive(true);
-                BottomBarOpen();
+                ARManager.Instance.UseVuforiaCam(() => {
+                    Manager.isMR = true;
+                    mrPanel.SetActive(true);
+                    BottomBarOpen();
+                });
+
                 break;
         }
     }
@@ -315,6 +322,8 @@ public class CanvasManager : MonoBehaviour
         switch (temp.transform.name)
         {
             case "btn_Home":
+                if(Vuforia.VuforiaBehaviour.Instance.enabled)
+                Vuforia.VuforiaBehaviour.Instance.enabled = false;
                 if (mainUI.activeSelf)
                     accountManager.AllDisable();
 
