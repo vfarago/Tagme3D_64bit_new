@@ -17,8 +17,6 @@ public class ARManager : MonoBehaviour
     public bool isFrontCamera;
     public HintState hintState = HintState.ZERO;
 
-    [SerializeField] private VuforiaBehaviour vuforiaBehaviour;
-
     public static ARManager Instance
     {
         get
@@ -40,6 +38,7 @@ public class ARManager : MonoBehaviour
         //TurnOnAR(false, false);
         setHintZero();
         VuforiaApplication.Instance.OnVuforiaStopped += () => { checkStop = true; };
+        VuforiaApplication.Instance.OnVuforiaStarted += () => { checkStop = false; };
     }
 
 
@@ -163,13 +162,12 @@ public class ARManager : MonoBehaviour
 
     }
 
-    public void UseVuforiaCam(Action action)
+    public void UseVuforiaCam(Action done)
     {
-        VuforiaBehaviour.Instance.enabled = true;
+        StartCoroutine(Cor_WaitToVucamChange(done));
     }
     public void UseWebCam(Action done)
     {
-        Debug.LogError("check");
         StartCoroutine(Cor_WaitToWebcamChange(done));
     }
     IEnumerator Cor_WaitToWebcamChange(Action done)
@@ -182,7 +180,16 @@ public class ARManager : MonoBehaviour
         done();
         checkStop = false;
     }
-
+    IEnumerator Cor_WaitToVucamChange(Action done)
+    {
+        VuforiaBehaviour.Instance.enabled = true;
+        while (!checkStop)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        done();
+        checkStop = true;
+    }
 
     bool checkStop = false;
 

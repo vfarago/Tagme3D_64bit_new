@@ -131,6 +131,7 @@ public class MRPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        if(rects.Length>lastNum)
         rects[lastNum].gameObject.SetActive(true);
         for (int i = 0; i < titleZone.transform.childCount; i++)
         {
@@ -147,39 +148,43 @@ public class MRPanel : MonoBehaviour
             string fileLoc = string.Format("{0}/assets/tagme3d_new_book{1}", Application.persistentDataPath, i + 1);
             bool isExist = File.Exists(fileLoc);
 
-            if (!Manager.CheckCode.isLogined)
+            if (Manager.CheckCode)
             {
-                for (int j = 0; j < scrCont.transform.childCount; j++)
+                if (!Manager.CheckCode.isLogined)
                 {
-                    scrCont.transform.GetChild(j).gameObject.SetActive(false);
-                }
-                scrCont.transform.GetChild(0).gameObject.SetActive(true);
-                scrCont.transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else
-            {
-                SettingButton(i);
-
-
-                if (Manager.CheckCode.isScaned[i])
-                {
-
-
-                    for (int j = 0; j < 100; j++)
+                    for (int j = 0; j < scrCont.transform.childCount; j++)
                     {
-                        if (j.Equals(nonExistStopNum))
+                        scrCont.transform.GetChild(j).gameObject.SetActive(false);
+                    }
+                    scrCont.transform.GetChild(0).gameObject.SetActive(true);
+                    scrCont.transform.GetChild(1).gameObject.SetActive(true);
+                }
+                else
+                {
+                    SettingButton(i);
+
+
+                    if (Manager.CheckCode.isScaned[i])
+                    {
+
+
+                        for (int j = 0; j < 100; j++)
                         {
-                            if (!isExist) break;
-                            if (!Manager.CheckCode.isScaned[i]) break;
+                            if (j.Equals(nonExistStopNum))
+                            {
+                                if (!isExist) break;
+                                if (!Manager.CheckCode.isScaned[i]) break;
+                            }
+
+                            if (scrCont.transform.GetChild(j).gameObject == null)
+                                Debug.Log("여기다");
+
+                            scrCont.transform.GetChild(j).gameObject.SetActive(true);
                         }
-
-                        if (scrCont.transform.GetChild(j).gameObject == null)
-                            Debug.Log("여기다");
-
-                        scrCont.transform.GetChild(j).gameObject.SetActive(true);
                     }
                 }
             }
+            
         }
     }
     private void OnDisable()
