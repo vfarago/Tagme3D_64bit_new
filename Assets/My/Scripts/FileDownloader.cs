@@ -581,11 +581,10 @@ public class FileDownloader : MonoBehaviour
         Debug.Log(name);
         string path = string.Format("{0}{1}s.zip", pingUrl, name);
         Debug.Log(path);
-        UnityWebRequest req = UnityWebRequest.Get(path);
-        req.method = "HEAD";
-        req.Send();
-
-        while (!req.isDone)
+        UnityWebRequest reqs = UnityWebRequest.Head(path);
+        Debug.Log(reqs);
+        reqs.SendWebRequest();
+        while (!reqs.isDone)
         {
             yield return new WaitForEndOfFrame();
         }
