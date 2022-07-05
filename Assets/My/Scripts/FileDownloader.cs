@@ -40,8 +40,8 @@ public class FileDownloader : MonoBehaviour
     private float timerSpeedEllap = 0;
     private double speed = 0;
     //private string url = "https://tm-book-2019-2-19.oss-cn-beijing.aliyuncs.com/assets/";
-    private string pingUrl = "https://bookplusapp.co.kr/fileStorage/tm_book_2019_2_19/";
-    private string url = "https://bookplusapp.co.kr/";
+    private string pingUrl = "http://bookplusapp.co.kr/fileStorage/tm_book_2019_2_19/";
+    private string url = "http://bookplusapp.co.kr/";
     private string[] audioFolder = { "kor", "eng", "chn", "esp", "jpn", "deu", "fra", "are", "ita", "pol", "hin", "heb", "rus", "tha", "word" };
 
     public int coroutineNumber;
@@ -589,28 +589,15 @@ public class FileDownloader : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
         }
+        long checkSize = long.Parse(reqs.GetResponseHeader("Content-Length"));
 
-        while (downServerWaitEllap != 0)
-        {
-            req.Abort();
-
-            req = UnityWebRequest.Get(req.url);
-            req.Send();
-
-            while (!req.isDone)
-            {
-                yield return new WaitForEndOfFrame();
-            }
-
-            yield return new WaitForEndOfFrame();
-        }
-
-        long fileSize = 0;
-        if (long.TryParse(req.GetResponseHeader("Content-Length"), out fileSize))
-        {
-            Debug.Log("download file size : " + fileSize);
-            fileList.Add(new FileList(name, fileSize));
-        }
+        
+        fileList.Add(new FileList(name, checkSize));
+        //if (long.TryParse(req.GetResponseHeader("Content-Length"), out fileSize))
+        //{
+        //    Debug.Log("download file size : " + fileSize);
+        //    fileList.Add(new FileList(name, fileSize));
+        //}
 
         output(true);
 
