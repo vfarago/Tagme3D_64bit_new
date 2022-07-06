@@ -60,6 +60,9 @@ public class ObjInteraction : MonoBehaviour
         {
             float distance = 0;
             float preDistance = Input.mouseScrollDelta.y;
+
+            //  Elon 
+            Ray ray = Camera.current.ScreenPointToRay(Input.mousePosition);
 #else
         if (Input.touchCount == 2)
         {
@@ -295,5 +298,5 @@ public class ObjInteraction : MonoBehaviour
         }
     }
     
-
+    
 }

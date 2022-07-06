@@ -153,7 +153,8 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                     objInteraction.SetTargetOBJ(m3dModel.transform,100);
                     objInteraction.targetName = targetName;
                     objInteraction.isFreeModel = isFreeModel;
-
+                    //prefabLoader.TargetOffMoving(gameObject);
+                    //canvasManager.OnTargetOffObject(true);
                     ////gestures  [start]
                     //TapGesture tagGesture = m3dModel.AddComponent<TapGesture>();
                     //tagGesture.NumberOfTapsRequired = 1;
@@ -197,7 +198,8 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
         if (transform.localScale.x > 500)
             initialScale *= 0.5f;
 
-        m3dModel.AddComponent<BoxCollider>().size = new Vector3(2, 2, 2);
+        m3dModel.AddComponent<BoxCollider>();
+        m3dModel.GetComponent<BoxCollider>().size = new Vector3(2, 2, 2);
 
         Vector3 startScaling = new Vector3(0.01f, 0.01f, 0.01f);
         Vector3 newScaling = new Vector3(initialScale, initialScale, initialScale);
@@ -335,6 +337,9 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                     objInteraction.SetTargetOBJ(m3dModel.transform,100);
                     objInteraction.targetName = targetName;
                     objInteraction.isFreeModel = isFreeModel;
+                    prefabLoader.TargetOffMoving(m3dModel);
+                    canvasManager.OnTargetOffObject(true);
+
                     ////gestures  [start]
                     //TapGesture tagGesture = m3dModel.AddComponent<TapGesture>();
                     //tagGesture.NumberOfTapsRequired = 1;
