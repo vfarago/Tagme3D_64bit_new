@@ -155,6 +155,17 @@ public class AccountManager : MonoBehaviour
 
     #endregion
 
+    public void LogoutMsg()
+    {
+        checkCode.Logout();
+        for (int i = 0; i < prefabShelter.tmModel.Length; i++)
+        {
+            if (prefabShelter.tmModel[i] != null)
+                prefabShelter.tmModel[i].isConfirm = false;
+        }
+
+        popUpManager.PanelButtonSetting(false, "logoutSuccess");
+    }
     private void AwakeSetting()
     {
         canvasManager = FindObjectOfType<CanvasManager>();

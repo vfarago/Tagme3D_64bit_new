@@ -215,6 +215,8 @@ public class ARManager : MonoBehaviour
     }
     IEnumerator Cor_WaitToVucamChange(Action done)
     {
+        if(ContentsLocker.isActivate)
+            ContentsLocker.Instance.isChecked = false;//스캔들어갈때 첫번째도 그룹인원 체크하기 위함.
         if (VuforiaBehaviour.Instance.enabled)//이미 켜져있다면 패스
         {
             done();
