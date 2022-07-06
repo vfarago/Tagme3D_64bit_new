@@ -21595,7 +21595,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -5, y: -499.99997}
-  m_SizeDelta: {x: -90, y: 632.56036}
+  m_SizeDelta: {x: -90, y: 701.1161}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &928860364
 MonoBehaviour:
@@ -27806,7 +27806,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1237504854}
   m_OnClick:
     m_PersistentCalls:
@@ -27824,7 +27824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -33331,7 +33331,6 @@ MonoBehaviour:
   receivedIdentifier: 
   receivedModel: 
   isQRLogin: 0
-  withdrawObj: {fileID: 770196411}
 --- !u!1 &1493398825
 GameObject:
   m_ObjectHideFlags: 0
