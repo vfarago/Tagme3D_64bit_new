@@ -30496,7 +30496,7 @@ GameObject:
   - component: {fileID: 1349695551}
   - component: {fileID: 1349695550}
   m_Layer: 5
-  m_Name: btn_proceed
+  m_Name: btn_wdaFinal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
