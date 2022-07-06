@@ -791,67 +791,92 @@ public class CanvasManager : MonoBehaviour
     //Home버튼, Scan버튼
     public void PanelManager(bool panel) //true: 스캔페이지로, false: 홈으로
     {
-        arCamera.enabled = true;
-        arManager.TurnOnAR(panel, false);
-        if (isPhonics)
-        {
-            OnPhonicsPanel(false);
-            LocalizationManager.CurrentLanguage = ui_CurrentLang;
-        }
-
         if (panel)
         {
-            isTitle = false;
-            prefabLoader.isEndAR = false;
-            ScanOn();
-            arPanel.transform.GetChild(3).gameObject.SetActive(false);
-
-            arManager.ActivateDataSet(true);
-            arManager.hintState = ARManager.HintState.SINGLE;
-            ChoiceControll();
-            localizePhonicsImage.sprite = Resources.Load<Sprite>(string.Format("Sprites/Localize/btn_language_{0}(70x70)", ui_CurrentLang));
-
-            if (!isNotCautionAgain)
+            arManager.UseVuforiaCam(() => 
             {
-                Instantiate(Resources.Load<GameObject>("Prefabs/cautionPanel"), arPanel.transform, false);
-                CautionActive(true);
-            }
+                arCamera.enabled = true;
+                arManager.TurnOnAR(panel, false);
+                if (isPhonics)
+                {
+                    OnPhonicsPanel(false);
+                    LocalizationManager.CurrentLanguage = ui_CurrentLang;
+                }
 
-            FreeContentNotice();
+                isTitle = false;
+                prefabLoader.isEndAR = false;
+                ScanOn();
+                arPanel.transform.GetChild(3).gameObject.SetActive(false);
+
+                arManager.ActivateDataSet(true);
+                arManager.hintState = ARManager.HintState.SINGLE;
+                ChoiceControll();
+                localizePhonicsImage.sprite = Resources.Load<Sprite>(string.Format("Sprites/Localize/btn_language_{0}(70x70)", ui_CurrentLang));
+
+                if (!isNotCautionAgain)
+                {
+                    Instantiate(Resources.Load<GameObject>("Prefabs/cautionPanel"), arPanel.transform, false);
+                    CautionActive(true);
+                }
+
+                FreeContentNotice();
+
+                bottomPanel.SetActive(panel);
+                mainUI.SetActive(!panel);
+                usePanel.SetActive(false);
+                aboutUsPanel.SetActive(false);
+                bookPanel.SetActive(false);
+                swapCamButton.SetActive(panel); //Camera Swap Button
+
+            });
         }
         else
         {
-            arManager.setHintZero();
-            DestroyAll();
-            prefabLoader.isEndAR = true;
-            LocalizationManager.CurrentLanguage = ui_CurrentLang;
+            arManager.UseWebCam(() => {
+                arCamera.enabled = true;
+                arManager.TurnOnAR(panel, false);
+                if (isPhonics)
+                {
+                    OnPhonicsPanel(false);
+                    LocalizationManager.CurrentLanguage = ui_CurrentLang;
+                }
 
-            if (prefabLoader.isTargetoff)
-                OnTargetOffObject(false);
-            arPanel.SetActive(false);
-            qrDownPanel.SetActive(false);
-            accountManager.accountPanel.SetActive(false);
+                arManager.setHintZero();
+                DestroyAll();
+                prefabLoader.isEndAR = true;
+                LocalizationManager.CurrentLanguage = ui_CurrentLang;
 
-            //ImageTargetBehavior inactive
-            //여기 4->5
-            for (int i = 0; i < 5; i++)
-            {
-                aDSL.transform.GetChild(i).GetComponent<DataSetOnOff>().TrackingActiveOn(false);
-            }
+                if (prefabLoader.isTargetoff)
+                    OnTargetOffObject(false);
+                arPanel.SetActive(false);
+                qrDownPanel.SetActive(false);
+                accountManager.accountPanel.SetActive(false);
 
-            isTitle = true;
-            if (Manager.PrefabShelter.transform.parent.GetChild(1).GetChild(0).childCount > 2)
-            {
-                Destroy(Manager.PrefabShelter.transform.parent.GetChild(1).GetChild(0).GetChild(2).gameObject);
-            }
+                //ImageTargetBehavior inactive
+                //여기 4->5
+                for (int i = 0; i < 5; i++)
+                {
+                    aDSL.transform.GetChild(i).GetComponent<DataSetOnOff>().TrackingActiveOn(false);
+                }
+
+                isTitle = true;
+                if (Manager.PrefabShelter.transform.parent.GetChild(1).GetChild(0).childCount > 2)
+                {
+                    Destroy(Manager.PrefabShelter.transform.parent.GetChild(1).GetChild(0).GetChild(2).gameObject);
+                }
+
+                bottomPanel.SetActive(panel);
+                mainUI.SetActive(!panel);
+                usePanel.SetActive(false);
+                aboutUsPanel.SetActive(false);
+                bookPanel.SetActive(false);
+                swapCamButton.SetActive(panel); //Camera Swap Button
+
+            });
+
+            
         }
 
-        bottomPanel.SetActive(panel);
-        mainUI.SetActive(!panel);
-        usePanel.SetActive(false);
-        aboutUsPanel.SetActive(false);
-        bookPanel.SetActive(false);
-        swapCamButton.SetActive(panel); //Camera Swap Button
 
 
     }

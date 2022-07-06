@@ -12,6 +12,7 @@ public class Manager : MonoBehaviour
     private static CheckCode checkCode;
     private static AnimalDataSetLoader animalDataSetLoader;
     private static FileDownloader fileDownloader;
+    private static ToastMsgManager toastMsgManager;
     public static bool isMR { get; set; }
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class Manager : MonoBehaviour
         checkCode = FindObjectOfType<CheckCode>();
         animalDataSetLoader = FindObjectOfType<AnimalDataSetLoader>();
         fileDownloader = FindObjectOfType<FileDownloader>();
+        toastMsgManager = FindObjectOfType<ToastMsgManager>(true);
     }
 
     public static Manager Instance

@@ -32,7 +32,6 @@ public class QRCodeReaderDemo : MonoBehaviour
     {
         if (QRReader != null)
             QRReader.Camera.Stop();
-        Vuforia.VuforiaBehaviour.Instance.enabled = true;
     }
 
     private void QRReader_StatusChanged(object sender, System.EventArgs e)

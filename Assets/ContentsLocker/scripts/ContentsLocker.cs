@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ContentsLocker : MonoBehaviour
 {
-    string title = "sp";
     //차단 통과는 의존적이지 않게 작성되어야 한다. 기존의 창이 사용될경우 이 로커의 가로막기 오브젝트는 생성되지 않는다.
     public Action<bool> fncBlock;
     //그룹아이디일때만 작동해야 한다. 큐알로그인에 성공한후 작동한다.
@@ -21,7 +20,22 @@ public class ContentsLocker : MonoBehaviour
     public string msgNetworkDisconnected = "네트워크가 연결되어있지 않습니다.\nwifi와 데이터 네트워크를 확인해주십시오.";
     public string msgExceededUser = "사용자 이용제한 초과로 인해 로그아웃 되었습니다.\n다른 사용자의 연결을 끊고 대신 로그인할까요?";
     public bool isChecked = false;//php인증으로 통과된 상태
+
+    #region 이부분은 커스텀 프리팹전용 필드
+    //
+    const bool useCustomPrf = true;
+    GameObject netcheckOBJ;
+    Text netcheckTxt;
+    GameObject groupIDCheckOBJ;
+    Text groupIDCheckTxt;
+    Text[] groupIDCheckBtnTexts;
+    Canvas motherCanvas;
+    //
+    #endregion
+
     private static Lazy<ContentsLocker> _instance;
+
+
     public static ContentsLocker Instance
     {
         get
@@ -52,11 +66,107 @@ public class ContentsLocker : MonoBehaviour
 
     Coroutine curCor;
     Coroutine netCheckCor;
+    void StartCustomPrefabSetting() 
+    {
+        Canvas[] canvas = FindObjectsOfType<Canvas>();
+        foreach(var item in canvas)
+        {
+            if (item.name == "Canvas")
+            {
+                motherCanvas = item;
+            }
+        }
+        groupIDCheckOBJ = Instantiate(Resources.Load<GameObject>("prefab_contentLocker"));
+        groupIDCheckOBJ.transform.SetParent(motherCanvas.transform);
+        groupIDCheckOBJ.transform.SetAsLastSibling();
+        groupIDCheckOBJ.SetActive(false);
+
+        netcheckOBJ = Instantiate(Resources.Load<GameObject>("prefab_NetworkBlock"));
+        netcheckOBJ.transform.SetParent(motherCanvas.transform);
+        netcheckOBJ.transform.SetAsLastSibling();
+        netcheckOBJ.SetActive(false);
+
+
+        if (groupIDCheckOBJ == null)
+        {
+            Debug.LogError(nameof(groupIDCheckOBJ) + "is Null");
+        }
+        else
+        {
+            ContentsBlockerEssentialContainer bk = groupIDCheckOBJ.GetComponent<ContentsBlockerEssentialContainer>();
+            if (bk == null)
+            {
+                Debug.LogError(nameof(bk) + "is Null");
+            }
+            else
+            {
+                RectTransform rt = bk.GetComponent<RectTransform>();
+                rt.offsetMax = Vector2.zero;
+                rt.offsetMin = Vector2.zero;
+                rt.localScale = Vector3.one;
+
+                groupIDCheckTxt = bk.GetText;
+                groupIDCheckBtnTexts = new Text[] { bk.GetBtns[0].GetComponentInChildren<Text>(), bk.GetBtns[1].GetComponentInChildren<Text>() };
+                bk.GetBtns[0].onClick.AddListener(()=>{ 
+                    QRLoginStart(qrCode,(x)=> 
+                { 
+                    groupIDCheckOBJ.SetActive(false);
+                    bk.GetBtns[0].interactable = true;
+                    bk.GetBtns[1].interactable = true;
+                },(x)=> 
+                {
+
+                    //실패시
+
+                });
+                
+                    bk.GetBtns[0].interactable = false;
+                    bk.GetBtns[1].interactable = false;
+
+                });//yes
+                bk.GetBtns[1].onClick.AddListener(() => { });//no
+            }
+        }
+        if (netcheckOBJ == null)
+        {
+            Debug.LogError(nameof(netcheckOBJ) + "is Null");
+        }
+        else
+        {
+            ContentsBlockerEssentialContainer bk = netcheckOBJ.GetComponent<ContentsBlockerEssentialContainer>();
+            if (bk == null)
+            {
+                Debug.LogError(nameof(bk) + "is Null");
+            }
+            else
+            {
+                RectTransform rt = bk.GetComponent<RectTransform>();
+                rt.offsetMax = Vector2.zero;
+                rt.offsetMin = Vector2.zero;
+                rt.localScale = Vector3.one;
+
+                netcheckTxt = bk.GetText;
+            }
+        }
+    }
+
+    public void PopUp_cus()
+    {
+
+    }
 
     public void StartNetcheck(Action reservation, NetworkReachability status)
     {
         if (netCheckCor == null)
             netCheckCor = StartCoroutine(CorNetCheck(reservation, status));
+    }
+    public void StartNetcheck(NetworkReachability status)
+    {
+            netcheckOBJ.SetActive(true);
+            netcheckTxt.font = Resources.Load<Font>(I2.Loc.LocalizationManager.GetTermTranslation("UI_font"));
+            netcheckTxt.text = I2.Loc.LocalizationManager.GetTermTranslation("UI_RegiErrorNet");
+        if (netCheckCor == null)
+            netCheckCor = StartCoroutine(CorNetCheck(() => { netcheckOBJ.SetActive(false); }, status));
     }
     public void StopNetcheck()
     {
@@ -76,12 +186,13 @@ public class ContentsLocker : MonoBehaviour
         }
     }
 
-
     public void UnloadContentsLocker()
     {
         isActivate = false;
         StopAllCoroutines();
         curCor = null;
+        //isActivate = false;
+        //print(isActivate);
         if (lockerOBJInstance)
         {
             Destroy(lockerOBJInstance);
@@ -123,10 +234,6 @@ public class ContentsLocker : MonoBehaviour
             btnTrylogin.interactable = true;
         });
     }
-    public void TryLogin(Action<string> success, Action<int> failed)
-    {
-        StartLogin(uniqueCode, qrCode, success, failed);
-    }
     void Awake()
     {
         string tmstr = SystemInfo.deviceUniqueIdentifier;
@@ -148,6 +255,12 @@ public class ContentsLocker : MonoBehaviour
         }
 
         //uniqueCode = Guid.NewGuid().ToString();
+
+        if(useCustomPrf)
+            StartCustomPrefabSetting();
+    }
+    private void Start()
+    {
     }
     public void SecurityCheckStart()
     {
@@ -158,7 +271,16 @@ public class ContentsLocker : MonoBehaviour
         }
         else
         {
-            StartCheck(uniqueCode, qrCode, () => { fncBlock(false); }, (x) => { fncBlock(true); });
+            StartCheck(uniqueCode, qrCode, () => { groupIDCheckOBJ.SetActive(false); }, (x) => { groupIDCheckOBJ.SetActive(true); });
+        }
+        if (useCustomPrf)
+        {
+            groupIDCheckTxt.font= Resources.Load<Font>(I2.Loc.LocalizationManager.GetTermTranslation("UI_font"));
+            groupIDCheckTxt.text= I2.Loc.LocalizationManager.GetTermTranslation("UI_ErrorExceededUser");
+            groupIDCheckBtnTexts[0].font = groupIDCheckTxt.font;
+            groupIDCheckBtnTexts[0].text= I2.Loc.LocalizationManager.GetTermTranslation("UI_yes");
+            groupIDCheckBtnTexts[1].font = groupIDCheckTxt.font;
+            groupIDCheckBtnTexts[1].text = I2.Loc.LocalizationManager.GetTermTranslation("UI_no");
         }
     }
     public void SecurityCheckStart(Action<bool> action)
@@ -201,10 +323,6 @@ public class ContentsLocker : MonoBehaviour
     //    }
     //    FindButtons();
     //}
-    public void StartLoginCheck(Action successAction, Action<int> faildAction)//로그아웃 상태를 확인한다.
-    {
-        StartCheck(uniqueCode, qrCode, successAction, faildAction);
-    }
     void StartCheck(string uniqueCode, string qrCode, Action success, Action<int> fail)
     {
         if (curCor == null)
@@ -237,6 +355,7 @@ public class ContentsLocker : MonoBehaviour
     }
     void StartLogin(string uniqueCode, string qrCode, Action<string> success, Action<int> fail)
     {
+        //print(isActivate);
         if (curCor == null)
             curCor = StartCoroutine(Cor_Network(NetworkMode.QRLogin, (rtnInt, rtnstr) =>
             {
@@ -301,7 +420,7 @@ public class ContentsLocker : MonoBehaviour
         print(uniqueCode);
         form.AddField("uniqueCode", uniqueCode);
         form.AddField("QRCode", qrCode);
-        form.AddField("title", title);
+        form.AddField("title", "tm");
         UnityWebRequest req = null;
         switch (mode)
         {

@@ -115,7 +115,7 @@ public class ToastMsgManager : MonoBehaviour
             }
         }
     }
-
+ 
     public void PopUpMsg(string msg, bool btn)
     {
         changefont = Resources.Load<Font>("fonts/baloo-regular");

@@ -535,7 +535,17 @@ public class FileDownloader : MonoBehaviour
                 yield return new WaitForEndOfFrame();
 
             AssetBundle bundles = DownloadHandlerAssetBundle.GetContent(webr);
+            if (bundles == null)
+            {
+                Debug.LogError("Passed");
+                Destroy(blocker);
+                Resources.UnloadUnusedAssets();
+                yield return new WaitForEndOfFrame();
 
+                canvasManager.PanelManager(true);
+                assetLoaderText.text = string.Empty;
+                yield break;
+            }
             for (int i = 0; i < 100; i++)
             {
                 int targetNum = ((bookNum - 1) * 100) + i;

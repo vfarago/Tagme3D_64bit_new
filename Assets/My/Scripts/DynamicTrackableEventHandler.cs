@@ -32,6 +32,19 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
 
     protected override void OnTrackingFound()
     {
+        if (Manager.CheckCode.storedType == "group")
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                ContentsLocker.Instance.StartNetcheck(NetworkReachability.NotReachable);
+                return;
+            }
+            else
+            {
+                ContentsLocker.Instance.SecurityCheckStart();//자신이 그룹아이디 명단에 있는지 체크한다.
+            }
+            //Manager.ToastMsgManager.StartNetworkToast(() => { Manager.ToastMsgManager.gameObject.SetActive(false); });
+        }
         if (isFreeModel)
         {
             isEndAR = prefabLoader.isEndAR;
@@ -383,7 +396,7 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
     }
 }
 
-public class ReturnDB : MonoBehaviour
+public class ReturnDB
 {
     public static string UserName { get; set; }
     public static int Code { get; set; }

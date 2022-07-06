@@ -38,6 +38,8 @@ public class AccountManager : MonoBehaviour
     public string receivedModel;
 
     public bool isQRLogin = false;
+
+
     #region AWAKE_and_QUIT
     private void Awake()
     {

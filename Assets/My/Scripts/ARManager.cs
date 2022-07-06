@@ -17,8 +17,9 @@ public class ARManager : MonoBehaviour
     public bool isFrontCamera;
     public HintState hintState = HintState.ZERO;
 
-    [SerializeField] VuforiaBehaviour[] vb;//뷰포리아 인스턴스호출로 값이 제대로 안걸려서 만든 변수.brendan220706
-
+    Action hookVuOn;
+    Action hookVuOff;
+    [SerializeField] VuforiaBehaviour[] vb;
     public static ARManager Instance
     {
         get
@@ -37,10 +38,13 @@ public class ARManager : MonoBehaviour
         //{
         //    item.
         //}
+        hookVuOn += () => { checkStop = false; Debug.LogError(checkStop+"!!"); };
+        hookVuOff += () => { checkStop = true; Debug.LogError(checkStop+"!!"); };
     }
 
     void Start()
     {
+        vb = FindObjectsOfType<VuforiaBehaviour>(true);
         //ARCamera.enabled = true;
         StudyViewCamera.enabled = false;
         state = State.IDLE;
@@ -51,11 +55,11 @@ public class ARManager : MonoBehaviour
     }
     static void VuforiaSubscribeSetting()//static 작성 사유. 이친구가 생겼다가 없어졌다가 하는지 온스탑 온스타트가 제대로 걸리지가 않아서 작성하였음 brendan220706
     {
-        VuforiaApplication.Instance.OnVuforiaStopped += () => { checkStop = true; Debug.LogError(checkStop); };
-        VuforiaApplication.Instance.OnVuforiaStarted += () => { checkStop = false; Debug.LogError(checkStop); };
-        if (VuforiaBehaviour.Instance != null)
+        VuforiaApplication.Instance.OnVuforiaStopped += () => { checkStop = true;/* Debug.LogError(checkStop); */};
+        VuforiaApplication.Instance.OnVuforiaStarted += () => { checkStop = false;/* Debug.LogError(checkStop);*/ };
+        if (VuforiaApplication.Instance.GetVuforiaBehaviour() != null)
         {
-            checkStop = !VuforiaBehaviour.Instance.enabled;
+            checkStop = !VuforiaApplication.Instance.GetVuforiaBehaviour().enabled;
         }
     }
     // ARRenderHint [start]
@@ -193,17 +197,20 @@ public class ARManager : MonoBehaviour
         if (!VuforiaBehaviour.Instance.enabled)//이미 꺼져있다면 패스
         {
             done();
-            checkStop = false;
+            checkStop = true;
             cur_Cor = null;
             yield break;
         }
-        VuforiaBehaviour.Instance.enabled = false;
-        while (checkStop)
+        VuforiaApplication.Instance.OnVuforiaStopped += hookVuOff;
+        VuforiaApplication.Instance.GetVuforiaBehaviour().enabled = false;
+        while (VuforiaApplication.Instance.GetVuforiaBehaviour().enabled)
         {
-            yield return new WaitForEndOfFrame();
+            print("roknroll");
+            yield return new WaitForSeconds(1);
         }
+        VuforiaApplication.Instance.OnVuforiaStopped -= hookVuOff;
         done();
-        checkStop = false;
+        checkStop = true;
         cur_Cor = null;
     }
     IEnumerator Cor_WaitToVucamChange(Action done)
@@ -211,18 +218,20 @@ public class ARManager : MonoBehaviour
         if (VuforiaBehaviour.Instance.enabled)//이미 켜져있다면 패스
         {
             done();
-            checkStop = true;
+            checkStop = false;
             cur_Cor = null;
             yield break;
         }
-        VuforiaBehaviour.Instance.enabled = true;
-        while (!checkStop)
+        VuforiaApplication.Instance.OnVuforiaStarted += hookVuOn;
+        VuforiaApplication.Instance.GetVuforiaBehaviour().enabled = true;
+        while (!VuforiaApplication.Instance.GetVuforiaBehaviour().enabled)
         {
             print("roknroll");
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(1);
         }
+        VuforiaApplication.Instance.OnVuforiaStarted -= hookVuOn;
         done();
-        checkStop = true;
+        checkStop = false;
         cur_Cor = null;
     }
 
