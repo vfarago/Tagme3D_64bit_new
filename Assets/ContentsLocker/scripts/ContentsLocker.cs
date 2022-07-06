@@ -30,6 +30,7 @@ public class ContentsLocker : MonoBehaviour
     Text groupIDCheckTxt;
     Text[] groupIDCheckBtnTexts;
     Canvas motherCanvas;
+    CanvasManager canvasManager;
     //
     #endregion
 
@@ -68,6 +69,7 @@ public class ContentsLocker : MonoBehaviour
     Coroutine netCheckCor;
     void StartCustomPrefabSetting() 
     {
+        canvasManager = FindObjectOfType<CanvasManager>();
         Canvas[] canvas = FindObjectsOfType<Canvas>();
         foreach(var item in canvas)
         {
@@ -124,7 +126,18 @@ public class ContentsLocker : MonoBehaviour
                     bk.GetBtns[1].interactable = false;
 
                 });//yes
-                bk.GetBtns[1].onClick.AddListener(() => { });//no
+                bk.GetBtns[1].onClick.AddListener(() => 
+                {
+                    if (Vuforia.VuforiaBehaviour.Instance.enabled)
+                        Vuforia.VuforiaBehaviour.Instance.enabled = false;
+                    if (canvasManager.mainUI.activeSelf)
+                        canvasManager.accountManager.AllDisable();
+
+                    canvasManager.PanelManager(false);
+                    groupIDCheckOBJ.SetActive(false);
+                    canvasManager.accountManager.LogoutMsg();
+
+                });//no
             }
         }
         if (netcheckOBJ == null)

@@ -44,6 +44,11 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                 ContentsLocker.Instance.SecurityCheckStart();//자신이 그룹아이디 명단에 있는지 체크한다.
             }
             //Manager.ToastMsgManager.StartNetworkToast(() => { Manager.ToastMsgManager.gameObject.SetActive(false); });
+            if (!ContentsLocker.Instance.isChecked)
+            {
+                return;
+            }
+
         }
         if (isFreeModel)
         {

@@ -29,7 +29,7 @@ public class CanvasManager : MonoBehaviour
     private Button pushedBtn;
 
     ARManager arManager;
-    AccountManager accountManager;
+    public AccountManager accountManager { get; private set; }
     CheckCode checkCode;
     PrefabLoader prefabLoader;
     PrefabShelter prefabShelter;
