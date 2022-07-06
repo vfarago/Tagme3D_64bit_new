@@ -1013,37 +1013,47 @@ public class CanvasManager : MonoBehaviour
         arPanel.transform.GetChild(3).gameObject.SetActive(on);
         arPanel.transform.GetChild(1).gameObject.SetActive(!on);
         scanTitle.SetActive(!on);
+        prefabLoader.ModelFalse();
+
         if (!on)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                GameObject obj = Manager.AnimalDataSetLoader.transform.GetChild(i).gameObject;
-                for (int j = 0; j < obj.transform.childCount; j++)
-                {
-                    DynamicTrackableEventHandler dteh = obj.transform.GetChild(j).GetComponent<DynamicTrackableEventHandler>();
-                    if (dteh.isModelLoading) dteh.isModelLoading = false;
-                }
-            }
-        }
-        if (isCoverTarget && !on)
-        {
-            Destroy(coverVideo);
-            coverVideo = null;
-            arLight.intensity = 1;
-
-            prefabLoader.isTargetoff = false;
-            isCoverTarget = false;
-        }
-        else if (isCoverTarget && on)
-        {
-
-            if (!Manager.isMR) coverVideo = Instantiate(Resources.Load<GameObject>("prefabs/coverAR"), Camera.main.transform, false);
-            arLight.intensity = 0.65f;
-        }
-        else if (!isCoverTarget && !on)
-        {
             prefabLoader.DestroyObj();
+            PanelManager(true);
         }
+
+        //if (!on)
+        //{
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        GameObject obj = Manager.AnimalDataSetLoader.transform.GetChild(i).gameObject;
+        //        for (int j = 0; j < obj.transform.childCount; j++)
+        //        {
+        //            DynamicTrackableEventHandler dteh = obj.transform.GetChild(j).GetComponent<DynamicTrackableEventHandler>();
+        //            if (dteh.isModelLoading) dteh.isModelLoading = false;
+        //        }
+        //    }
+        //}
+        //if (isCoverTarget && !on)
+        //{
+        //    Destroy(coverVideo);
+        //    coverVideo = null;
+        //    arLight.intensity = 1;
+
+        //    prefabLoader.isTargetoff = false;
+        //    isCoverTarget = false;
+        //}
+        //else if (isCoverTarget && on)
+        //{
+
+        //    if (!Manager.isMR) coverVideo = Instantiate(Resources.Load<GameObject>("prefabs/coverAR"), Camera.main.transform, false);
+        //    arLight.intensity = 0.65f;
+        //}
+        //else if (!isCoverTarget && !on)
+        //{
+        //    prefabLoader.DestroyObj();
+        //    Manager.CanvasManager.OnTargetOffObject(true);
+
+        //}
     }
 
     public void CautionActive(bool on)

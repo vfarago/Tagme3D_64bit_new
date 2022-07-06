@@ -38,7 +38,8 @@ public class ObjInteraction : MonoBehaviour
     public bool isFreeModel;
     private bool Phonics = false;
     private bool isHit = false;
-    private ModeState modeState;
+    private ModeState modeState = ModeState.ModeEnd;
+    private GameObject hitGameObject;
     Vector3 CamCorrection(Vector2 screenPoint,Transform targetOBJ)
     {
         float v3=_currentCam.transform.InverseTransformPoint(targetOBJ.transform.position).z;
@@ -52,6 +53,9 @@ public class ObjInteraction : MonoBehaviour
     }
     void ZoomInOutNRot(Transform tf, float scaleOrigin=1, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2,bool fixZrot=false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
         if (targetOBJ == null) 
         {
             updateAction = () => { };
@@ -134,18 +138,23 @@ public class ObjInteraction : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     prevPos = CamCorrection(Input.mousePosition,targetOBJ);
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                    //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                     {
                         Debug.Log(hit.collider.gameObject.name);
 
-                        if (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("augmentation"))
+                        if (hit.collider.gameObject == transform.gameObject && (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("augmentation")))
                         {                            
-                            isHit = true;                
-                            
-                            switch(hit.collider.tag)
+                            isHit = true;
+
+                            if (gameObject != hit.collider.gameObject)
+                                return;
+
+                            switch (hit.collider.tag)
                             {
-                                default:break;
+                                default:
+                                    modeState = ModeState.ModeEnd;
+                                    break;
 
                                 case "targetOff":
                                     modeState = ModeState.MR;
@@ -157,13 +166,9 @@ public class ObjInteraction : MonoBehaviour
                             }
                         }
                     }
-
-
                 }
                 else if (Input.GetMouseButtonUp(0))
-                {
-                    isHit = false;
-
+                {                    
                     //더블클릭시 초기화구문작성
                     if (Mathf.Abs(_delta) < 5 * ratio && !Phonics)
                     {
@@ -180,13 +185,43 @@ public class ObjInteraction : MonoBehaviour
                         {
                             checkTime = Time.time;
 
-                            prefabLoader.TargetOffMoving(gameObject);
-                            canvasManager.OnTargetOffObject(true);
+                            //switch (modeState)
+                            //{
+                            //    case ModeState.AR:
+                            //        prefabLoader.TargetOffMoving(gameObject);
+                            //        canvasManager.OnTargetOffObject(true);
+                            //        break;
+
+                            //    case ModeState.MR:
+                            //        StartReturnObjTf(tf);
+                            //        tf.localRotation = saverot = Quaternion.identity;
+                            //        tf.localScale = Vector3.one;
+                            //        break;
+                            //}
+
+                            isHit = false;
                         }
                     }
                     else
                     {
                         saverot = tf.localRotation;
+
+
+                        //switch (modeState)
+                        //{
+                        //    case ModeState.AR:
+                        //        prefabLoader.TargetOffMoving(gameObject);
+                        //        canvasManager.OnTargetOffObject(true);
+                        //        break;
+
+                        //    case ModeState.MR:
+                        //        StartReturnObjTf(tf);
+                        //        tf.localRotation = saverot = Quaternion.identity;
+                        //        tf.localScale = Vector3.one;
+                        //        break;
+                        //}
+
+                        isHit = false;
                     }
                 }
                 else if (Input.GetMouseButton(0))
@@ -197,85 +232,88 @@ public class ObjInteraction : MonoBehaviour
 
 
             }
-            else
-            {
-                float delta = (Input.mousePosition.x - prevPos.x) * ratio;
+            //else
+            //{
+            //    float delta = (Input.mousePosition.x - prevPos.x) * ratio;
 
-                if (Input.GetMouseButtonDown(0))
-                {
-                    prevPos = Input.mousePosition;
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
-                    {
-                        Debug.Log(hit.collider.gameObject.name);
+            //    if (Input.GetMouseButtonDown(0))
+            //    {
+            //        prevPos = Input.mousePosition;
+            //        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            //        {
+            //            Debug.Log(hit.collider.gameObject.name);
 
-                        if (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("augmentation"))
-                        {
-                            isHit = true;
+            //            if (gameObject != hit.collider.gameObject)
+            //                return;
 
-                            switch (hit.collider.tag)
-                            {
-                                default: break;
+            //            if (hit.collider.gameObject == transform.gameObject && (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("augmentation")))
+            //            {
+            //                isHit = true;
+            //                //hitGameObject = hit.collider.gameObject;
+            //                switch (hit.collider.tag)
+            //                {
+            //                    default: break;
 
-                                case "targetOff":
-                                    modeState = ModeState.MR;
-                                    break;
+            //                    case "targetOff":
+            //                        modeState = ModeState.MR;
+            //                        break;
 
-                                case "augmentation":
-                                    modeState = ModeState.AR;
-                                    break;
-                            }
-                        }
-                    }
-                }
-                else if (Input.GetMouseButtonUp(0))
-                {
-                    isHit = false;
+            //                    case "augmentation":
+            //                        modeState = ModeState.AR;
+            //                        break;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    else if (Input.GetMouseButtonUp(0))
+            //    {
+            //        isHit = false;
 
-                    //더블클릭시 초기화구문작성
-                    if (Mathf.Abs(delta) < 5 * ratio && !Phonics)
-                    {
-                        if (Time.time - checkTime < 1)
-                        {
-                            StartCoroutine(DoubleTapEvent());
-                            //StartReturnObjTf(tf);
-                            //tf.localRotation = saverot = Quaternion.identity;
-                            //tf.localScale = Vector3.one;
+            //        //더블클릭시 초기화구문작성
+            //        if (Mathf.Abs(delta) < 5 * ratio && !Phonics)
+            //        {
+            //            if (Time.time - checkTime < 1)
+            //            {
+            //                StartCoroutine(DoubleTapEvent());
+            //                //StartReturnObjTf(tf);
+            //                //tf.localRotation = saverot = Quaternion.identity;
+            //                //tf.localScale = Vector3.one;
 
-                        }
-                        else
-                        {
-                            checkTime = Time.time;
+            //            }
+            //            else
+            //            {
+            //                checkTime = Time.time;
 
-                            switch(modeState)
-                            {
-                                case ModeState.AR:
-                                    prefabLoader.TargetOffMoving(gameObject);
-                                    canvasManager.OnTargetOffObject(true);
-                                    break;
+            //                switch(modeState)
+            //                {
+            //                    case ModeState.AR:
+            //                        prefabLoader.TargetOffMoving(gameObject);
+            //                        canvasManager.OnTargetOffObject(true);
+            //                        break;
 
-                                case ModeState.MR:
-                                    StartReturnObjTf(tf);
-                                    tf.localRotation = saverot = Quaternion.identity;
-                                    tf.localScale = Vector3.one;
-                                    break;
-                            }
+            //                    case ModeState.MR:
+            //                        StartReturnObjTf(tf);
+            //                        tf.localRotation = saverot = Quaternion.identity;
+            //                        tf.localScale = Vector3.one;
+            //                        break;
+            //                }
 
 
-                        }
-                    }
-                    else
-                    {
-                        saverot = tf.localRotation;
-                    }
-                }
-                else if (Input.GetMouseButton(0))
-                {
-                    if(isHit)
-                        tf.localRotation = Quaternion.AngleAxis(-delta, Vector3.up) * saverot;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            saverot = tf.localRotation;
+            //        }
+            //    }
+            //    else if (Input.GetMouseButton(0))
+            //    {
+            //        if(isHit)
+            //            tf.localRotation = Quaternion.AngleAxis(-delta, Vector3.up) * saverot;
 
-                }
-            }
+            //    }
+            //}
           
         }
     }
