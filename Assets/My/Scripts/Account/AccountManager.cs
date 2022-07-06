@@ -242,7 +242,9 @@ public class AccountManager : MonoBehaviour
 #endif
 
             loginAndSignUp.SetActive(true);
-            loginAndSignUp.transform.GetChild(1).GetChild(2).localPosition = new Vector2(0, -470);
+            Debug.Log(loginAndSignUp.transform.GetChild(1).GetChild(2).localPosition);
+            loginAndSignUp.transform.GetChild(1).GetChild(2).localPosition = new Vector2(0,
+                loginAndSignUp.transform.GetChild(1).GetChild(2).localPosition.y == -520 ? -420f : -370f);
             Text[] texts = loginAndSignUp.GetComponentsInChildren<Text>();
             for(int i = 0; i < texts.Length; i++)
             {
