@@ -177,7 +177,6 @@ public class CheckCode : MonoBehaviour
         storedSerial = new List<SerialField>();
 
         string path = string.Format("{0}/Used", dataFolder);
-        Debug.LogError(path);
         if (File.Exists(path))
         {
             StreamReader read = new StreamReader(path);

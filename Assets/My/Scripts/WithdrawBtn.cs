@@ -6,22 +6,24 @@ using UnityEngine.UI;
 
 public class WithdrawBtn : MonoBehaviour
 {
-    private void OnEnable()
+    [SerializeField] private GameObject parentPanel;
+    private void Update()
     {
-        if(Manager.CheckCode.storedType.Contains("admin")|| Manager.CheckCode.storedType.Contains("group"))
+        if (parentPanel.activeSelf)
         {
-            gameObject.SetActive(false);
+            if (Manager.CheckCode.storedType.Contains("admin") || Manager.CheckCode.storedType.Contains("group"))
+            {
+                GetComponent<Image>().color = new Color(0, 0, 0, 0);
+                GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                GetComponent<Button>().interactable = true;
+                Font font = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
+                GetComponentInChildren<Text>().text = LocalizationManager.GetTermTranslation("UI_WithdrawTxt");
+                GetComponentInChildren<Text>().font = font;
+            }
         }
-        else
-        {
-            gameObject.SetActive(true);
-            Font font = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
-            GetComponentInChildren<Text>().text = LocalizationManager.GetTermTranslation("UI_WithdrawTxt");
-            GetComponentInChildren<Text>().font = font;
-        }
-    }
-    private void OnDisable()
-    {
-        
     }
 }

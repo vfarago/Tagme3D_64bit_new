@@ -38,8 +38,8 @@ public class ARManager : MonoBehaviour
         //{
         //    item.
         //}
-        hookVuOn += () => { checkStop = false; Debug.LogError(checkStop+"!!"); };
-        hookVuOff += () => { checkStop = true; Debug.LogError(checkStop+"!!"); };
+        hookVuOn += () =>  checkStop = false;
+        hookVuOff += () => checkStop = true;  
     }
 
     void Start()
