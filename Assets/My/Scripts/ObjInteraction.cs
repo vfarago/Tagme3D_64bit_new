@@ -35,6 +35,7 @@ public class ObjInteraction : MonoBehaviour
     public string targetName;
     public bool isFreeModel;
     private bool Phonics = false;
+    private bool isHit = false;
 
     Vector3 CamCorrection(Vector2 screenPoint,Transform targetOBJ)
     {
@@ -60,9 +61,8 @@ public class ObjInteraction : MonoBehaviour
         {
             float distance = 0;
             float preDistance = Input.mouseScrollDelta.y;
+            
 
-            //  Elon 
-            Ray ray = Camera.current.ScreenPointToRay(Input.mousePosition);
 #else
         if (Input.touchCount == 2)
         {
@@ -132,6 +132,19 @@ public class ObjInteraction : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     prevPos = CamCorrection(Input.mousePosition,targetOBJ);
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                    {
+                        Debug.Log(hit.collider.gameObject.name);
+
+                        if (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("targetOff"))
+                            isHit = true;
+                        
+                        else
+                            isHit = false;
+                    }
+
+
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
@@ -162,7 +175,8 @@ public class ObjInteraction : MonoBehaviour
                 }
                 else if (Input.GetMouseButton(0))
                 {
-                    tf.localRotation = Quaternion.AngleAxis(-_delta, dir) * saverot;
+                    if(isHit)
+                        tf.localRotation = Quaternion.AngleAxis(-_delta, dir) * saverot;
                 }
 
 
@@ -203,7 +217,16 @@ public class ObjInteraction : MonoBehaviour
                 }
                 else if (Input.GetMouseButton(0))
                 {
-                    tf.localRotation = Quaternion.AngleAxis(-delta, Vector3.up) * saverot;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                    {
+                        Debug.Log(hit.collider.gameObject.name);
+
+                        if (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("targetOff"))
+                        {
+                            tf.localRotation = Quaternion.AngleAxis(-delta, Vector3.up) * saverot;
+                        }
+                    }
                 }
             }
           
@@ -271,6 +294,8 @@ public class ObjInteraction : MonoBehaviour
         if (resetRot) ResetRot();
         targetOBJ = target;
         targetOBJ.localEulerAngles = Vector3.zero;
+
+
         updateAction = () => { if (interAction) ZoomInOutNRot(target,scaleOrigin, sensitivity, fixZrot: fixZRot); };
     }
     public void UnloadTargetOBJ()
