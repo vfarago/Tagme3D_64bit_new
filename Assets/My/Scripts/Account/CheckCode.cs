@@ -848,6 +848,7 @@ public class CheckCode : MonoBehaviour
         {
             Debug.Log(rtncode);
             string[] inputSplit = rtncode.Split('\n');
+            string qrDate = string.Empty;
             foreach (string i in inputSplit)
             {
                 if (i.Contains("Company: "))
@@ -862,6 +863,7 @@ public class CheckCode : MonoBehaviour
                     print(allSplit[0] + allSplit[1]);
                     string[] dateSplit = allSplit[0].Split('-');
                     string[] timeSplit = allSplit[1].Split(':');
+                    qrDate = dateSplit[0] + "-" + dateSplit[1] + "-" + dateSplit[2];
                     //수정중	
                     //Data.userInfo.registerDate = new Vector3(int.Parse(dateSplit[0]), int.Parse(dateSplit[1]), int.Parse(dateSplit[2]));	
                     //Data.userInfo.registerTime = new Vector3(int.Parse(timeSplit[0]), int.Parse(timeSplit[1]), int.Parse(timeSplit[2]));	
@@ -872,6 +874,7 @@ public class CheckCode : MonoBehaviour
             storedPW = "None";
             storedMail = "Group ID";
             storedType = "group";
+            storedDate = qrDate;
             codeConfirms.Add("tm1");
             codeConfirms.Add("tm2");
             codeConfirms.Add("tm3");

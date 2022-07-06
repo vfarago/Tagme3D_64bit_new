@@ -46,7 +46,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycbzkuAAXe9dVky3k_yAlPeGfflOzGECBgxX8Ib-xIFxhqaQzgCA/exec
   Google_SpreadsheetKey: 1V4nNCRy-6dxlBiD3NlNyek8ANgTyAzum4ZNC7EoywWI
   Google_SpreadsheetName: I2Loc TM Localization
-  Google_LastUpdatedVersion: 1657014130034
+  Google_LastUpdatedVersion: 1657091052014
   GoogleUpdateFrequency: 1
   mTerms:
   - Term: acorn
@@ -67627,22 +67627,38 @@ MonoBehaviour:
     TermType: 0
     Description: 
     Languages:
+    - 'To Proceed
+
+      Internet Connection Required!'
+    - "\uACC4\uC18D \uC9C4\uD589\uD558\uC2DC\uB824\uBA74\r\n\uC778\uD130\uB137 \uC5F0\uACB0\uC774
+      \uD544\uC694\uD569\uB2C8\uB2E4!"
+    - "\u8FDE\u63A5\u5230\u4E92\u8054\u7F51\u4EE5\u7EE7\u7EED\uFF01"
+    - "\u7D99\u7D9A\u3057\u3066\u9032\u884C\u3059\u308B\u306B\u306F\r\n\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u63A5\u7D9A\u304C\u5FC5\u8981\u3067\u3059\uFF01"
+    - 'Procedi
+
+      Interreta Konekto Bezonata!'
+    - 'Wenn Sie weitermachen wollen,
+
+      Internetverbindung erforderlich!'
+    - "Proc\xE9der\r\nConnexion Internet Requise !"
     - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    - 'Procedere
+
+      Connessione Internet Richiesta!'
+    - "Kontynuowa\u0107\r\nWymagane Po\u0142\u0105czenie Internetowe!"
+    - "\u092F\u0926\u093F \u0906\u092A \u091C\u093E\u0930\u0940 \u0930\u0916\u0928\u093E
+      \u091A\u093E\u0939\u0924\u0947 \u0939\u0948\u0902,\r\n\u092E\u0941\u091D\u0947
+      \u0907\u0902\u091F\u0930\u0928\u0947\u091F \u0915\u0928\u0947\u0915\u094D\u0936\u0928
+      \u091A\u093E\u0939\u093F\u090F!"
+    - "\u05DC\u05D4\u05DE\u05E9\u05D9\u05DA\r\n\u05E0\u05D3\u05E8\u05E9 \u05D7\u05D9\u05D1\u05D5\u05E8
+      \u05DC\u05D0\u05D9\u05E0\u05D8\u05E8\u05E0\u05D8!"
+    - "\u041F\u0440\u0430\u0446\u044F\u0433\u043D\u0443\u0446\u044C\r\n\u041F\u0430\u0442\u0440\u0430\u0431\u0443\u0435\u0446\u0446\u0430
+      \u041F\u0430\u0434\u043A\u043B\u044E\u0447\u044D\u043D\u043D\u0435 \u0414\u0430
+      \u0406\u043D\u0442\u044D\u0440\u043D\u044D\u0442\u0443!"
+    - "\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E15\u0E48\u0E2D\r\n\u0E08\u0E33\u0E40\u0E1B\u0E47\u0E19\u0E15\u0E49\u0E2D\u0E07\u0E40\u0E0A\u0E37\u0E48\u0E2D\u0E21\u0E15\u0E48\u0E2D\u0E2D\u0E34\u0E19\u0E40\u0E17\u0E2D\u0E23\u0E4C\u0E40\u0E19\u0E47\u0E15!"
+    - "Ti\u1EBFn H\xE0nh V\u1EDBi\r\nY\xEAu C\u1EA7u K\u1EBFt N\u1ED1i Internet!"
+    - "\u0906\u0917\u0947 \u092C\u0922\u093C\u0928\u0947 \u0915\u0947 \u0932\u093F\u090F\r\n\u0907\u0902\u091F\u0930\u0928\u0947\u091F
+      \u0915\u0928\u0947\u0915\u094D\u0936\u0928 \u0915\u0940 \u0906\u0935\u0936\u094D\u092F\u0915\u0924\u093E!"
     - 
     Languages_Touch:
     - 'To Proceed
@@ -67678,7 +67694,7 @@ MonoBehaviour:
     - "\u0906\u0917\u0947 \u092C\u0922\u093C\u0928\u0947 \u0915\u0947 \u0932\u093F\u090F\r\n\u0907\u0902\u091F\u0930\u0928\u0947\u091F
       \u0915\u0928\u0947\u0915\u094D\u0936\u0928 \u0915\u0940 \u0906\u0935\u0936\u094D\u092F\u0915\u0924\u093E!"
     - 
-    Flags: 0200000002000200020200020202020200
+    Flags: 0300000003000300030300030303030300
   - Term: UI_ErrorExceededUser
     TermType: 0
     Description: 

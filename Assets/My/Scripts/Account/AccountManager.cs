@@ -236,8 +236,6 @@ public class AccountManager : MonoBehaviour
             {
                 texts[i].text = LocalizationManager.GetTermTranslation("UI_" + texts[i].name);
             }
-            if (!loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.activeSelf)
-                loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
             loginPanel.SetActive(true);
             signUpPanel.SetActive(false);
             loginAndSignUp.GetComponentInChildren<PanelSize>().Resizer();
@@ -433,8 +431,8 @@ public class AccountManager : MonoBehaviour
 
                 break;
             case "btn_signUp":
-                if (loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.activeSelf)
-                    loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
+                Debug.Log(loginAndSignUp.transform.GetChild(1).GetChild(2).transform.localPosition);
+                loginAndSignUp.transform.GetChild(1).GetChild(2).transform.localPosition = new Vector2(0, -470);
                 loginPanel.gameObject.SetActive(false);
 
                 signUpPanel.GetComponentInChildren<PopUpManager>().PopupReady();
@@ -558,8 +556,8 @@ public class AccountManager : MonoBehaviour
 
                 loginPanel.GetComponentInChildren<PopUpManager>().PopupReady();
                 loginPanel.SetActive(true);
-                if (!loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.activeSelf)
-                    loginAndSignUp.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
+                Debug.Log(loginAndSignUp.transform.GetChild(1).GetChild(2).transform.localPosition);
+                loginAndSignUp.transform.GetChild(1).GetChild(2).transform.localPosition = new Vector2(0, -420);
 
                 loginAndSignUp.GetComponent<PanelSize>().Resizer();
 
