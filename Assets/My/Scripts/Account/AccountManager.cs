@@ -497,10 +497,11 @@ public class AccountManager : MonoBehaviour
                             case "Email has not been verified":
                                 popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_emailVerified");
 
-                                resendButton.GetComponentInChildren<Text>().text = LocalizationManager.GetTermTranslation("UI_resend");
-                                resendButton.GetComponentInChildren<Text>().font = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
+                                //수정예정 0706
+                                //resendButton.GetComponentInChildren<Text>().text = LocalizationManager.GetTermTranslation("UI_resend");
+                                //resendButton.GetComponentInChildren<Text>().font = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));
 
-                                resendButton.gameObject.SetActive(true);
+                                //resendButton.gameObject.SetActive(true);
 
                                 break;
                             default:
@@ -594,6 +595,8 @@ public class AccountManager : MonoBehaviour
                     {
                         if (returned.Equals("Success_Regist"))
                         {
+                            loginAndSignUp.transform.GetChild(1).GetChild(2).localPosition = new Vector2(0,
+                                loginAndSignUp.transform.GetChild(1).GetChild(2).localPosition.y == -520 ? -420f : -370f);
                             InputReset(signUpPanel);
                             signUpPanel.SetActive(false);
 
