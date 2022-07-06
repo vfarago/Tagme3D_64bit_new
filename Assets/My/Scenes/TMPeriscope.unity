@@ -12206,6 +12206,8 @@ MonoBehaviour:
   localUiToggle: {fileID: 642293347}
   txt_version: {fileID: 2083519030}
   txt_version_main: {fileID: 1404435191}
+  txt_Copyright: {fileID: 889396269}
+  txt_LoadingCopyright: {fileID: 1785527139}
   arCamera: {fileID: 698403763}
   btn_myVoice: {fileID: 0}
   btn_AboutUs: {fileID: 1327607884}

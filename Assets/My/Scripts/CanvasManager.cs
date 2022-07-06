@@ -10,7 +10,7 @@ public class CanvasManager : MonoBehaviour
     swapCamButton, replayButton, recordToastPanel, exitPanel, usePanel, aboutUsPanel, bookPanel, loadingPanel, toastMsgPanel, mrPanel,
     changePasswordPanel, withdrawAccountPanel;
     public Image localizeUiImage, localizePhonicsImage;
-    public Text localUITitle, localUiToggle, txt_version, txt_version_main;
+    public Text localUITitle, localUiToggle, txt_version, txt_version_main, txt_Copyright, txt_LoadingCopyright;
     public Camera arCamera;
     public Button btn_myVoice;
     public Button btn_AboutUs;
@@ -54,6 +54,8 @@ public class CanvasManager : MonoBehaviour
     #region AWAKE_AND_QUIT
     void Awake()
     {
+        txt_LoadingCopyright.text = txt_Copyright.text = "ⓒ " + System.DateTime.Now.Year.ToString() +
+       ". Victoria Productions INC. all rights reserved.";
         Manager.isMR = false;
         StartPanelSetting();
 

@@ -6,13 +6,15 @@ using UnityEngine.UI;
 public class SplashManager : MonoBehaviour
 {
     public Image progressBar;
-    public Text txt_version;
+    public Text txt_version, txt_Copyright;
 
     IEnumerator Start()
     {
         yield return null;
 
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        txt_Copyright.text = "ⓒ " + System.DateTime.Now.Year.ToString() +
+       ". Victoria Productions INC. all rights reserved.";
 
         txt_version.text = string.Format("v.{0}", Application.version);
 
