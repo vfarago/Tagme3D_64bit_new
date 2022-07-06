@@ -18726,6 +18726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6f1ca48728a554291b9dcc973cd1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentPanel: {fileID: 684525310}
 --- !u!1 &780589303
 GameObject:
   m_ObjectHideFlags: 0
@@ -33330,6 +33331,7 @@ MonoBehaviour:
   receivedIdentifier: 
   receivedModel: 
   isQRLogin: 0
+  withdrawObj: {fileID: 770196411}
 --- !u!1 &1493398825
 GameObject:
   m_ObjectHideFlags: 0
