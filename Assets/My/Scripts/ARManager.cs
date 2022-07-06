@@ -17,17 +17,27 @@ public class ARManager : MonoBehaviour
     public bool isFrontCamera;
     public HintState hintState = HintState.ZERO;
 
+    [SerializeField] VuforiaBehaviour[] vb;//뷰포리아 인스턴스호출로 값이 제대로 안걸려서 만든 변수.brendan220706
+
     public static ARManager Instance
     {
         get
         {
+            VuforiaApplication.Instance.OnVuforiaInitialized += (x) => { VuforiaSubscribeSetting(); };
             if (instance == null) //Finds the instance if it doesn't exist
                 instance = GameObject.FindObjectOfType<ARManager>();
 
             return instance;
         }
     }
-
+    private void Awake()
+    {
+        //vb = FindObjectsOfType<VuforiaBehaviour>();
+        //foreach(var item in vb)
+        //{
+        //    item.
+        //}
+    }
 
     void Start()
     {
@@ -38,13 +48,11 @@ public class ARManager : MonoBehaviour
         //TurnOnAR(false, false);
         setHintZero();
 
-        VuforiaSubscribeSetting();
     }
-
-    void VuforiaSubscribeSetting()
+    static void VuforiaSubscribeSetting()//static 작성 사유. 이친구가 생겼다가 없어졌다가 하는지 온스탑 온스타트가 제대로 걸리지가 않아서 작성하였음 brendan220706
     {
-        VuforiaApplication.Instance.OnVuforiaStopped += () => { checkStop = true; };
-        VuforiaApplication.Instance.OnVuforiaStarted += () => { checkStop = false; };
+        VuforiaApplication.Instance.OnVuforiaStopped += () => { checkStop = true; Debug.LogError(checkStop); };
+        VuforiaApplication.Instance.OnVuforiaStarted += () => { checkStop = false; Debug.LogError(checkStop); };
         if (VuforiaBehaviour.Instance != null)
         {
             checkStop = !VuforiaBehaviour.Instance.enabled;
@@ -169,14 +177,16 @@ public class ARManager : MonoBehaviour
         }
 
     }
-
+    Coroutine cur_Cor;
     public void UseVuforiaCam(Action done)
     {
-        StartCoroutine(Cor_WaitToVucamChange(done));
+        if (cur_Cor != null) return;
+        cur_Cor=StartCoroutine(Cor_WaitToVucamChange(done));
     }
     public void UseWebCam(Action done)
     {
-        StartCoroutine(Cor_WaitToWebcamChange(done));
+        if (cur_Cor != null) return;
+        cur_Cor =StartCoroutine(Cor_WaitToWebcamChange(done));
     }
     IEnumerator Cor_WaitToWebcamChange(Action done)
     {
@@ -184,6 +194,7 @@ public class ARManager : MonoBehaviour
         {
             done();
             checkStop = false;
+            cur_Cor = null;
             yield break;
         }
         VuforiaBehaviour.Instance.enabled = false;
@@ -193,6 +204,7 @@ public class ARManager : MonoBehaviour
         }
         done();
         checkStop = false;
+        cur_Cor = null;
     }
     IEnumerator Cor_WaitToVucamChange(Action done)
     {
@@ -200,18 +212,21 @@ public class ARManager : MonoBehaviour
         {
             done();
             checkStop = true;
+            cur_Cor = null;
             yield break;
         }
         VuforiaBehaviour.Instance.enabled = true;
         while (!checkStop)
         {
+            print("roknroll");
             yield return new WaitForEndOfFrame();
         }
         done();
         checkStop = true;
+        cur_Cor = null;
     }
 
-    bool checkStop = false;
+    static bool checkStop = false;
 
     public void UseWebCam(QRCodeReaderDemo demo)
     {

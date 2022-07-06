@@ -177,7 +177,7 @@ public class CheckCode : MonoBehaviour
         storedSerial = new List<SerialField>();
 
         string path = string.Format("{0}/Used", dataFolder);
-
+        Debug.LogError(path);
         if (File.Exists(path))
         {
             StreamReader read = new StreamReader(path);
@@ -888,6 +888,7 @@ public class CheckCode : MonoBehaviour
             accountManager.qrPanel.SetActive(false);
             accountManager.loginAndSignUp.SetActive(false);
             accountManager.SerialCheck();
+            isLogin.sprite = logOn;
             //PlayerPrefs.SetString("UsedID", Data.userInfo.id);	
             //PlayerPrefs.SetString("UsedPW", Data.userInfo.password);	
             //btn_Login.interactable = true;	
