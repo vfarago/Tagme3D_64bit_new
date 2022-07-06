@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum ModeState { AR,MR ,ModeEnd }
+
 public class ObjInteraction : MonoBehaviour
 {
     Camera currentcam 
@@ -36,7 +38,7 @@ public class ObjInteraction : MonoBehaviour
     public bool isFreeModel;
     private bool Phonics = false;
     private bool isHit = false;
-
+    private ModeState modeState;
     Vector3 CamCorrection(Vector2 screenPoint,Transform targetOBJ)
     {
         float v3=_currentCam.transform.InverseTransformPoint(targetOBJ.transform.position).z;
@@ -137,17 +139,31 @@ public class ObjInteraction : MonoBehaviour
                     {
                         Debug.Log(hit.collider.gameObject.name);
 
-                        if (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("targetOff"))
-                            isHit = true;
-                        
-                        else
-                            isHit = false;
+                        if (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("augmentation"))
+                        {                            
+                            isHit = true;                
+                            
+                            switch(hit.collider.tag)
+                            {
+                                default:break;
+
+                                case "targetOff":
+                                    modeState = ModeState.MR;
+                                    break;
+
+                                case "augmentation":
+                                    modeState = ModeState.AR;
+                                    break;
+                            }
+                        }
                     }
 
 
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
+                    isHit = false;
+
                     //더블클릭시 초기화구문작성
                     if (Mathf.Abs(_delta) < 5 * ratio && !Phonics)
                     {
@@ -188,16 +204,41 @@ public class ObjInteraction : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     prevPos = Input.mousePosition;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                    {
+                        Debug.Log(hit.collider.gameObject.name);
+
+                        if (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("augmentation"))
+                        {
+                            isHit = true;
+
+                            switch (hit.collider.tag)
+                            {
+                                default: break;
+
+                                case "targetOff":
+                                    modeState = ModeState.MR;
+                                    break;
+
+                                case "augmentation":
+                                    modeState = ModeState.AR;
+                                    break;
+                            }
+                        }
+                    }
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
+                    isHit = false;
+
                     //더블클릭시 초기화구문작성
                     if (Mathf.Abs(delta) < 5 * ratio && !Phonics)
                     {
                         if (Time.time - checkTime < 1)
                         {
-                            //StartReturnObjTf(tf);
                             StartCoroutine(DoubleTapEvent());
+                            //StartReturnObjTf(tf);
                             //tf.localRotation = saverot = Quaternion.identity;
                             //tf.localScale = Vector3.one;
 
@@ -206,8 +247,21 @@ public class ObjInteraction : MonoBehaviour
                         {
                             checkTime = Time.time;
 
-                            prefabLoader.TargetOffMoving(gameObject);
-                            canvasManager.OnTargetOffObject(true);
+                            switch(modeState)
+                            {
+                                case ModeState.AR:
+                                    prefabLoader.TargetOffMoving(gameObject);
+                                    canvasManager.OnTargetOffObject(true);
+                                    break;
+
+                                case ModeState.MR:
+                                    StartReturnObjTf(tf);
+                                    tf.localRotation = saverot = Quaternion.identity;
+                                    tf.localScale = Vector3.one;
+                                    break;
+                            }
+
+
                         }
                     }
                     else
@@ -217,16 +271,9 @@ public class ObjInteraction : MonoBehaviour
                 }
                 else if (Input.GetMouseButton(0))
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
-                    {
-                        Debug.Log(hit.collider.gameObject.name);
+                    if(isHit)
+                        tf.localRotation = Quaternion.AngleAxis(-delta, Vector3.up) * saverot;
 
-                        if (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("targetOff"))
-                        {
-                            tf.localRotation = Quaternion.AngleAxis(-delta, Vector3.up) * saverot;
-                        }
-                    }
                 }
             }
           
