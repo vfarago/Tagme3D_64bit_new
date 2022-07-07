@@ -67749,6 +67749,56 @@ MonoBehaviour:
     - 
     - 
     Flags: 0000000000000000000000000000000000
+  - Term: UI_LoginErrorByDelete
+    TermType: 0
+    Description: 
+    Languages:
+    - '"This account will be deleted.
+
+      Please contact the customer service
+      center if you want to repair it."'
+    - "\"\uC0AD\uC81C \uC608\uC815\uC778 \uACC4\uC815\uC785\uB2C8\uB2E4.\n\uBCF5\uAD6C\uB97C
+      \uC6D0\uD558\uC2E4 \uACBD\uC6B0 \uACE0\uAC1D\uC13C\uD130\uC5D0 \uBB38\uC758\uD574\uC8FC\uC138\uC694.\""
+    - "\"\u8BA1\u5212\u5220\u9664\u7684\u8D26\u6237\u3002\r\n\u5982\u60F3\u4FEE\u590D\uFF0C\u8BF7\u5411\u5BA2\u670D\u4E2D\u5FC3\u54A8\u8BE2\u3002\""
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - "\"\u0423\u0447\u0451\u0442\u043D\u0430\u044F \u0437\u0430\u043F\u0438\u0441\u044C
+      \u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u0443\u0434\u0430\u043B\u0435\u043D\u043E.\r\n\u0415\u0441\u043B\u0438
+      \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C,
+      \u0441\u0432\u044F\u0436\u0438\u0442\u0435\u0441\u044C \u0441 \u0446\u0435\u043D\u0442\u0440\u043E\u043C
+      \u043E\u0431\u0441\u043B\u0443\u0436\u0438\u0432\u0430\u043D\u0438\u044F \u043A\u043B\u0438\u0435\u043D\u0442\u043E\u0432.\""
+    - 
+    - "\"\u0110\xE2y l\xE0 t\xE0i kho\u1EA3n d\u1EF1 \u0111\u1ECBnh x\xF3a.\r\nN\u1EBFu
+      b\u1EA1n mu\u1ED1n kh\xF4i ph\u1EE5c, vui l\xF2ng li\xEAn h\u1EC7 v\u1EDBi
+      trung t\xE2m kh\xE1ch h\xE0ng.\""
+    - 
+    - 
+    Languages_Touch:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    Flags: 0000000000000000000000000000000000
   mLanguages:
   - Name: eng
     Code: en
