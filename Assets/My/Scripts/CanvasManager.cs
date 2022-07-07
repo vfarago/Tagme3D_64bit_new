@@ -1040,6 +1040,7 @@ public class CanvasManager : MonoBehaviour
 
         if (!on)
         {
+            ARManager.Instance.isMR = false;
             prefabLoader.DestroyObj();
             PanelManager(true);
         }
