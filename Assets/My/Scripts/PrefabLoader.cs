@@ -175,6 +175,7 @@ public class PrefabLoader : MonoBehaviour
         m3dModel.transform.localEulerAngles = newRotation;
 
         yield return m3dModel;
+
     }
 
     //카메라 전/후 전환에 따라 오브젝트 180도 회전

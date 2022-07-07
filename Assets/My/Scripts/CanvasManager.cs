@@ -329,6 +329,7 @@ public class CanvasManager : MonoBehaviour
                     Vuforia.VuforiaBehaviour.Instance.enabled = false;
                 if (mainUI.activeSelf)
                     accountManager.AllDisable();
+                isMR = false;
 
                 PanelManager(false);
 

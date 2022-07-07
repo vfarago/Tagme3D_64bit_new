@@ -32,7 +32,7 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
 
     protected override void OnTrackingFound()
     {
-        if (ARManager.Instance.isMR)
+        if (ARManager.Instance.isMR||!ARManager.Instance.trackable)
         {
             return;
         }
@@ -222,7 +222,6 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
 
         m3dModel.AddComponent<BoxCollider>();
         m3dModel.GetComponent<BoxCollider>().size = new Vector3(2, 2, 2);
-
         Vector3 startScaling = new Vector3(0.01f, 0.01f, 0.01f);
         Vector3 newScaling = new Vector3(initialScale, initialScale, initialScale);
 
@@ -243,6 +242,7 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
         }
         if (m3dModel != null)
             m3dModel.transform.localScale = newScaling;
+        m3dModel.GetComponent<ObjInteraction>().SetTargetOBJ(m3dModel.transform);
 
         yield return m3dModel;
     }

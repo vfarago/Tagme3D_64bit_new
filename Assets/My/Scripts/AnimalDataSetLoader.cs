@@ -64,7 +64,7 @@ public class AnimalDataSetLoader : MonoBehaviour
         //LoadDataSet();
 
         VuforiaApplication.Instance.OnVuforiaStarted += LoadDataSet;
-
+        ARManager.Instance.trackable = false;
     }
 
     void OnDestroy()
@@ -101,7 +101,7 @@ public class AnimalDataSetLoader : MonoBehaviour
         //#endif
         //IEnumerable<ObserverBehaviour> observers = vuforiaBehaviour.ObserverFactory.CreateBehavioursFromDatabase("Assets/StreamingAssets/Vuforia/VuforiaMigration.xml");
 
-        DownloadFileAll(() => { StartCoroutine(CheckFile(dataSetName)); });
+        DownloadFileAll(() => { StartCoroutine(CheckFile(dataSetName));});
         //DataSet dataSet = objectTracker.CreateDataSet();
         //if (dataSet.Load(dataSetName))
         //{

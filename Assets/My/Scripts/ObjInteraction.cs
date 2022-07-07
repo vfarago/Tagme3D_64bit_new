@@ -294,7 +294,8 @@ public class ObjInteraction : MonoBehaviour
     Coroutine cur_Cor;
     void StartReturnObjTf(Transform tf,Vector3 toOriginScale, float duration = 1f, float frequancy = 10f)
     {
-        if (cur_Cor == null)
+        if (interAction)
+            if (cur_Cor == null)
             cur_Cor = StartCoroutine(Cor_ReturnOriginPos(tf, toOriginScale, duration, frequancy));
     }
 
@@ -386,6 +387,7 @@ public class ObjInteraction : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
+        saverot = Quaternion.Euler(initLocalEuler);
         interAction = true;
         cur_Cor = null;
     }
@@ -406,6 +408,8 @@ public class ObjInteraction : MonoBehaviour
         targetOBJ = target;
         targetOBJ.localEulerAngles = Vector3.zero;
         initLocalEuler = target.eulerAngles;
+        initLocalEuler = new Vector3(0, -140, 0);//임시방편
+        saverot = Quaternion.Euler(initLocalEuler);
         initScale = target.localScale;
         updateAction = () => { if (interAction) ZoomInOutNRot(target, sensitivity, fixZrot: fixZRot); };
     }

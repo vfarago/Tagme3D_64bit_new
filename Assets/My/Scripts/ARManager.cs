@@ -19,8 +19,8 @@ public class ARManager : MonoBehaviour
 
     Action hookVuOn;
     Action hookVuOff;
-    [SerializeField] VuforiaBehaviour[] vb;
 
+    public bool trackable = true;//데이터 다운로드가 뷰포리아 엔진과 얽혀있어 뷰포리아엔진을 멈추는 대신 트래킹만 차단하기위한 변수 brendan220707
     public bool isMR = false;
 
     public static ARManager Instance
@@ -41,13 +41,14 @@ public class ARManager : MonoBehaviour
         //{
         //    item.
         //}
+        //VuforiaApplication.Instance.OnVuforiaInitialized +=(x)=> { Vuforia.VuforiaApplication.Instance.GetVuforiaBehaviour().enabled = false; };
+
         hookVuOn += () =>  checkStop = false;
         hookVuOff += () => checkStop = true;  
     }
 
     void Start()
     {
-        vb = FindObjectsOfType<VuforiaBehaviour>(true);
         //ARCamera.enabled = true;
         StudyViewCamera.enabled = false;
         state = State.IDLE;
@@ -188,11 +189,13 @@ public class ARManager : MonoBehaviour
     public void UseVuforiaCam(Action done)
     {
         if (cur_Cor != null) return;
-        cur_Cor=StartCoroutine(Cor_WaitToVucamChange(done));
+        trackable = true;
+        cur_Cor = StartCoroutine(Cor_WaitToVucamChange(done));
     }
     public void UseWebCam(Action done)
     {
         if (cur_Cor != null) return;
+        trackable = false;
         cur_Cor =StartCoroutine(Cor_WaitToWebcamChange(done));
     }
     IEnumerator Cor_WaitToWebcamChange(Action done)
