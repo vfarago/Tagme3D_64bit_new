@@ -58,7 +58,7 @@ public class MRPanel : MonoBehaviour
             btn.gameObject.transform.GetChild(1).gameObject.SetActive(false);
             btn.onClick.AddListener(() =>
             {
-                //Manager.isMR = true;
+                //ARManager.instance.isMR = true;
                 //mainCam.enabled = true;
                 //arCam.enabled = false;
                 //Manager.CanvasManager.PanelManager(true);
@@ -66,7 +66,7 @@ public class MRPanel : MonoBehaviour
                 //Manager.CanvasManager.OnPhonicsPanel(true);
                 //gameObject.SetActive(false);
 
-                Manager.isMR = true;
+                ARManager.Instance.isMR = true;
                 Manager.CanvasManager.PanelManager(true);
                 Manager.CanvasManager.arPanel.transform.GetChild(0).gameObject.SetActive(false);
                 DataSetOnOff[] onoffshelter = Manager.AnimalDataSetLoader.gameObject.transform.GetComponentsInChildren<DataSetOnOff>();
@@ -98,7 +98,7 @@ public class MRPanel : MonoBehaviour
                 btnIns.gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 btnIns.onClick.AddListener(() =>
                 {
-                    Manager.isMR = true;
+                    ARManager.Instance.isMR = true;
                     Manager.CanvasManager.PanelManager(true);
                     Manager.CanvasManager.arPanel.transform.GetChild(0).gameObject.SetActive(false);
                     DataSetOnOff[] onoffshelter = Manager.AnimalDataSetLoader.gameObject.transform.GetComponentsInChildren<DataSetOnOff>();
@@ -217,7 +217,7 @@ public class MRPanel : MonoBehaviour
                 {
                     if (Manager.CheckCode.isScaned[isScan])
                     {
-                        Manager.isMR = true;
+                        ARManager.Instance.isMR = true;
                         Manager.CanvasManager.PanelManager(true);
                         Manager.CanvasManager.arPanel.transform.GetChild(0).gameObject.SetActive(false);
                         DataSetOnOff[] onoffshelter = Manager.AnimalDataSetLoader.gameObject.transform.GetComponentsInChildren<DataSetOnOff>();

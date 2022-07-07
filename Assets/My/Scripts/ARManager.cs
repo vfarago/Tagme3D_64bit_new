@@ -20,6 +20,9 @@ public class ARManager : MonoBehaviour
     Action hookVuOn;
     Action hookVuOff;
     [SerializeField] VuforiaBehaviour[] vb;
+
+    public bool isMR = false;
+
     public static ARManager Instance
     {
         get

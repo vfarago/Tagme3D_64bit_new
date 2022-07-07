@@ -32,6 +32,10 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
 
     protected override void OnTrackingFound()
     {
+        if (ARManager.Instance.isMR)
+        {
+            return;
+        }
         if (Manager.CheckCode.storedType == "group")
         {
             if (Application.internetReachability == NetworkReachability.NotReachable)
@@ -48,8 +52,8 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
             {
                 return;
             }
-
         }
+
         if (isFreeModel)
         {
             isEndAR = prefabLoader.isEndAR;

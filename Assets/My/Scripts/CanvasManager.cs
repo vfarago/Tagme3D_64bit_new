@@ -56,7 +56,7 @@ public class CanvasManager : MonoBehaviour
     {
         txt_LoadingCopyright.text = txt_Copyright.text = "ⓒ " + System.DateTime.Now.Year.ToString() +
        ". Victoria Productions INC. all rights reserved.";
-        Manager.isMR = false;
+        ARManager.Instance.isMR = false;
         StartPanelSetting();
 
         Button[] mainbtn = mainUI.GetComponentsInChildren<Button>();
@@ -285,7 +285,7 @@ public class CanvasManager : MonoBehaviour
             case "StartScan":
                 ARManager.Instance.UseVuforiaCam(() =>
                 {
-                    Manager.isMR = false;
+                    ARManager.Instance.isMR = false;
                     PanelManager(true);
                 });
 
@@ -309,7 +309,7 @@ public class CanvasManager : MonoBehaviour
                 break;
             case "MRGallery":
                 ARManager.Instance.UseVuforiaCam(() => {
-                    Manager.isMR = true;
+                    ARManager.Instance.isMR = true;
                     mrPanel.SetActive(true);
                     BottomBarOpen();
                 });
@@ -342,9 +342,9 @@ public class CanvasManager : MonoBehaviour
                     }
                     else
                     {
-                        if (Manager.isMR)
+                        if (ARManager.Instance.isMR)
                         {
-                            Manager.isMR = false;
+                            ARManager.Instance.isMR = false;
                             PanelManager(false);
                             PanelManager(true);
                         }
@@ -1065,7 +1065,7 @@ public class CanvasManager : MonoBehaviour
         //else if (isCoverTarget && on)
         //{
 
-        //    if (!Manager.isMR) coverVideo = Instantiate(Resources.Load<GameObject>("prefabs/coverAR"), Camera.main.transform, false);
+        //    if (!ARManager.instance.isMR) coverVideo = Instantiate(Resources.Load<GameObject>("prefabs/coverAR"), Camera.main.transform, false);
         //    arLight.intensity = 0.65f;
         //}
         //else if (!isCoverTarget && !on)
