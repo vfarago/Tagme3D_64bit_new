@@ -418,9 +418,9 @@ public class ObjInteraction : MonoBehaviour
     /// <param name="fixZRot">양 옆으로만 회전하게 한다.</param>
     public void SetTargetOBJ(Transform target, float sensitivity = 0.01f, bool resetRot = false, bool fixZRot = false)
     {
-        if (resetRot) ResetRot();
+        //if (resetRot) ResetRot();
         targetOBJ = target;
-        targetOBJ.localEulerAngles = Vector3.zero;
+        //targetOBJ.localEulerAngles = Vector3.zero;
         initLocalEuler = target.eulerAngles;
         initLocalEuler = new Vector3(0, -140, 0);//임시방편
         saverot = Quaternion.Euler(initLocalEuler);

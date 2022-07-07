@@ -172,7 +172,6 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                 if (m3dModel != null)
                 {
                     ObjInteraction objInteraction = m3dModel.AddComponent<ObjInteraction>();
-                    m3dModel.transform.eulerAngles = new Vector3(0, -140, 0);
                     objInteraction.SetTargetOBJ(m3dModel.transform);
                     objInteraction.targetName = targetName;
                     objInteraction.isFreeModel = isFreeModel;
