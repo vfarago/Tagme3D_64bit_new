@@ -478,7 +478,7 @@ public class AccountManager : MonoBehaviour
                 else
                 {
                     temp.interactable = false;
-                    StartCoroutine(checkCode.StartLogin(input.inputs[0].text, input.inputs[1].text, "tm_full", returned =>
+                    StartCoroutine(checkCode.StartLogin(input.inputs[0].text, input.inputs[1].text, "tm", returned =>
                     {
                         switch (returned)
                         {
@@ -496,7 +496,9 @@ public class AccountManager : MonoBehaviour
                                 break;
                             case "Email has not been verified":
                                 popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_emailVerified");
-
+                                break;
+                            case "Deleted User":
+                                popUpManager.failText.text = LocalizationManager.GetTermTranslation("UI_LoginErrorByDelete");
                                 //수정예정 0706
                                 //resendButton.GetComponentInChildren<Text>().text = LocalizationManager.GetTermTranslation("UI_resend");
                                 //resendButton.GetComponentInChildren<Text>().font = Resources.Load<Font>(LocalizationManager.GetTermTranslation("UI_font"));

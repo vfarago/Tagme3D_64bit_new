@@ -12,10 +12,10 @@ public class ObjInteraction : MonoBehaviour
         get
         {
             _currentCam = Camera.main;
-            if (currentcam != null)
-            {
-                ratio = 1000 / currentcam.pixelWidth;//해상도에 따른 보정값
-            }
+            //if (currentcam != null)
+            //{
+            //    ratio = 1000 / currentcam.pixelWidth;//해상도에 따른 보정값
+            //}
             return _currentCam;
         }
     }
