@@ -43,7 +43,6 @@ public class CanvasManager : MonoBehaviour
     public bool isCoverTarget = false;
     public bool isNotToastAgain;
     public bool isNotCautionAgain;
-    public bool isMR = false;
     public bool isFirstCaution = false;
     bool isPhonics = false;
     bool isTitle = true;
@@ -329,7 +328,6 @@ public class CanvasManager : MonoBehaviour
                     Vuforia.VuforiaBehaviour.Instance.enabled = false;
                 if (mainUI.activeSelf)
                     accountManager.AllDisable();
-                isMR = false;
 
                 PanelManager(false);
 

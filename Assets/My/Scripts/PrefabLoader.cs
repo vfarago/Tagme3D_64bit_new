@@ -110,6 +110,8 @@ public class PrefabLoader : MonoBehaviour
 
     public void TargetOffMoving(GameObject go)
     {
+        ARManager.Instance.isMR = true;
+
         m3dModel = go;
         m3dModel.tag = "targetOff";
         StartCoroutine(RepositionAugmentation(0.5f));
@@ -173,7 +175,6 @@ public class PrefabLoader : MonoBehaviour
         }
         m3dModel.transform.localPosition = newPosition;
         m3dModel.transform.localEulerAngles = newRotation;
-
         yield return m3dModel;
 
     }

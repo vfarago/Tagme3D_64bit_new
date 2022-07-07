@@ -425,6 +425,7 @@ public class ObjInteraction : MonoBehaviour
         initLocalEuler = new Vector3(0, -140, 0);//임시방편
         saverot = Quaternion.Euler(initLocalEuler);
         initScale = target.localScale;
+        initScale = Vector3.one * 100;
         updateAction = () => { if (interAction) ZoomInOutNRot(target, sensitivity, fixZrot: fixZRot); };
     }
     public void UnloadTargetOBJ()
