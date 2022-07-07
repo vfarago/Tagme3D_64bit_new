@@ -193,7 +193,21 @@ public class ObjInteraction : MonoBehaviour
                 {
                     if (CheckClickEnd())
                     {
-                        StartCoroutine(WaitDoubleClick(() => { StartReturnObjTf(targetOBJ,Vector3.one* initScale.z); }));
+                        StartCoroutine(WaitDoubleClick(() => {
+                            switch(modeState)
+                            {
+                                default: break;
+                                case ModeState.AR:
+                                    prefabLoader.TargetOffMoving(gameObject);
+                                    canvasManager.OnTargetOffObject(true);
+                                    break;
+
+                                case ModeState.MR:
+                                    StartReturnObjTf(targetOBJ, Vector3.one * initScale.z);
+                                    break;
+                            }
+
+                        }));
                     }
                     saverot = tf.localRotation;
                     isHit = false;

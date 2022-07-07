@@ -53,7 +53,8 @@ public class TrackableEventHandler : DefaultObserverEventHandler
 
     protected override void HandleTargetStatusChanged(Status previousStatus, Status newStatus)
     {
-
+        Debug.Log("previousStatus : " + previousStatus);
+        Debug.Log("newStatus : " + newStatus);
         if (Status.EXTENDED_TRACKED == newStatus || Status.TRACKED == newStatus)
         {
             currentStatus = newStatus;
