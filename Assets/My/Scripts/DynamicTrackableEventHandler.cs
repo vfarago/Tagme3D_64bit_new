@@ -175,6 +175,9 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                     objInteraction.SetTargetOBJ(m3dModel.transform);
                     objInteraction.targetName = targetName;
                     objInteraction.isFreeModel = isFreeModel;
+
+                    DefaultObserverEventHandler defaultObserverEventHandler = m3dModel.AddComponent<DefaultObserverEventHandler>();
+                    defaultObserverEventHandler.StatusFilter = TrackingStatusFilter.Tracked;
                     //prefabLoader.TargetOffMoving(gameObject);
                     //canvasManager.OnTargetOffObject(true);
                     ////gestures  [start]
@@ -361,6 +364,9 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                     objInteraction.isFreeModel = isFreeModel;
                     prefabLoader.TargetOffMoving(m3dModel);
                     canvasManager.OnTargetOffObject(true);
+
+                    DefaultObserverEventHandler defaultObserverEventHandler = m3dModel.AddComponent<DefaultObserverEventHandler>();
+                    defaultObserverEventHandler.StatusFilter = TrackingStatusFilter.Tracked;
 
                     ////gestures  [start]
                     //TapGesture tagGesture = m3dModel.AddComponent<TapGesture>();
