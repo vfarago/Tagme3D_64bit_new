@@ -930,6 +930,7 @@ public class CanvasManager : MonoBehaviour
         swapCamButton.SetActive(!sender); //Camera Swap Button
         if (sender)
         {
+            ObjectDestroyAll();
             bottomPanel.GetComponentInChildren<Text>().text = scanString;
             bottomPanel.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Scan/btn_scan(325x95)");
             //로컬버튼아이콘
@@ -977,6 +978,23 @@ public class CanvasManager : MonoBehaviour
             GameObject[] phgo = GameObject.FindGameObjectsWithTag("Phonics");
             for (int i = 0; i < phgo.Length; i++)
                 Destroy(phgo[i]);
+        }
+    }
+
+    private void ObjectDestroyAll()
+    {
+        if (GameObject.FindGameObjectsWithTag("augmentation") != null)
+        {
+            GameObject[] got = GameObject.FindGameObjectsWithTag("augmentation");
+            for (int i = 0; i < got.Length; i++)
+                Destroy(got[i]);
+
+        }
+        if (GameObject.FindGameObjectsWithTag("targetOff") != null)
+        {
+            GameObject[] tago = GameObject.FindGameObjectsWithTag("targetOff");
+            for (int i = 0; i < tago.Length; i++)
+                Destroy(tago[i]);
         }
     }
 
