@@ -27,6 +27,7 @@ public class ObjInteraction : MonoBehaviour
     [SerializeField] Transform targetObjManual;
     Transform targetOBJ;
     Vector3 initScale = Vector3.zero;
+    Vector3 initLocalEuler=Vector3.zero;
 
     bool interAction = true;
 
@@ -54,7 +55,7 @@ public class ObjInteraction : MonoBehaviour
         //기준은 모델과 카메라 사이.
 
     }
-    void ZoomInOutNRot(Transform tf, float scaleOrigin = 1, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2, bool fixZrot = false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
+    void ZoomInOutNRot(Transform tf, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2, bool fixZrot = false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -90,24 +91,24 @@ public class ObjInteraction : MonoBehaviour
 
             if (magnitudeScale < 0)
             {
-                if (currentScale + magnitudeScale * sensitivity * scaleOrigin >= scaleMin * scaleOrigin)
+                if (currentScale + magnitudeScale * sensitivity * initScale.z >= scaleMin * initScale.z)
                 {
-                    currentScale += magnitudeScale * sensitivity * scaleOrigin;
+                    currentScale += magnitudeScale * sensitivity * initScale.z;
                 }
                 else
                 {
-                    currentScale = scaleMin * scaleOrigin;
+                    currentScale = scaleMin * initScale.z;
                 }
             }
             else if (magnitudeScale > 0)
             {
-                if (currentScale + magnitudeScale * sensitivity * scaleOrigin <= scaleMax * scaleOrigin)
+                if (currentScale + magnitudeScale * sensitivity * initScale.z <= scaleMax * initScale.z)
                 {
-                    currentScale += magnitudeScale * sensitivity * scaleOrigin;
+                    currentScale += magnitudeScale * sensitivity * initScale.z;
                 }
                 else
                 {
-                    currentScale = scaleMax * scaleOrigin;
+                    currentScale = scaleMax * initScale.z;
                 }
             }
             //else
@@ -192,7 +193,7 @@ public class ObjInteraction : MonoBehaviour
                 {
                     if (CheckClickEnd())
                     {
-                        StartCoroutine(WaitDoubleClick(() => { StartReturnObjTf(targetOBJ); }));
+                        StartCoroutine(WaitDoubleClick(() => { StartReturnObjTf(targetOBJ,Vector3.one* initScale.z); }));
                     }
                     saverot = tf.localRotation;
                     isHit = false;
@@ -291,10 +292,10 @@ public class ObjInteraction : MonoBehaviour
         }
     }
     Coroutine cur_Cor;
-    void StartReturnObjTf(Transform tf, float duration = 1f, float frequancy = 10f)
+    void StartReturnObjTf(Transform tf,Vector3 toOriginScale, float duration = 1f, float frequancy = 10f)
     {
         if (cur_Cor == null)
-            cur_Cor = StartCoroutine(Cor_ReturnOriginPos(tf, duration, frequancy));
+            cur_Cor = StartCoroutine(Cor_ReturnOriginPos(tf, toOriginScale, duration, frequancy));
     }
 
     IEnumerator DoubleTapEvent()
@@ -355,7 +356,7 @@ public class ObjInteraction : MonoBehaviour
         return false;
     }
 
-    IEnumerator Cor_ReturnOriginPos(Transform tf, float duration = 1f, float frequancy = 10f)//이 코루틴을 작동하면 원위치로 서서히 돌아간다. 돌아가는 중에는 터치막는다.
+    IEnumerator Cor_ReturnOriginPos(Transform tf,Vector3 toOriginScale, float duration = 1f, float frequancy = 10f)//이 코루틴을 작동하면 원위치로 서서히 돌아간다. 돌아가는 중에는 터치막는다.
     {
         interAction = false;
         float time = 0;
@@ -366,11 +367,18 @@ public class ObjInteraction : MonoBehaviour
         {
             float progress = time / duration;
             time += Time.deltaTime;
-            tf.localEulerAngles = Vector3.Lerp(originrot, Vector3.zero, progress);
-            //print(initScale);
-            if (initScale != Vector3.one)
+            if (initLocalEuler != Vector3.zero)
             {
-                tf.localScale = (Mathf.Sin(progress * frequancy) * (1 - progress) / 2) * Vector3.one + Vector3.Lerp(originscale, initScale, progress);
+                tf.localEulerAngles = Vector3.Lerp(originrot, initLocalEuler, progress);
+            }
+            else
+            {
+                tf.localEulerAngles = Vector3.Lerp(originrot, Vector3.zero, progress);
+            }
+            //print(initScale);
+            if (toOriginScale != Vector3.one)
+            {
+                tf.localScale = (Mathf.Sin(progress * frequancy) * (1 - progress) / 2) * Vector3.one + Vector3.Lerp(originscale, toOriginScale, progress);
             }
             else
             {
@@ -392,14 +400,14 @@ public class ObjInteraction : MonoBehaviour
     /// <param name="sensitivity">올리면 적은 움직임으로 크게 확대,회전한다.</param>
     /// <param name="resetRot">드래그 시작값을 000으로 초기화하고 적용한다.</param>
     /// <param name="fixZRot">양 옆으로만 회전하게 한다.</param>
-    public void SetTargetOBJ(Transform target, float scaleOrigin = 1, float sensitivity = 0.01f, bool resetRot = false, bool fixZRot = false)
+    public void SetTargetOBJ(Transform target, float sensitivity = 0.01f, bool resetRot = false, bool fixZRot = false)
     {
         if (resetRot) ResetRot();
         targetOBJ = target;
         targetOBJ.localEulerAngles = Vector3.zero;
-
+        initLocalEuler = target.eulerAngles;
         initScale = target.localScale;
-        updateAction = () => { if (interAction) ZoomInOutNRot(target, scaleOrigin, sensitivity, fixZrot: fixZRot); };
+        updateAction = () => { if (interAction) ZoomInOutNRot(target, sensitivity, fixZrot: fixZRot); };
     }
     public void UnloadTargetOBJ()
     {

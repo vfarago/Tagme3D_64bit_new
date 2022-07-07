@@ -168,7 +168,7 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                 if (m3dModel != null)
                 {
                     ObjInteraction objInteraction = m3dModel.AddComponent<ObjInteraction>();
-                    objInteraction.SetTargetOBJ(m3dModel.transform,100);
+                    objInteraction.SetTargetOBJ(m3dModel.transform);
                     objInteraction.targetName = targetName;
                     objInteraction.isFreeModel = isFreeModel;
                     //prefabLoader.TargetOffMoving(gameObject);
@@ -352,7 +352,7 @@ public class DynamicTrackableEventHandler : TrackableEventHandler
                 if (m3dModel != null)
                 {
                     ObjInteraction objInteraction =  m3dModel.AddComponent<ObjInteraction>();
-                    objInteraction.SetTargetOBJ(m3dModel.transform,100);
+                    objInteraction.SetTargetOBJ(m3dModel.transform);
                     objInteraction.targetName = targetName;
                     objInteraction.isFreeModel = isFreeModel;
                     prefabLoader.TargetOffMoving(m3dModel);
