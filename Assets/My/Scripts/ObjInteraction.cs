@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum ModeState { AR,MR ,ModeEnd }
+public enum ModeState { AR, MR, ModeEnd }
 
 public class ObjInteraction : MonoBehaviour
 {
-    Camera currentcam 
+    Camera currentcam
     {
         get
         {
-            _currentCam =Camera.main;
+            _currentCam = Camera.main;
             if (currentcam != null)
             {
                 ratio = 1000 / currentcam.pixelWidth;//해상도에 따른 보정값
@@ -26,6 +26,7 @@ public class ObjInteraction : MonoBehaviour
     UnityAction updateAction;
     [SerializeField] Transform targetObjManual;
     Transform targetOBJ;
+    Vector3 initScale = Vector3.zero;
 
     bool interAction = true;
 
@@ -40,26 +41,28 @@ public class ObjInteraction : MonoBehaviour
     private bool isHit = false;
     private ModeState modeState = ModeState.ModeEnd;
     private GameObject hitGameObject;
-    Vector3 CamCorrection(Vector2 screenPoint,Transform targetOBJ)
+
+
+    Vector3 CamCorrection(Vector2 screenPoint, Transform targetOBJ)
     {
-        float v3=_currentCam.transform.InverseTransformPoint(targetOBJ.transform.position).z;
+        float v3 = _currentCam.transform.InverseTransformPoint(targetOBJ.transform.position).z;
         //print(_currentCam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Vector3.Distance(_currentCam.transform.position, targetOBJ.position))));
-        Vector3 vector= _currentCam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, v3));
-        Debug.DrawLine(vector, _currentCam.transform.position,Color.blue);
+        Vector3 vector = _currentCam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, v3));
+        Debug.DrawLine(vector, _currentCam.transform.position, Color.blue);
         return vector;
         //카메라 보정값을 준다.
         //기준은 모델과 카메라 사이.
 
     }
-    void ZoomInOutNRot(Transform tf, float scaleOrigin=1, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2,bool fixZrot=false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
+    void ZoomInOutNRot(Transform tf, float scaleOrigin = 1, float sensitivity = 0.01f, float scaleMin = 0.5f, float scaleMax = 2, bool fixZrot = false)//두군대이상 터치했을때 작동한다. 델타 포지션을 계산한다. 매개변수의 스케일을 조정한다.
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (targetOBJ == null) 
+        if (targetOBJ == null)
         {
             updateAction = () => { };
-            return; 
+            return;
         }
 
 #if UNITY_EDITOR
@@ -67,7 +70,7 @@ public class ObjInteraction : MonoBehaviour
         {
             float distance = 0;
             float preDistance = Input.mouseScrollDelta.y;
-            
+
 
 #else
         if (Input.touchCount == 2)
@@ -87,24 +90,24 @@ public class ObjInteraction : MonoBehaviour
 
             if (magnitudeScale < 0)
             {
-                if (currentScale + magnitudeScale * sensitivity * scaleOrigin >= scaleMin*scaleOrigin)
+                if (currentScale + magnitudeScale * sensitivity * scaleOrigin >= scaleMin * scaleOrigin)
                 {
                     currentScale += magnitudeScale * sensitivity * scaleOrigin;
                 }
                 else
                 {
-                    currentScale = scaleMin* scaleOrigin;
+                    currentScale = scaleMin * scaleOrigin;
                 }
             }
             else if (magnitudeScale > 0)
             {
-                if (currentScale + magnitudeScale * sensitivity * scaleOrigin <= scaleMax* scaleOrigin)
+                if (currentScale + magnitudeScale * sensitivity * scaleOrigin <= scaleMax * scaleOrigin)
                 {
                     currentScale += magnitudeScale * sensitivity * scaleOrigin;
                 }
                 else
                 {
-                    currentScale = scaleMax* scaleOrigin;
+                    currentScale = scaleMax * scaleOrigin;
                 }
             }
             //else
@@ -118,7 +121,7 @@ public class ObjInteraction : MonoBehaviour
         //민감하게 반응하지 않게 제한.
         else
         {
-            if (!fixZrot) 
+            if (!fixZrot)
             {
                 if (prevPos == Vector3.zero)
                 {
@@ -131,22 +134,37 @@ public class ObjInteraction : MonoBehaviour
                 float _delta = Vector2.Distance(CamCorrection(Input.mousePosition, targetOBJ), prevPos) * 1;
                 //Vector2 rowdir = prevPos - CamCorrection(Input.mousePosition,targetOBJ);
                 Vector3 dir = prevPos - CamCorrection(Input.mousePosition, targetOBJ);
-                Debug.DrawLine(dir+targetOBJ.position,targetOBJ.position,Color.red);
-                dir = Vector3.Cross(dir, targetOBJ.position-_currentCam.transform.position);
-                Debug.DrawLine(dir+ targetOBJ.position, targetOBJ.position);
-                Debug.DrawLine(targetOBJ.position, _currentCam.transform.position,Color.yellow);
+                Debug.DrawLine(dir + targetOBJ.position, targetOBJ.position, Color.red);
+                dir = Vector3.Cross(dir, targetOBJ.position - _currentCam.transform.position);
+                Debug.DrawLine(dir + targetOBJ.position, targetOBJ.position);
+                Debug.DrawLine(targetOBJ.position, _currentCam.transform.position, Color.yellow);
+
                 if (Input.GetMouseButtonDown(0))
                 {
-                    prevPos = CamCorrection(Input.mousePosition,targetOBJ);
+                    prevPos = CamCorrection(Input.mousePosition, targetOBJ);
                     //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                     {
                         Debug.Log(hit.collider.gameObject.name);
 
                         if (hit.collider.gameObject == transform.gameObject && (hit.collider.tag.Equals("targetOff") || hit.collider.tag.Equals("augmentation")))
-                        {                            
+                        {
                             isHit = true;
+                            CheckClickStart();
+                            if (saveDoubleClickTimer != 0)//타이머가 0이면 무효로 하고 스타트로 체크한다.
+                            {
+                                if (CheckDoubleEnd())
+                                {
+                                    StartCoroutine(DoubleTapEvent());
 
+                                }
+                                else
+                                {
+                                    CheckDoubleStart();
+                                }
+                            }
+                            else
+                                CheckDoubleStart();
                             if (gameObject != hit.collider.gameObject)
                                 return;
 
@@ -166,67 +184,22 @@ public class ObjInteraction : MonoBehaviour
                             }
                         }
                     }
+
+
+
                 }
                 else if (Input.GetMouseButtonUp(0))
-                {                    
-                    //더블클릭시 초기화구문작성
-                    if (Mathf.Abs(_delta) < 5 * ratio && !Phonics)
+                {
+                    if (CheckClickEnd())
                     {
-                        if (Time.time - checkTime < 1)
-                        {
-                            StartCoroutine(DoubleTapEvent());
-
-                            //StartReturnObjTf(tf);
-                            //tf.localRotation = saverot = Quaternion.identity;
-                            //tf.localScale = Vector3.one;
-
-                        }
-                        else
-                        {
-                            checkTime = Time.time;
-
-                            //switch (modeState)
-                            //{
-                            //    case ModeState.AR:
-                            //        prefabLoader.TargetOffMoving(gameObject);
-                            //        canvasManager.OnTargetOffObject(true);
-                            //        break;
-
-                            //    case ModeState.MR:
-                            //        StartReturnObjTf(tf);
-                            //        tf.localRotation = saverot = Quaternion.identity;
-                            //        tf.localScale = Vector3.one;
-                            //        break;
-                            //}
-
-                            isHit = false;
-                        }
+                        StartCoroutine(WaitDoubleClick(() => { StartReturnObjTf(targetOBJ); }));
                     }
-                    else
-                    {
-                        saverot = tf.localRotation;
-
-
-                        //switch (modeState)
-                        //{
-                        //    case ModeState.AR:
-                        //        prefabLoader.TargetOffMoving(gameObject);
-                        //        canvasManager.OnTargetOffObject(true);
-                        //        break;
-
-                        //    case ModeState.MR:
-                        //        StartReturnObjTf(tf);
-                        //        tf.localRotation = saverot = Quaternion.identity;
-                        //        tf.localScale = Vector3.one;
-                        //        break;
-                        //}
-
-                        isHit = false;
-                    }
+                    saverot = tf.localRotation;
+                    isHit = false;
                 }
                 else if (Input.GetMouseButton(0))
                 {
-                    if(isHit)
+                    if (isHit)
                         tf.localRotation = Quaternion.AngleAxis(-_delta, dir) * saverot;
                 }
 
@@ -314,14 +287,14 @@ public class ObjInteraction : MonoBehaviour
 
             //    }
             //}
-          
+
         }
     }
     Coroutine cur_Cor;
     void StartReturnObjTf(Transform tf, float duration = 1f, float frequancy = 10f)
     {
-        if(cur_Cor==null)
-        cur_Cor = StartCoroutine(Cor_ReturnOriginPos(tf,duration,frequancy));
+        if (cur_Cor == null)
+            cur_Cor = StartCoroutine(Cor_ReturnOriginPos(tf, duration, frequancy));
     }
 
     IEnumerator DoubleTapEvent()
@@ -340,24 +313,69 @@ public class ObjInteraction : MonoBehaviour
         Phonics = true;
 
     }
+    void CheckDoubleStart()
+    {
+        saveDoubleClickTimer = Time.time;
+    }
+    bool CheckDoubleEnd()
+    {
+        if (Time.time - saveDoubleClickTimer < 0.3f)
+        {
+            isDoubleClick=true;
+            return true;
+        }
+        else
+            return false;
+    }
+    bool isDoubleClick = false;
+    IEnumerator WaitDoubleClick(System.Action done)
+    {
+        yield return new WaitForSeconds(0.6f);//기다리는동안 더블클릭이벤트가 일어나지 않으면 실행한다.
+        if (!isDoubleClick)
+        {
+            done();
+        }
+    }
+    Coroutine cur_click;
+    Coroutine cur_doubleClick;
+    float saveClickTimer = 0;
+    float saveDoubleClickTimer = 0;
 
+    void CheckClickStart()
+    {
+        saveClickTimer = Time.time;
+    }
+    bool CheckClickEnd()
+    {
+        if (Time.time-saveClickTimer < 0.3f)
+        {
+            return true;
+        }
+        else
+        return false;
+    }
 
-
-
-
-    IEnumerator Cor_ReturnOriginPos(Transform tf,float duration=1f,float frequancy=10f)//이 코루틴을 작동하면 원위치로 서서히 돌아간다. 돌아가는 중에는 터치막는다.
+    IEnumerator Cor_ReturnOriginPos(Transform tf, float duration = 1f, float frequancy = 10f)//이 코루틴을 작동하면 원위치로 서서히 돌아간다. 돌아가는 중에는 터치막는다.
     {
         interAction = false;
-        float time=0;
-        Vector3 originrot= tf.localEulerAngles;
+        float time = 0;
+        Vector3 originrot = tf.localEulerAngles;
         Vector3 originscale = tf.localScale;
-        
-        while (time<duration)
+
+        while (time < duration)
         {
             float progress = time / duration;
             time += Time.deltaTime;
             tf.localEulerAngles = Vector3.Lerp(originrot, Vector3.zero, progress);
-            tf.localScale = (Mathf.Sin(progress*frequancy)*(1-progress)/2)*Vector3.one+ Vector3.Lerp(originscale, Vector3.one, progress);
+            //print(initScale);
+            if (initScale != Vector3.one)
+            {
+                tf.localScale = (Mathf.Sin(progress * frequancy) * (1 - progress) / 2) * Vector3.one + Vector3.Lerp(originscale, initScale, progress);
+            }
+            else
+            {
+                tf.localScale = (Mathf.Sin(progress * frequancy) * (1 - progress) / 2) * Vector3.one + Vector3.Lerp(originscale, Vector3.one, progress);
+            }
             yield return new WaitForEndOfFrame();
         }
         interAction = true;
@@ -374,14 +392,14 @@ public class ObjInteraction : MonoBehaviour
     /// <param name="sensitivity">올리면 적은 움직임으로 크게 확대,회전한다.</param>
     /// <param name="resetRot">드래그 시작값을 000으로 초기화하고 적용한다.</param>
     /// <param name="fixZRot">양 옆으로만 회전하게 한다.</param>
-    public void SetTargetOBJ(Transform target,float scaleOrigin=1, float sensitivity = 0.01f, bool resetRot=false,bool fixZRot=false)
+    public void SetTargetOBJ(Transform target, float scaleOrigin = 1, float sensitivity = 0.01f, bool resetRot = false, bool fixZRot = false)
     {
         if (resetRot) ResetRot();
         targetOBJ = target;
         targetOBJ.localEulerAngles = Vector3.zero;
 
-
-        updateAction = () => { if (interAction) ZoomInOutNRot(target,scaleOrigin, sensitivity, fixZrot: fixZRot); };
+        initScale = target.localScale;
+        updateAction = () => { if (interAction) ZoomInOutNRot(target, scaleOrigin, sensitivity, fixZrot: fixZRot); };
     }
     public void UnloadTargetOBJ()
     {
@@ -407,6 +425,6 @@ public class ObjInteraction : MonoBehaviour
             updateAction = () => { };
         }
     }
-    
-    
+
+
 }
