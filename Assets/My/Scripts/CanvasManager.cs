@@ -44,6 +44,7 @@ public class CanvasManager : MonoBehaviour
     public bool isNotToastAgain;
     public bool isNotCautionAgain;
     public bool isMR = false;
+    public bool isFirstCaution = false;
     bool isPhonics = false;
     bool isTitle = true;
     bool isFrontCam = false;
@@ -815,10 +816,11 @@ public class CanvasManager : MonoBehaviour
                 ChoiceControll();
                 localizePhonicsImage.sprite = Resources.Load<Sprite>(string.Format("Sprites/Localize/btn_language_{0}(70x70)", ui_CurrentLang));
 
-                if (!isNotCautionAgain)
+                if (!isNotCautionAgain && !isFirstCaution)
                 {
                     Instantiate(Resources.Load<GameObject>("Prefabs/cautionPanel"), arPanel.transform, false);
                     CautionActive(true);
+                    isFirstCaution = true;
                 }
 
                 FreeContentNotice();
