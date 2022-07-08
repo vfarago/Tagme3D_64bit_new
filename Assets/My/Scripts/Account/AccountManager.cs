@@ -10,6 +10,7 @@ public class AccountManager : MonoBehaviour
     public GameObject accountPanel, loginAndSignUp, loginPanel, signUpPanel, qrPanel, qrInfoPanel, logoutPanel, unregisterPanel, registToastPanel, MRPanel;
     [HideInInspector]
     public CheckCode checkCode;
+    public GameObject qrBtnObj, cpwBtnObj, qrInfoTextObj, logouBtnObj;
     PrefabShelter prefabShelter;
     CanvasManager canvasManager;
     PopUpManager popUpManager;
@@ -39,10 +40,13 @@ public class AccountManager : MonoBehaviour
 
     public bool isQRLogin = false;
 
+    private float logoutBtnX;
+
 
     #region AWAKE_and_QUIT
     private void Awake()
     {
+        logoutBtnX = logouBtnObj.transform.localPosition.x;
         Button[] accountButton = accountPanel.GetComponentsInChildren<Button>();
         foreach (Button button in accountButton)
         {
@@ -209,6 +213,20 @@ public class AccountManager : MonoBehaviour
         {
             accountPanel.GetComponentInChildren<PopUpManager>().PopupReady();
             accountPanel.SetActive(true);
+            if(checkCode.storedType.Equals("admin")|| checkCode.storedType.Equals("group"))
+            {
+                cpwBtnObj.SetActive(false);
+                qrBtnObj.SetActive(false);
+                qrInfoTextObj.SetActive(false);
+                logouBtnObj.transform.localPosition = new Vector2(0, logouBtnObj.transform.localPosition.y);
+            }
+            else
+            {
+                cpwBtnObj.SetActive(true);
+                qrBtnObj.SetActive(true);
+                qrInfoTextObj.SetActive(true);
+                logouBtnObj.transform.localPosition = new Vector2(logoutBtnX, logouBtnObj.transform.localPosition.y);
+            }
             canvasManager.BottomBarOpen();
             DeviceNumbering();
 
