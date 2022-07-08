@@ -80,7 +80,6 @@ public class Phonics : MonoBehaviour
 
         StartCoroutine(ChangeText(true));
         targetWord.text = LocalizationManager.GetTermTranslation(targetName);
-
         //한번 인식한 타겟 이름 저장
         bool isInclude = false;
         foreach (string st in checkCode.objName)
@@ -164,7 +163,6 @@ public class Phonics : MonoBehaviour
             targetWord.text = LocalizationManager.FixRTL_IfNeeded(aa);
         else
             targetWord.text = aa;
-
         targetPron.text = bb;
 
         sentenceText.text = canvasManager.phoSentenceString;
@@ -180,6 +178,7 @@ public class Phonics : MonoBehaviour
 
         if (isSentence)
         {
+            Debug.LogError(targetWord.text);
             targetWord.text = sentence;
             targetPron.text = string.Empty;
 
@@ -465,7 +464,6 @@ public class Phonics : MonoBehaviour
 
             else
                 targetWord.text = LocalizationManager.GetTermTranslation(targetName);
-        
 
         LocalizationManager.CurrentLanguage = "book";
         //책번호
@@ -548,13 +546,14 @@ public class Phonics : MonoBehaviour
         //단어 & 문장 변경
 
 
-            if (isSentence)
-                targetWord.text = LocalizationManager.GetTermTranslation(target);
-
-            else
-                targetWord.text = LocalizationManager.GetTermTranslation(targetName);
-        
-
+        if (isSentence)
+        {
+            targetWord.text = LocalizationManager.GetTermTranslation(target,true);
+        }
+        else
+        {
+            targetWord.text = LocalizationManager.GetTermTranslation(targetName,true);
+        }
         LocalizationManager.CurrentLanguage = "book";
         //책번호
         string bookNum = LocalizationManager.GetTermTranslation(targetName);
