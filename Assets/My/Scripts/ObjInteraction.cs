@@ -26,7 +26,7 @@ public class ObjInteraction : MonoBehaviour
     UnityAction updateAction;
     [SerializeField] Transform targetObjManual;
     Transform targetOBJ;
-    Vector3 initScale = Vector3.zero;
+    public Vector3 initScale = Vector3.zero;
     Vector3 initLocalEuler=Vector3.zero;
 
     bool interAction = true;
@@ -43,7 +43,25 @@ public class ObjInteraction : MonoBehaviour
     private ModeState modeState = ModeState.ModeEnd;
     private GameObject hitGameObject;
 
-
+        /// <summary>
+    /// 회전 줌인 줌아웃등 사용설정
+    /// </summary>
+    /// <param name="target">인터랙션 대상이 되는 타겟</param>
+    /// <param name="sensitivity">올리면 적은 움직임으로 크게 확대,회전한다.</param>
+    /// <param name="resetRot">드래그 시작값을 000으로 초기화하고 적용한다.</param>
+    /// <param name="fixZRot">양 옆으로만 회전하게 한다.</param>
+    public void SetTargetOBJ(Transform target, float sensitivity = 0.01f, bool resetRot = false, bool fixZRot = false)
+    {
+        //if (resetRot) ResetRot();
+        targetOBJ = target;
+        //targetOBJ.localEulerAngles = Vector3.zero;
+        initLocalEuler = target.eulerAngles;
+        initLocalEuler = new Vector3(0, -140, 0);//임시방편
+        saverot = Quaternion.Euler(initLocalEuler);
+        initScale = target.localScale;
+        initScale = Vector3.one * 100;
+        updateAction = () => { if (interAction) ZoomInOutNRot(target, sensitivity, fixZrot: fixZRot); };
+    }
     Vector3 CamCorrection(Vector2 screenPoint, Transform targetOBJ)
     {
         float v3 = _currentCam.transform.InverseTransformPoint(targetOBJ.transform.position).z;
@@ -409,25 +427,7 @@ public class ObjInteraction : MonoBehaviour
     {
         updateAction();
     }
-    /// <summary>
-    /// 회전 줌인 줌아웃등 사용설정
-    /// </summary>
-    /// <param name="target">인터랙션 대상이 되는 타겟</param>
-    /// <param name="sensitivity">올리면 적은 움직임으로 크게 확대,회전한다.</param>
-    /// <param name="resetRot">드래그 시작값을 000으로 초기화하고 적용한다.</param>
-    /// <param name="fixZRot">양 옆으로만 회전하게 한다.</param>
-    public void SetTargetOBJ(Transform target, float sensitivity = 0.01f, bool resetRot = false, bool fixZRot = false)
-    {
-        //if (resetRot) ResetRot();
-        targetOBJ = target;
-        //targetOBJ.localEulerAngles = Vector3.zero;
-        initLocalEuler = target.eulerAngles;
-        initLocalEuler = new Vector3(0, -140, 0);//임시방편
-        saverot = Quaternion.Euler(initLocalEuler);
-        initScale = target.localScale;
-        initScale = Vector3.one * 100;
-        updateAction = () => { if (interAction) ZoomInOutNRot(target, sensitivity, fixZrot: fixZRot); };
-    }
+
     public void UnloadTargetOBJ()
     {
         updateAction = () => { };

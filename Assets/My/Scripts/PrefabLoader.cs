@@ -141,8 +141,8 @@ public class PrefabLoader : MonoBehaviour
 
         //set the initialScale
         //float initialScale = m3dModel.transform.localScale.x;
-        float initialScale = 100f;
-
+        float initialScale = 150f;
+        m3dModel.GetComponent<ObjInteraction>().initScale=Vector3.one*initialScale;
         //position
         Vector3 startPosition = m3dModel.transform.localPosition;
         Vector3 newPosition = new Vector3(0, 0, m3dModelDepth);

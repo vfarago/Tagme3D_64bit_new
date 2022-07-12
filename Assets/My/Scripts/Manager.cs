@@ -29,7 +29,7 @@ public class Manager : MonoBehaviour
     }
     private void Initialized()
     {
-        mrPanel = FindObjectOfType<MRPanel>();
+        mrPanel = FindObjectOfType<MRPanel>(true);
         prefabShelter = FindObjectOfType<PrefabShelter>();
         prefabLoader = FindObjectOfType<PrefabLoader>();
         canvasManager = FindObjectOfType<CanvasManager>();

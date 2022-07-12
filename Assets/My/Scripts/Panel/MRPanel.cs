@@ -154,10 +154,15 @@ public class MRPanel : MonoBehaviour
                 {
                     for (int j = 0; j < scrCont.transform.childCount; j++)
                     {
-                        scrCont.transform.GetChild(j).gameObject.SetActive(false);
+                        if (j < 2)
+                        {
+                            scrCont.transform.GetChild(j).gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            scrCont.transform.GetChild(j).gameObject.SetActive(false);
+                        }
                     }
-                    scrCont.transform.GetChild(0).gameObject.SetActive(true);
-                    scrCont.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 else
                 {

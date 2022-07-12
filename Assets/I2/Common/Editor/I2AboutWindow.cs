@@ -128,11 +128,11 @@ namespace I2
 				if (InstalledVersion=="none" || ShouldSkip)
 					continue;
 				
-				if ((ShouldUpgrade && I2AboutWindow.bNotifyOfNewMainVersions) || (HasNewBeta && I2AboutWindow.bNotifyOfNewBetas))
-				{
-					I2AboutWindow.DoShowScreen();
-					return;
-				}
+				//if ((ShouldUpgrade && I2AboutWindow.bNotifyOfNewMainVersions) || (HasNewBeta && I2AboutWindow.bNotifyOfNewBetas))
+				//{
+				//	I2AboutWindow.DoShowScreen();
+				//	return;
+				//}
 			}
 
 		}
@@ -289,12 +289,12 @@ namespace I2
 
 		#region Editor and Loading Data
 
-		[MenuItem("Help/About Inter-Illusion", false, 100 )]
-		public static void DoShowScreen()
-		{
-			PluginsData = null;
-			EditorWindow.GetWindowWithRect<I2AboutWindow>(new Rect(0f, 0f, 670f, 510f), true, "Plugins Manager");
-		}
+		//[MenuItem("Help/About Inter-Illusion", false, 100 )]
+		//public static void DoShowScreen()
+		//{
+		//	PluginsData = null;
+		//	EditorWindow.GetWindowWithRect<I2AboutWindow>(new Rect(0f, 0f, 670f, 510f), true, "Plugins Manager");
+		//}
 
 		public static void LoadPluginsData()
 		{
@@ -383,82 +383,82 @@ namespace I2
 
 		#endregion
 
-		public void OnEnable()
-		{
-			I2AboutHelper.StartConnection();
-		}
+		//public void OnEnable()
+		//{
+		//	I2AboutHelper.StartConnection();
+		//}
 
-		public void OnGUI()
-		{
-			LoadPluginsData();
+		//public void OnGUI()
+		//{
+		//	LoadPluginsData();
 
-			GUIStyle mGUIStyle_Background = new GUIStyle("AS TextArea");
-			mGUIStyle_Background.overflow.left = 50;
-			mGUIStyle_Background.overflow.right = 50;
-			mGUIStyle_Background.overflow.top = 50;
-			mGUIStyle_Background.overflow.bottom = 50;
+		//	GUIStyle mGUIStyle_Background = new GUIStyle("AS TextArea");
+		//	mGUIStyle_Background.overflow.left = 50;
+		//	mGUIStyle_Background.overflow.right = 50;
+		//	mGUIStyle_Background.overflow.top = 50;
+		//	mGUIStyle_Background.overflow.bottom = 50;
 
-			GUI.backgroundColor = Color.Lerp (Color.black, Color.gray, 0.5f);
-			GUILayout.BeginVertical(mGUIStyle_Background, GUILayout.ExpandHeight(true));
-			GUI.backgroundColor = Color.white;
+		//	GUI.backgroundColor = Color.Lerp (Color.black, Color.gray, 0.5f);
+		//	GUILayout.BeginVertical(mGUIStyle_Background, GUILayout.ExpandHeight(true));
+		//	GUI.backgroundColor = Color.white;
 
 			
-			GUILayout.Label("Inter Illusion", GUIStyle_Header);
-			GUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
-				if (GUILayout.Button ("Web", EditorStyles.miniLabel)) Application.OpenURL( PluginsData.WebURL );
-				GUILayout.Space(15);
-				if (GUILayout.Button ("Contact Us", EditorStyles.miniLabel)) Application.OpenURL( PluginsData.ContactUs );
-				GUILayout.Space(15);
-				if (GUILayout.Button ("Asset Store", EditorStyles.miniLabel)) Application.OpenURL( PluginsData.AssetStoreURL );
-				GUILayout.Space(15);
-				if (GUILayout.Button ("Videos", EditorStyles.miniLabel)) Application.OpenURL( PluginsData.Videos );
-				GUILayout.FlexibleSpace();
-			GUILayout.EndHorizontal();
+		//	GUILayout.Label("Inter Illusion", GUIStyle_Header);
+		//	GUILayout.BeginHorizontal();
+		//		GUILayout.FlexibleSpace();
+		//		if (GUILayout.Button ("Web", EditorStyles.miniLabel)) Application.OpenURL( PluginsData.WebURL );
+		//		GUILayout.Space(15);
+		//		if (GUILayout.Button ("Contact Us", EditorStyles.miniLabel)) Application.OpenURL( PluginsData.ContactUs );
+		//		GUILayout.Space(15);
+		//		if (GUILayout.Button ("Asset Store", EditorStyles.miniLabel)) Application.OpenURL( PluginsData.AssetStoreURL );
+		//		GUILayout.Space(15);
+		//		if (GUILayout.Button ("Videos", EditorStyles.miniLabel)) Application.OpenURL( PluginsData.Videos );
+		//		GUILayout.FlexibleSpace();
+		//	GUILayout.EndHorizontal();
 
-			GUILayout.FlexibleSpace();
+		//	GUILayout.FlexibleSpace();
 
-		//---[ Plugins ]-----------------------------
-			GUILayout.BeginHorizontal();
-			GUILayout.Space (3);
-			GUILayout.BeginVertical();
-				for (int i=0; i<PluginsData.Plugins.Length; ++i)
-				{
-					OnGUI_Plugin(PluginsData.Plugins[i], (i==0 ? "flow node 1" : "flow node 5"));
-					GUILayout.Space(5);
-				}
-			GUILayout.EndVertical();
-			GUILayout.Space (3);
-			GUILayout.EndHorizontal();
+		////---[ Plugins ]-----------------------------
+		//	GUILayout.BeginHorizontal();
+		//	GUILayout.Space (3);
+		//	GUILayout.BeginVertical();
+		//		for (int i=0; i<PluginsData.Plugins.Length; ++i)
+		//		{
+		//			OnGUI_Plugin(PluginsData.Plugins[i], (i==0 ? "flow node 1" : "flow node 5"));
+		//			GUILayout.Space(5);
+		//		}
+		//	GUILayout.EndVertical();
+		//	GUILayout.Space (3);
+		//	GUILayout.EndHorizontal();
 
-		//---[ Assets and Games ]-----------------------------
-			GUILayout.FlexibleSpace();
+		////---[ Assets and Games ]-----------------------------
+		//	GUILayout.FlexibleSpace();
 			
-			GUILayout.BeginHorizontal();
-				OnGUI_Assets();
-				GUILayout.FlexibleSpace();
-				OnGUI_Games();
-			GUILayout.EndHorizontal();
+		//	GUILayout.BeginHorizontal();
+		//		OnGUI_Assets();
+		//		GUILayout.FlexibleSpace();
+		//		OnGUI_Games();
+		//	GUILayout.EndHorizontal();
 
-			GUILayout.FlexibleSpace();
+		//	GUILayout.FlexibleSpace();
 
-			GUIStyle ToolbarWide = new GUIStyle(EditorStyles.toolbar);
-			ToolbarWide.fixedHeight = 0;
+		//	GUIStyle ToolbarWide = new GUIStyle(EditorStyles.toolbar);
+		//	ToolbarWide.fixedHeight = 0;
 
-			GUILayout.BeginHorizontal(ToolbarWide, GUILayout.Height(20));
-				bNotifyOfNewMainVersions = GUILayout.Toggle(bNotifyOfNewMainVersions, "Notify me of new versions");
-				GUILayout.FlexibleSpace();
-				bNotifyOfNewBetas = GUILayout.Toggle(bNotifyOfNewBetas, "Notify me of new betas");
-				GUILayout.FlexibleSpace();
-				if (GUILayout.Button("I'll Check Later", EditorStyles.toolbarButton))
-					this.Close();
-				GUILayout.Space(10);
-			GUILayout.EndHorizontal();
+		//	GUILayout.BeginHorizontal(ToolbarWide, GUILayout.Height(20));
+		//		bNotifyOfNewMainVersions = GUILayout.Toggle(bNotifyOfNewMainVersions, "Notify me of new versions");
+		//		GUILayout.FlexibleSpace();
+		//		bNotifyOfNewBetas = GUILayout.Toggle(bNotifyOfNewBetas, "Notify me of new betas");
+		//		GUILayout.FlexibleSpace();
+		//		if (GUILayout.Button("I'll Check Later", EditorStyles.toolbarButton))
+		//			this.Close();
+		//		GUILayout.Space(10);
+		//	GUILayout.EndHorizontal();
 
-			OnGUI_ShowDownloading();
+		//	OnGUI_ShowDownloading();
 
-			GUILayout.EndVertical();
-		}
+		//	GUILayout.EndVertical();
+		//}
 
 		void OnGUI_ShowDownloading()
 		{

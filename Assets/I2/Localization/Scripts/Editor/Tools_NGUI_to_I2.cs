@@ -48,11 +48,11 @@ namespace I2.Loc
 			Application.OpenURL("http://www.inter-illusion.com/assets/I2LocalizationManual/I2LocalizationManual.html");
 		}
 
-		[MenuItem("Tools/I2 Localization/About", false, 31 )]
-		public static void AboutWindow()
-		{
-			I2AboutWindow.DoShowScreen();
-		}
+		//[MenuItem("Tools/I2 Localization/About", false, 31 )]
+		//public static void AboutWindow()
+		//{
+		//	I2AboutWindow.DoShowScreen();
+		//}
 
 		[MenuItem("Tools/I2 Localization/Open Global Source", false, 0 )]
 		public static void OpenGlobalSource()
